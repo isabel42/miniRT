@@ -6,11 +6,25 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 21:35:41 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/08/28 21:39:55 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/08/28 21:41:32 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+t_obj	*ft_obj_init(t_obj *obj)
+{
+	obj = malloc(sizeof(t_obj));
+	if (!obj)
+		return (NULL);
+	obj->id = 0;
+	obj->pos = NULL;
+	obj->rgb = NULL;
+	obj->dir = NULL;
+	obj->diam = 0;
+	obj->high = 0;
+	return (obj);
+}
 
 void	ft_sp(char **split, t_list **obj)
 {

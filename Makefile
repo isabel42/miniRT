@@ -6,7 +6,8 @@ SRCS	= main.c \
 			parsing_pos.c \
 			parsing_rgb.c \
 			free.c \
-			parsing_obj.c 
+			parsing_obj.c \
+			parsing_scena.c
 
 OBJS 	= ${SRCS:.c=.o}
 

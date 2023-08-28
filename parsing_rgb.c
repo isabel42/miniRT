@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 08:28:37 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/08/28 21:19:22 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/08/28 21:49:20 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,3 @@ int	*ft_rgb(char *line)
 	ft_free_cc(split);
 	return (pos);
 }
-

@@ -6,16 +6,16 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 08:28:37 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/08/28 16:16:39 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/08/28 21:49:02 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int ft_getdec(char *line, char end, int start)
+int	ft_getdec(char *line, char end, int start)
 {
 	int	j;
-	int res;
+	int	res;
 
 	j = 0;
 	res = 1;
@@ -27,7 +27,7 @@ int ft_getdec(char *line, char end, int start)
 	return (res);
 }
 
-int ft_isalldigit(char *line, char end, int start)
+int	ft_isalldigit(char *line, char end, int start)
 {
 	int	j;
 
@@ -40,7 +40,6 @@ int ft_isalldigit(char *line, char end, int start)
 	}
 	return (j);
 }
-
 
 float	ft_get_float(char *line)
 {
@@ -55,7 +54,7 @@ float	ft_get_float(char *line)
 	j = ft_isalldigit(line, '.', j);
 	j++;
 	ft_isalldigit(line, '\0', j);
-	decimal =  ft_getdec(line, '\0', j);
+	decimal = ft_getdec(line, '\0', j);
 	if (line[0] == '-')
 		pos = pos - ft_atoi(line + j) / decimal;
 	else
@@ -86,4 +85,3 @@ float	*ft_pos(char *line)
 	ft_free_cc(split);
 	return (pos);
 }
-
