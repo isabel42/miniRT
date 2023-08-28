@@ -1,7 +1,12 @@
 SRCS	= main.c \
 			get_next_line.c \
 			get_next_line_utils.c \
-			parsing.c
+			parsing.c \
+			parsing_diam.c \
+			parsing_pos.c \
+			parsing_rgb.c \
+			free.c \
+			parsing_obj.c 
 
 OBJS 	= ${SRCS:.c=.o}
 

@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 18:09:15 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/08/15 16:54:24 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/08/28 20:49:36 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ char	*ft_get_line(char *line, char *buf, int fd)
 	buf[ret] = '\0';
 	while (ft_totalloop(buf) == 0)
 	{
-		line = ft_strjoin(line, buf);
+		line = ft_strjoin_free(line, buf);
 		ret = read (fd, buf, 10);
 		line = ft_testret(line, ret, buf, 0);
 		if (line == NULL)
@@ -120,8 +120,34 @@ char	*get_next_line(int fd)
 	if (!line)
 		return (NULL);
 	temp = get_until_nl(buf, 0);
-	line = ft_strjoin(line, temp);
+	line = ft_strjoin_free(line, temp);
 	free(temp);
 	looprep = 0;
 	return (line);
 }
+/*
+int	main(void)
+{
+	int		fd;
+	char	*line;
+	int i = 0;
+
+	fd = open("42", O_RDONLY);
+	if (fd == -1)
+	{
+		printf("Error\n");
+		return (1);
+	}
+	while(i < 6)
+	{
+			line = get_next_line(fd);
+			printf("New Line: %s",  line);
+			i++;
+	}
+	if (close(fd) == -1)
+	{
+		printf("Error\n");
+		return (1);
+	}
+	return (0);
+}*/

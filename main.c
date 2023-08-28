@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 17:43:57 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/08/16 15:30:15 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/08/28 21:26:18 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,19 +46,73 @@ void	ft_check_argc(int argc)
 	}
 }
 
+void	ft_free_scena(t_scenario *scena)
+{
+	if (!scena)
+		return ;
+	if (scena->amb_lux)
+	{
+		free(scena->amb_lux->rgb);
+		free(scena->amb_lux);
+	}
+	if (scena->cam)
+	{
+		free(scena->cam->pos);
+		free(scena->cam->dir);
+		free(scena->cam);
+	}
+	if (scena->spot_lux)
+	{
+		free(scena->spot_lux->pos);
+		free(scena->spot_lux->rgb);
+		free(scena->spot_lux);
+	}
+	free(scena);
+}
+
+void	ft_free_obj(t_list *obj)
+{
+	t_obj	*content;
+	t_list	*next;
+
+	if (!obj)
+		return ;
+	while (obj)
+	{
+		content = (t_obj *) (obj->content);
+		next = obj->next;
+		if (content->pos)
+			free(content->pos);
+		if (content->rgb)
+			free(content->rgb);
+		if (content->dir)
+			free(content->dir);
+		free(content);
+		free(obj);
+		obj = next;
+	}
+}
+
 void	ft_image( t_data_img img, char *argv1)
 {
-	int			i;
+	// int			i;
+	t_scenario	*scena;
 	t_list		*obj;
-	t_scenario	scena;
 
-	ft_parsing(argv1, &obj, &scena);
-	i = 0;
-	while (i < 100)
-	{
-		my_mlx_pixel_put(&img, i, i, 0x0000FFFF);
-		i++;
-	}
+	scena = NULL;
+	ft_scena_init(&scena);
+	ft_parsing(argv1, &obj, scena);
+	ft_free_obj(obj);
+	ft_free_scena(scena);
+	printf("address img: %p\n", &img);
+	printf("argv1: %s\n", argv1);
+	printf("OK!!\n");
+	// i = 0;
+	// while (i < 100)
+	// {
+	// 	my_mlx_pixel_put(&img, i, i, 0x0000FFFF);
+	// 	i++;
+	// }
 }
 
 int	main(int argc, char **argv)
@@ -68,6 +122,7 @@ int	main(int argc, char **argv)
 
 
 	ft_check_argc(argc);
+	// ft_parsing(argv[1]);
 	vars.mlx = mlx_init();
 	vars.win = mlx_new_window(vars.mlx, 1920, 1080, "miniRT");
 	img.img = mlx_new_image(vars.mlx, 1920, 1080);

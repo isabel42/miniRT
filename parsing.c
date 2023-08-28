@@ -6,13 +6,13 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 15:20:46 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/08/16 17:44:27 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/08/28 21:35:39 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	ft_exit(int fd)
+void	ft_exit_fd(int fd)
 {
 	if (fd == -1)
 	{
@@ -21,90 +21,99 @@ void	ft_exit(int fd)
 	}
 }
 
-int	*ft_pos(char *line)
+void	ft_exit(void)
 {
-	char	**split;
-	int		i;
-	int		j;
-	int		*pos;
-	
-	i = 0;
-	split = ft_split(line, ',');
-	pos = malloc(sizeof(int) * 3);
-	if (!pos)
-		return (NULL);
-	while (i < 3)
-	{
-		pos[i] = ft_atoi(split[i]) * 10;
-		j = 0;
-		while (split[i][j] != '.')
-		{
-			if (ft_isdigit(split[i][j]) == 0)
-			{
-				printf("Errpr\n");
-				exit (0);
-			}
-			j++;
-		}
-		j++;
-		if (split[i][0] == '-' && ft_isdigit(split[i][j]) == 1)
-			pos[i] = pos[i] - ft_atoi(split[i] + j);
-		else if (ft_isdigit(split[i][j]) == 1)
-			pos[i] = pos[i] + ft_atoi(split[i] + j);
-		else if (ft_isdigit(split[i][j]) == 0 || split[i][j + 1] != '\0')
-		{
-			printf("Error\n");
-			exit(0);
-		}
-		i++;
-	}
-	return (pos);
+	printf("Error\n");
+	exit (0);
 }
 
-int	ft_sp(char **split, t_list **obj)
+void	ft_scena_init(t_scenario **scena_first)
 {
-	t_obj	*sph;
+	t_scenario	*scena;
 
-	sph = malloc(sizeof(t_obj));
-	if (!sph)
-		return (0);
-	sph->id = sp;
-	sph->pos = ft_pos(split[1]);
-	ft_lstadd_back(obj, ft_lstnew(&sph));
-	printf("sp id: %d\n", sph->id);
-	printf("sp id: %d\n", sph->pos[2]);
-	return(3);
-}
-
-int	ft_get_ft_pars(char *line, t_list **obj)//, t_scenario *scena)
-{
-	char	**split;
-
-	split = ft_split(line,' ');
-	if (!ft_strncmp(split[0], "A", 3))
-		return (0);	
-	if (!ft_strncmp(line, "C", 3))
-		return (1);	
-	if (!ft_strncmp(line, "L", 3))
-		return (2);	
-	if (!ft_strncmp(split[0], "sp", 4))
-		ft_sp(split, obj);
-		// return (3);	
-	if (!ft_strncmp(line, "pl", 3))
-		return (4);	
-	if (!ft_strncmp(line, "cy", 3))
-		return (5);
-	return(-1);
-}
-
-void	ft_scena_init(t_scenario *scena)
-{
 	scena = malloc(sizeof(t_scenario));
 	if (!scena)
 		return ;
 	scena->amb_lux = NULL;
 	scena->cam = NULL;
-	scena->spot_lux = NULL;	
+	scena->spot_lux = NULL;
+	*scena_first = scena;
+}
+
+void ft_abm_lux(char **split, t_scenario *scena)
+{
+	if (scena->amb_lux || !split || !split[2] || split[3])
+		ft_exit();
+	scena->amb_lux = malloc(sizeof(t_amblux));
+	if (!scena->amb_lux)
+		return ;
+	scena->amb_lux->ratio = ft_get_float(split[1]);
+	scena->amb_lux->rgb = ft_rgb(split[2]);
+	ft_free_cc(split);
+}
+
+void ft_cam(char **split, t_scenario *scena)
+{
+	if (scena->cam || !split || !split[3] || split[4])
+		ft_exit();
+	scena->cam = malloc(sizeof(t_cam));
+	if (!scena->cam)
+		return ;
+	scena->cam->pos = ft_pos(split[1]);
+	scena->cam->dir = ft_pos(split[2]);
+	scena->cam->fov = ft_atoi(split[3]);
+	ft_free_cc(split);
+}
+
+void ft_spot_lux(char **split, t_scenario *scena)
+{
+	if (scena->spot_lux || !split || !split[3] || split[4])
+		ft_exit();
+	scena->spot_lux = malloc(sizeof(t_spotlux));
+	if (!scena->spot_lux)
+		return ;
+	scena->spot_lux->pos = ft_pos(split[1]);
+	scena->spot_lux->ratio = ft_get_float(split[2]);
+	scena->spot_lux->rgb = ft_rgb(split[3]);
+	ft_free_cc(split);
+}
+
+t_obj	*ft_obj_init(t_obj *obj)
+{
+	obj = malloc(sizeof(t_obj));
+	if (!obj)
+		return (NULL);
+	obj->id = 0;
+	obj->pos = NULL;
+	obj->rgb = NULL;
+	obj->dir = NULL;
+	obj->diam = 0;
+	obj->high = 0;
+	return (obj);
+}
+
+void	ft_get_ft_pars(char *line_b, t_list **obj, t_scenario *scena)
+{	
+	char	**split;
+	char	*line;
+
+	line = ft_strtrim(line_b, "\n");
+	split = ft_split(line,' ');
+	free(line);
+	if (!ft_strncmp(split[0], "A", 3))
+		ft_abm_lux(split, scena);
+	else if (!ft_strncmp(split[0], "C", 3))
+		ft_cam(split, scena);
+	else if (!ft_strncmp(split[0], "L", 3))
+		ft_spot_lux(split, scena);	
+	else if (!ft_strncmp(split[0], "sp", 4))
+		ft_sp(split, obj);
+	else if (!ft_strncmp(split[0], "pl", 4))
+		ft_pl(split, obj);
+	else if (!ft_strncmp(split[0], "cy", 4))
+		ft_cy(split, obj);
+	else
+		ft_exit();
 }
 
 void ft_parsing(char *argv1, t_list **obj, t_scenario *scena)
@@ -113,7 +122,7 @@ void ft_parsing(char *argv1, t_list **obj, t_scenario *scena)
 	char	*line;
 
 	fd = open(argv1, O_RDONLY);
-	ft_exit(fd);
+	ft_exit_fd(fd);
 	line = get_next_line(fd);
 	if (!line || line == NULL)
 	{
@@ -121,14 +130,13 @@ void ft_parsing(char *argv1, t_list **obj, t_scenario *scena)
 		exit(0);
 	}
 	*obj = NULL;
-	ft_scena_init(scena);
 	while (line != NULL)
 	{
-		ft_get_ft_pars(line, obj);//, scena);
-		// if (!ft_strncmp(split[0], "A", 3))
-		// 	printf("testOK\n");
-		// else
-		// 	printf("adafd\n");
+		if (line[0] != '\n')
+			ft_get_ft_pars(line, obj, scena);
+		free(line);
 		line = get_next_line(fd);
 	}
+	free(line);
+	close(fd);
 }
