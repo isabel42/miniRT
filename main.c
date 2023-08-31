@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 17:43:57 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/08/28 21:26:18 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/08/29 16:23:51 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,10 @@ void	ft_image( t_data_img img, char *argv1)
 	scena = NULL;
 	ft_scena_init(&scena);
 	ft_parsing(argv1, &obj, scena);
+	printf("fov: %d\n", scena->cam->fov);
+	printf("pos0: %f\n", scena->spot_lux->pos[0]);
+	printf("pos1: %f\n", scena->spot_lux->pos[1]);
+	printf("pos2: %f\n", scena->spot_lux->pos[2]);
 	ft_free_obj(obj);
 	ft_free_scena(scena);
 	printf("address img: %p\n", &img);
@@ -122,7 +126,6 @@ int	main(int argc, char **argv)
 
 
 	ft_check_argc(argc);
-	// ft_parsing(argv[1]);
 	vars.mlx = mlx_init();
 	vars.win = mlx_new_window(vars.mlx, 1920, 1080, "miniRT");
 	img.img = mlx_new_image(vars.mlx, 1920, 1080);
