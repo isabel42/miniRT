@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 15:20:46 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/08/31 12:09:56 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/09/04 15:43:13 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,16 +65,19 @@ float	ft_sin(float *a, float *b)
 	float	*mult;
 	float	sign;
 
+	if (ft_mod(b) == 0)
+		return (0.0);
 	mult = malloc(sizeof (float) * 3);
 	if (!mult)
 		return (0);
 	mult[0] = a[1] * b[2] - a[2] * b[1];
 	mult[1] = a[2] * b[0] - a[0] * b[2];
 	mult[2] = a[0] * b[1] - a[1] * b[0];
-	if (mult[2] < 0)
+	if ((mult[0] > 0.0 && b[0] == 0.0) || (mult[1] < 0.0 && b[1] == 0.0))
 		sign = -1.0;
 	else
 		sign = 1.0;
+	printf("sign: %f\n", sign);
 	sin = sign * ft_mod(mult) / (ft_mod(a) * ft_mod (b));
 	free (mult);
 	return (sin);
@@ -85,6 +88,8 @@ float	ft_cos(float *a, float *b)
 	float	cos;
 	float	mult;
 
+	if (ft_mod(b) == 0)
+		return (1.0);
 	mult = a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
 	cos = mult / (ft_mod(a) * ft_mod (b));
 	return (cos);
@@ -111,22 +116,17 @@ void ft_rotation_x(float *dir, float *a)
 	float	sin;
 	float	cos;
 
-	dir_x = ft_vector(dir[2], dir[1], 0.0);
-	vector = ft_vector(1.0, 0.0, 0.0);
+	dir_x = ft_vector(0.0, dir[1], dir[2]);
+	vector = ft_vector(0.0, 0.0, 1.0);
 	cp_a = ft_vector(a[0], a[1], a[2]);
-	if (ft_mod(dir_x) == 0)
-	{
-		sin = 0.0;
-		cos = 1.0;
-	}
-	else
-	{
-		sin = ft_sin(vector, dir_x);
-		cos = ft_cos(vector, dir_x);
-	}
+	sin = ft_sin(vector, dir_x);
+	cos = ft_cos(vector, dir_x);
 	a[0] = cp_a[0];
 	a[1] = cp_a[1] * cos - cp_a[2] * sin;
 	a[2] = cp_a[1] * sin + cp_a[2] * cos;
+	free(dir_x);
+	free(vector);
+	free(cp_a);
 }
 
 void ft_rotation_y(float *dir, float *a)
@@ -137,24 +137,17 @@ void ft_rotation_y(float *dir, float *a)
 	float	sin;
 	float	cos;
 
-	dir_y = ft_vector(dir[0], -dir[2], 0.0);
-	vector = ft_vector(0.0, -1.0, 0.0);
+	dir_y = ft_vector(dir[0], 0.0, dir[2]);
+	vector = ft_vector(0.0, 0.0, 1.0);
 	cp_a = ft_vector(a[0], a[1], a[2]);
-	if (ft_mod(dir_y) == 0)
-	{
-		sin = 0.0;
-		cos = 1.0;
-	}
-	else
-	{
-		sin = ft_sin(dir_y, vector);
-		cos = ft_cos(dir_y, vector);
-	}
-	printf("sin: %f\n", sin);
-	printf("cos: %f\n", cos);
+	sin = ft_sin(dir_y, vector);
+	cos = ft_cos(dir_y, vector);
 	a[0] = cp_a[0] * cos + cp_a[2] * sin;
 	a[1] = cp_a[1];
 	a[2] = -cp_a[0] * sin + cp_a[2] * cos;
+	free(dir_y);
+	free(vector);
+	free(cp_a);
 }
 
 void	ft_cam_rot(t_list **obj, t_scenario *scena)
