@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:55:49 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/02 11:57:49 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/02 13:07:40 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,20 @@ typedef struct t_quat
 	float	z;
 	float	w;
 }				t_quat;
+
+typedef struct s_vec3d
+{
+	float	x;
+	float	y;
+	float	z;
+}				t_vec3d;
+
+typedef struct s_rgb
+{
+	int	r;
+	int	g;
+	int	b;
+}				t_rgb;
 
 /* ARRAY */
 char	**array_add_str(char **arr, char *line);
@@ -70,6 +84,7 @@ t_quat	quat_create(float w, float x, float y, float z);
 t_quat	quat_multiply(t_quat q1, t_quat q2);
 t_quat	quat_normalize(t_quat q);
 t_quat	euler_to_quat(float yaw, float pitch, float roll);
+t_quat	vector_to_quat(t_vec3d v);
 /* PRINT */
 void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);

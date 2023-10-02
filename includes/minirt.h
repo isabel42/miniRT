@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 16:13:16 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/02 11:09:33 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/02 13:07:34 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,10 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <math.h>
-# include "../minilibx/mlx.h"
-# include "../libft/libft.h"
+# include "mlx.h"
+# include "libft.h"
 
 enum e_form {sp, pl, cy};
-
-typedef struct s_vec3d
-{
-	float	x;
-	float	y;
-	float	z;
-}				t_vec3d;
-
-typedef struct s_rgb
-{
-	int	r;
-	int	g;
-	int	b;
-}				t_rgb;
 
 typedef struct s_data_img {
 	void	*img;
@@ -59,21 +45,23 @@ typedef struct s_cam
 {
 	int				fov;
 	struct s_vec3d	pos;
-	struct s_vec3d	dir;
+	t_quat			dir;
 }				t_cam;
 
 typedef struct s_spotlux
 {
 	float			ratio;
 	struct s_vec3d	pos;
-	struct s_rgb	color;
+	struct s_rgb	rgb;
 }				t_spotlux;
 
 typedef struct s_scenario
 {
-	t_amblux	*amb_lux;
-	t_cam		*cam;
-	t_spotlux	*spot_lux;
+	struct s_amblux		*amb_lux;
+	struct s_cam		*cam;
+	struct s_spotlux	*spot_lux;
+	struct s_obj		*obj;
+
 }				t_scenario;
 
 typedef struct s_obj
@@ -87,10 +75,11 @@ typedef struct s_obj
 	struct s_obj	*next;
 }			t_obj;
 
+/*---ERROR---*/
+void	ft_exit(char *msg);
+void	ft_exit_fd(int fd);
 // free.c
-
 void	ft_free_ii(int **split, int j);
-void	ft_free_cc(char **tab);
 void	ft_free_cc_c(char **cc, char *c);
 void	ft_free_c_c(char *a, char *b);
 
@@ -125,8 +114,6 @@ void	ft_cam(char **split, t_scenario *scena);
 void	ft_spot_lux(char **split, t_scenario *scena);
 
 // parsing.c
-void	ft_exit_fd(int fd);
-void	ft_exit(char *msg);
 void	ft_sp(char **split, t_list **obj);
 void	ft_get_ft_pars(char *line, t_list **obj, t_scenario *scena);
 void	ft_scena_init(t_scenario **scena);

@@ -28,7 +28,7 @@ void	ft_scena_init(t_scenario **scena_first)
 void	ft_abm_lux(char **split, t_scenario *scena)
 {
 	if (scena->amb_lux || !split || !split[2] || split[3])
-		ft_exit();
+		ft_exit("Ambiant ligh syntax");
 	scena->amb_lux = malloc(sizeof(t_amblux));
 	if (!scena->amb_lux)
 		return ;
@@ -40,12 +40,12 @@ void	ft_abm_lux(char **split, t_scenario *scena)
 void	ft_cam(char **split, t_scenario *scena)
 {
 	if (scena->cam || !split || !split[3] || split[4])
-		ft_exit();
+		ft_exit("Camera syntax");
 	scena->cam = malloc(sizeof(t_cam));
 	if (!scena->cam)
 		return ;
 	scena->cam->pos = ft_pos(split[1]);
-	scena->cam->dir = ft_pos(split[2]);
+	scena->cam->dir = vector_to_quat(ft_pos(split[2]));
 	scena->cam->fov = ft_atoi(split[3]);
 	ft_free_cc(split);
 }
@@ -53,7 +53,7 @@ void	ft_cam(char **split, t_scenario *scena)
 void	ft_spot_lux(char **split, t_scenario *scena)
 {
 	if (scena->spot_lux || !split || !split[3] || split[4])
-		ft_exit();
+		ft_exit("Spot light syntax");
 	scena->spot_lux = malloc(sizeof(t_spotlux));
 	if (!scena->spot_lux)
 		return ;
