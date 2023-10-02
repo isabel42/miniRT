@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_diam.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 09:55:26 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/08/28 21:48:07 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/02 13:10:41 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ float	ft_get_float_d(char *line)
 	while (line[j] != '.')
 	{
 		if (ft_isdigit(line[j]) == 0)
-			ft_exit();
+			ft_exit("get float d: is digit 2");
 		j++;
 	}
 	j++;
@@ -36,6 +36,6 @@ float	ft_get_float_d(char *line)
 	else if (ft_isdigit(line[j]) == 1 && ft_isdigit(line[j + 1]) == 1)
 		pos = pos + ft_atoi(line + j) / len;
 	if (ft_isdigit(line[j]) == 0 || line[j + 2] != '\0')
-		ft_exit();
+		ft_exit("get float d: is digit 2");
 	return (pos);
 }

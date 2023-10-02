@@ -6,27 +6,11 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 15:20:46 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/02 12:29:07 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/02 13:01:19 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-void	ft_exit_fd(int fd)
-{
-	if (fd == -1)
-	{
-		perror("Error");
-		exit (0);
-	}
-}
-
-void	ft_exit(char *msg)
-{
-	ft_putstr_fd("Error: ", 2);
-	ft_putendl_fd(msg, 2);
-	exit (0);
-}
 
 void	ft_get_ft_pars(char *line_b, t_list **obj, t_scenario *scena)
 {	
@@ -52,6 +36,31 @@ void	ft_get_ft_pars(char *line_b, t_list **obj, t_scenario *scena)
 		ft_exit("Parsing object identification");
 }
 
+void	ft_parsing(char *argv1, t_list **obj, t_scenario *scena)
+{
+	int		fd;
+	char	*line;
+
+	fd = open(argv1, O_RDONLY);
+	ft_exit_fd(fd);
+	line = get_next_line(fd);
+	if (!line || line == NULL)
+		ft_exit("Parsing: File content");
+	*obj = NULL;
+	while (line != NULL)
+	{
+		if (line[0] != '\n')
+			ft_get_ft_pars(line, obj, scena);
+		free(line);
+		line = get_next_line(fd);
+	}
+	free(line);
+	close(fd);
+	if (!scena->cam || !scena->amb_lux || !scena->spot_lux)
+		ft_exit("No camera or light source");
+}
+
+/*
 float	ft_mod(t_vec3d a)
 {
 	float	mod;
@@ -206,29 +215,4 @@ void	ft_cam_shift(t_list **obj, t_scenario *scena)
 		i++;
 	}
 }
-
-void	ft_parsing(char *argv1, t_list **obj, t_scenario *scena)
-{
-	int		fd;
-	char	*line;
-
-	fd = open(argv1, O_RDONLY);
-	ft_exit_fd(fd);
-	line = get_next_line(fd);
-	if (!line || line == NULL)
-		ft_exit("Parsing: file");
-	*obj = NULL;
-	while (line != NULL)
-	{
-		if (line[0] != '\n')
-			ft_get_ft_pars(line, obj, scena);
-		free(line);
-		line = get_next_line(fd);
-	}
-	free(line);
-	close(fd);
-	if (!scena->cam || !scena->amb_lux || !scena->spot_lux)
-		ft_exit();
-	ft_cam_shift(obj, scena);
-	ft_cam_rot(obj, scena);
-}
+*/

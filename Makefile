@@ -2,14 +2,19 @@ SRCS = \
 		srcs/main.c\
 		\
 		srcs/free/free.c\
+		srcs/free/error.c\
 		\
 		srcs/parsing/parsing_diam.c\
 		srcs/parsing/parsing_obj.c\
 		srcs/parsing/parsing_pos.c\
 		srcs/parsing/parsing_rgb.c\
+		srcs/parsing/parsing_scena.c\
 		srcs/parsing/parsing.c\
 		\
-		srcs/in_fig.c\
+		\
+		gnl/get_next_line.c\
+		gnl/get_next_line_utils.c\
+		\
 		
 OBJS 	= ${SRCS:.c=.o}
 
