@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 15:20:46 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/09/04 15:43:13 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/09/07 11:13:18 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ float	ft_sin(float *a, float *b)
 	float	*mult;
 	float	sign;
 
-	if (ft_mod(b) == 0)
+	if (ft_mod(a) == 0 || ft_mod(b) == 0)
 		return (0.0);
 	mult = malloc(sizeof (float) * 3);
 	if (!mult)
@@ -77,7 +77,6 @@ float	ft_sin(float *a, float *b)
 		sign = -1.0;
 	else
 		sign = 1.0;
-	printf("sign: %f\n", sign);
 	sin = sign * ft_mod(mult) / (ft_mod(a) * ft_mod (b));
 	free (mult);
 	return (sin);
