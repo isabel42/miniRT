@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:55:49 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/02 13:07:40 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/02 18:01:07 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 /* STR */
 size_t	ft_strlen(const char *str);
+double	ft_atof(const char *str);
 int		ft_atoi(const char *str);
 char	*ft_itoa(int x);
 char	*ft_strrchr(const char *s, int c);

@@ -4,13 +4,13 @@ SRCS = \
 		srcs/free/free.c\
 		srcs/free/error.c\
 		\
-		srcs/parsing/parsing_diam.c\
-		srcs/parsing/parsing_obj.c\
-		srcs/parsing/parsing_pos.c\
-		srcs/parsing/parsing_rgb.c\
-		srcs/parsing/parsing_scena.c\
+		srcs/parsing/objects.c\
+		srcs/parsing/utils.c\
+		srcs/parsing/rgb.c\
+		srcs/parsing/scenario.c\
 		srcs/parsing/parsing.c\
 		\
+		srcs/test/print.c\
 		\
 		gnl/get_next_line.c\
 		gnl/get_next_line_utils.c\
