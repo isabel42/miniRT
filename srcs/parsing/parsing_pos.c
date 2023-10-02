@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_pos.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 08:28:37 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/08/28 21:49:02 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/02 11:10:31 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	ft_isalldigit(char *line, char end, int start)
 	while (line[start + j] != end && line[start + j] != '\0')
 	{
 		if (ft_isdigit(line[start + j]) == 0)
-			ft_exit();
+			ft_exit("Not a digit");
 		j++;
 	}
 	return (j);
@@ -62,26 +62,20 @@ float	ft_get_float(char *line)
 	return (pos);
 }
 
-float	*ft_pos(char *line)
+t_vec3d	ft_pos(char *line)
 {
 	char	**split;
 	int		i;
-	float	*pos;
+	t_vec3d	pos;
 
 	i = 0;
 	split = ft_split(line, ',');
-	pos = malloc(sizeof(float) * 3);
-	if (!pos)
-		return (NULL);
-	while (i < 3)
-	{
-		if (!split[i])
-			ft_exit();
-		pos[i] = ft_get_float(split[i]);
+	while (split[i])
 		i++;
-	}
-	if (split[3])
-		ft_exit();
-	ft_free_cc(split);
+	if (i != 3)
+		ft_exit("POS syntax");
+	pos.x = ft_get_float(split[0]);
+	pos.y = ft_get_float(split[1]);
+	pos.z = ft_get_float(split[2]);
 	return (pos);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 15:20:46 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/09/07 11:13:18 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/02 12:29:07 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@ void	ft_exit_fd(int fd)
 	}
 }
 
-void	ft_exit(void)
+void	ft_exit(char *msg)
 {
-	printf("Error\n");
+	ft_putstr_fd("Error: ", 2);
+	ft_putendl_fd(msg, 2);
 	exit (0);
 }
 
@@ -48,14 +49,14 @@ void	ft_get_ft_pars(char *line_b, t_list **obj, t_scenario *scena)
 	else if (!ft_strncmp(split[0], "cy", 4))
 		ft_cy(split, obj);
 	else
-		ft_exit();
+		ft_exit("Parsing object identification");
 }
 
-float	ft_mod(float *a)
+float	ft_mod(t_vec3d a)
 {
 	float	mod;
 
-	mod = sqrtf(powf(a[0], 2) + powf(a[1], 2) + powf(a[2], 2));
+	mod = sqrtf(powf(a.x, 2) + powf(a.y, 2) + powf(a.z, 2));
 	return (mod);
 }
 
@@ -155,7 +156,7 @@ void	ft_cam_rot(t_list **obj, t_scenario *scena)
 	t_obj	*content;
 
 	if (ft_mod(scena->cam->dir) == 0)
-		ft_exit();
+		ft_exit("Module = 0");
 	obj_single = *obj;
 	while (obj_single)
 	{
@@ -215,7 +216,7 @@ void	ft_parsing(char *argv1, t_list **obj, t_scenario *scena)
 	ft_exit_fd(fd);
 	line = get_next_line(fd);
 	if (!line || line == NULL)
-		ft_exit();
+		ft_exit("Parsing: file");
 	*obj = NULL;
 	while (line != NULL)
 	{

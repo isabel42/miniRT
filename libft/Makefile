@@ -6,7 +6,7 @@
 #    By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/27 12:53:01 by lsohler           #+#    #+#              #
-#    Updated: 2023/10/02 10:12:49 by lsohler          ###   ########.fr        #
+#    Updated: 2023/10/02 11:57:57 by lsohler          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,9 +52,9 @@ SRCS		= \
 			print/ft_putnbr_fd.c\
 			print/ft_putendl_fd.c\
 			\
+			quat/euler_to_quat.c\
 			quat/quat_conjugate.c\
 			quat/quat_create.c\
-			quat/quat_euler_to_quat.c\
 			quat/quat_multiply.c\
 			quat/quat_normalize.c\
 			\

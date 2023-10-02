@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_obj.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 21:35:41 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/08/28 21:41:32 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/02 11:14:23 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ t_obj	*ft_obj_init(t_obj *obj)
 	if (!obj)
 		return (NULL);
 	obj->id = 0;
-	obj->pos = NULL;
-	obj->rgb = NULL;
-	obj->dir = NULL;
+	// obj->pos = NULL;
+	// obj->rgb = NULL;
+	// obj->dir = NULL;
 	obj->diam = 0;
 	obj->high = 0;
 	return (obj);
@@ -31,7 +31,7 @@ void	ft_sp(char **split, t_list **obj)
 	t_obj	*sph;
 
 	if (!split || !split[3] || split[4])
-		ft_exit();
+		ft_exit("Sphere syntax");
 	sph = NULL;
 	sph = ft_obj_init(sph);
 	sph->id = sp;
@@ -47,7 +47,7 @@ void	ft_pl(char **split, t_list **obj)
 	t_obj	*pln;
 
 	if (!split || !split[3] || split[4])
-		ft_exit();
+		ft_exit("Plan syntax");
 	pln = NULL;
 	pln = ft_obj_init(pln);
 	pln->id = pl;
@@ -63,7 +63,7 @@ void	ft_cy(char **split, t_list **obj)
 	t_obj	*cyh;
 
 	if (!split || !split[5] || split[6])
-		ft_exit();
+		ft_exit("Cylinder syntax");
 	cyh = NULL;
 	cyh = ft_obj_init(cyh);
 	cyh->id = cy;

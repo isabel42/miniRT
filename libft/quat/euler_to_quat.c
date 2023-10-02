@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   quat_euler_to_quat.c                               :+:      :+:    :+:   */
+/*   euler_to_quat.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 10:06:49 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/02 10:10:45 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/02 11:57:33 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct t_angle
 	float	sr;
 }				t_angle;
 
-t_quat	quat_euler_to_quat(float yaw, float pitch, float roll)
+t_quat	euler_to_quat(float yaw, float pitch, float roll)
 {
 	t_quat	q;
 	t_angle	qa;

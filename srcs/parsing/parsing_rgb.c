@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_rgb.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 08:28:37 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/08/28 21:49:20 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/02 11:13:26 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,36 +20,30 @@ int	ft_get_rgb(char *line)
 	pos = ft_atoi(line);
 	j = 0;
 	if (pos < 0 || pos > 255)
-		ft_exit();
+		ft_exit("RGB overflow");
 	while (line[j] != '\0')
 	{
 		if (ft_isdigit(line[j]) == 0)
-			ft_exit();
+			ft_exit("RGB is not a digit");
 		j++;
 	}
 	return (pos);
 }
 
-int	*ft_rgb(char *line)
+t_rgb	ft_rgb(char *line)
 {
 	char	**split;
 	int		i;
-	int		*pos;
+	t_rgb	rgb;
 
 	i = 0;
 	split = ft_split(line, ',');
-	pos = malloc(sizeof(int) * 3);
-	if (!pos)
-		return (NULL);
-	while (i < 3)
-	{
-		if (!split[i])
-			ft_exit();
-		pos[i] = ft_get_rgb(split[i]);
+	while (split[i])
 		i++;
-	}
-	if (split[3])
-		ft_exit();
-	ft_free_cc(split);
-	return (pos);
+	if (i != 3)
+		ft_exit("POS syntax");
+	rgb.r = ft_get_rgb(split[0]);
+	rgb.g = ft_get_rgb(split[1]);
+	rgb.b = ft_get_rgb(split[2]);
+	return (rgb);
 }

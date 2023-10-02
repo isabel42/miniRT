@@ -1,14 +1,16 @@
-SRCS	= main.c \
-			get_next_line.c \
-			get_next_line_utils.c \
-			parsing.c \
-			parsing_diam.c \
-			parsing_pos.c \
-			parsing_rgb.c \
-			free.c \
-			parsing_obj.c \
-			parsing_scena.c
-
+SRCS = \
+		srcs/main.c\
+		\
+		srcs/free/free.c\
+		\
+		srcs/parsing/parsing_diam.c\
+		srcs/parsing/parsing_obj.c\
+		srcs/parsing/parsing_pos.c\
+		srcs/parsing/parsing_rgb.c\
+		srcs/parsing/parsing.c\
+		\
+		srcs/in_fig.c\
+		
 OBJS 	= ${SRCS:.c=.o}
 
 NAME 	= miniRT
@@ -23,10 +25,10 @@ RM		= rm -f
 
 CFLAGS	= -Wextra -Wall -Werror
 
-INCLUDE = -I./libft/ -I./minilibx/ -I.
+INCLUDE = -I./includes -I./libft/ -I./minilibx/
 
 .c.o:	
-			${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
+			${CC} ${CFLAGS} $(INCLUDE) -c $< -o ${<:.c=.o}
 
 ${NAME}: 	${OBJS} ${FT_NAME} ${MLX_NAME}
 			${CC} ${CFLAGS} ${INCLUDE} ${OBJS} -o ${NAME} -L./minilibx/ -lmlx -L./libft/ -lft -framework OpenGL -framework AppKit

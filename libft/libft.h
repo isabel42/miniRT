@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:55:49 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/02 10:13:23 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/02 11:57:49 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ void	*ft_realloc(void *ptr, size_t newsize);
 /* QUATERNION */
 t_quat	quat_conjugate(t_quat q);
 t_quat	quat_create(float w, float x, float y, float z);
-t_quat	quat_euler_to_quat(float yaw, float pitch, float roll);
 t_quat	quat_multiply(t_quat q1, t_quat q2);
 t_quat	quat_normalize(t_quat q);
+t_quat	euler_to_quat(float yaw, float pitch, float roll);
 /* PRINT */
 void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);

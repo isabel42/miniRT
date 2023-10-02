@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 16:13:16 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/08/28 21:50:02 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/02 11:09:33 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,24 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <math.h>
-# include "minilibx/mlx.h"
-# include "libft/libft.h"
+# include "../minilibx/mlx.h"
+# include "../libft/libft.h"
 
 enum e_form {sp, pl, cy};
+
+typedef struct s_vec3d
+{
+	float	x;
+	float	y;
+	float	z;
+}				t_vec3d;
+
+typedef struct s_rgb
+{
+	int	r;
+	int	g;
+	int	b;
+}				t_rgb;
 
 typedef struct s_data_img {
 	void	*img;
@@ -37,22 +51,22 @@ typedef struct s_vars {
 
 typedef struct s_amblux
 {
-	float	ratio;
-	int		*rgb;
+	float			ratio;
+	struct s_rgb	rgb;
 }				t_amblux;
 
 typedef struct s_cam
 {
-	float	*pos;
-	float	*dir;
-	int		fov;
+	int				fov;
+	struct s_vec3d	pos;
+	struct s_vec3d	dir;
 }				t_cam;
 
 typedef struct s_spotlux
 {
-	float		*pos;
-	float		ratio;
-	int			*rgb;
+	float			ratio;
+	struct s_vec3d	pos;
+	struct s_rgb	color;
 }				t_spotlux;
 
 typedef struct s_scenario
@@ -64,12 +78,13 @@ typedef struct s_scenario
 
 typedef struct s_obj
 {
-	int		id;
-	float	*pos;
-	int		*rgb;
-	float	*dir;
-	float	diam;
-	float	high;
+	int				id;
+	float			diam;
+	float			high;
+	struct s_vec3d	pos;
+	struct s_rgb	rgb;
+	struct s_vec3d	dir;
+	struct s_obj	*next;
 }			t_obj;
 
 // free.c
@@ -88,11 +103,11 @@ char	*ft_strjoin_free(char *s1, char *s2);
 
 // parsing_pos.c
 float	ft_get_float(char *line);
-float	*ft_pos(char *line);
+t_vec3d	ft_pos(char *line);
 
 // parsing_rgb.c
 int		ft_get_rgb(char *line);
-int		*ft_rgb(char *line);
+t_rgb	ft_rgb(char *line);
 
 // parsing_diam.c
 float	ft_get_float_d(char *line);
@@ -111,7 +126,7 @@ void	ft_spot_lux(char **split, t_scenario *scena);
 
 // parsing.c
 void	ft_exit_fd(int fd);
-void	ft_exit(void);
+void	ft_exit(char *msg);
 void	ft_sp(char **split, t_list **obj);
 void	ft_get_ft_pars(char *line, t_list **obj, t_scenario *scena);
 void	ft_scena_init(t_scenario **scena);
