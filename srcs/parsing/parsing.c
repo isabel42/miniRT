@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
+/*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 15:20:46 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/02 16:43:19 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/03 16:47:05 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,3 +218,5 @@ void	ft_cam_shift(t_list **obj, t_scenario *scena)
 	}
 }
 */
+
+ =0

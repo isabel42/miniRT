@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 16:04:31 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/03 11:12:25 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/03 16:47:05 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,3 +99,5 @@ t_vec3d	*ft_is_sp_2(t_vec3d p1, t_vec3d p2, t_vec, t_obj *sp)
 	}
 	return (sol);
 }
+
+// https://www.youtube.com/watch?v=IKQCtqvGTJM
