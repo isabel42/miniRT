@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:55:49 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/02 18:01:07 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/03 16:47:15 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,15 @@ void	*ft_memset(void *str, int c, size_t len);
 void	*ft_memchr(const void *s, int c, size_t n);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 void	*ft_realloc(void *ptr, size_t newsize);
+/* MATH */
+float	ft_mod(t_vec3d a);
+float	ft_dot(t_vec3d v1, t_vec3d v2);
+float	ft_vector_lenght(t_vec3d v);
+t_vec3d	ft_normalize(t_vec3d v);
+t_vec3d	ft_v_add(t_vec3d v1, t_vec3d v2);
+t_vec3d	ft_v_sub(t_vec3d v1, t_vec3d v2);
+t_vec3d	ft_v_mul(t_vec3d v1, t_vec3d v2);
+float	ft_deg_to_rad(float deg);
 /* QUATERNION */
 t_quat	quat_conjugate(t_quat q);
 t_quat	quat_create(float w, float x, float y, float z);

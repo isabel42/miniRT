@@ -1,5 +1,19 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/10/03 17:19:38 by lsohler           #+#    #+#              #
+#    Updated: 2023/10/03 17:20:01 by lsohler          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 SRCS = \
 		srcs/main.c\
+		\
+		srcs/draw/bresenham.c\
 		\
 		srcs/free/free.c\
 		srcs/free/error.c\
@@ -11,6 +25,7 @@ SRCS = \
 		srcs/parsing/parsing.c\
 		\
 		srcs/test/print.c\
+		srcs/test/cameratest.c\
 		\
 		gnl/get_next_line.c\
 		gnl/get_next_line_utils.c\
