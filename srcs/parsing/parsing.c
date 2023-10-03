@@ -6,13 +6,13 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 15:20:46 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/02 13:01:19 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/02 16:43:19 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	ft_get_ft_pars(char *line_b, t_list **obj, t_scenario *scena)
+void	parse_line(char *line_b, t_scenario *scena)
 {	
 	char	**split;
 	char	*line;
@@ -21,36 +21,37 @@ void	ft_get_ft_pars(char *line_b, t_list **obj, t_scenario *scena)
 	split = ft_split(line, ' ');
 	free(line);
 	if (!ft_strncmp(split[0], "A", 3))
-		ft_abm_lux(split, scena);
+		new_abm_lux(split, scena);
 	else if (!ft_strncmp(split[0], "C", 3))
-		ft_cam(split, scena);
+		new_cam(split, scena);
 	else if (!ft_strncmp(split[0], "L", 3))
-		ft_spot_lux(split, scena);
+		new_spot_lux(split, scena);
 	else if (!ft_strncmp(split[0], "sp", 4))
-		ft_sp(split, obj);
+		new_sphere(split, scena);
 	else if (!ft_strncmp(split[0], "pl", 4))
-		ft_pl(split, obj);
+		new_plan(split, scena);
 	else if (!ft_strncmp(split[0], "cy", 4))
-		ft_cy(split, obj);
+		new_cylinder(split, scena);
 	else
 		ft_exit("Parsing object identification");
 }
 
-void	ft_parsing(char *argv1, t_list **obj, t_scenario *scena)
+t_scenario	*parsing(char *argv1)
 {
-	int		fd;
-	char	*line;
+	int			fd;
+	char		*line;
+	t_scenario	*scena;
 
 	fd = open(argv1, O_RDONLY);
 	ft_exit_fd(fd);
 	line = get_next_line(fd);
 	if (!line || line == NULL)
 		ft_exit("Parsing: File content");
-	*obj = NULL;
+	scena = init_scenario();
 	while (line != NULL)
 	{
 		if (line[0] != '\n')
-			ft_get_ft_pars(line, obj, scena);
+			parse_line(line, scena);
 		free(line);
 		line = get_next_line(fd);
 	}
@@ -58,6 +59,7 @@ void	ft_parsing(char *argv1, t_list **obj, t_scenario *scena)
 	close(fd);
 	if (!scena->cam || !scena->amb_lux || !scena->spot_lux)
 		ft_exit("No camera or light source");
+	return (scena);
 }
 
 /*

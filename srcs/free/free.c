@@ -3,49 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:45:03 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/08/28 21:50:20 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/02 16:39:18 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-// void	ft_free_ii(int **split, int j)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (i < j)
-// 	{
-// 		free(split[i]);
-// 		i++;
-// 	}
-// 	free(split);
-// }
-
-// void	ft_free_cc(char **tab)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (tab[i])
-// 	{
-// 		free(tab[i]);
-// 		i++;
-// 	}
-// 	free(tab);
-// }
-
-void	ft_free_cc_c(char **cc, char *c)
-{
-	ft_free_cc(cc);
-	free(c);
-}
-
 void	ft_free_c_c(char *a, char *b)
 {
 	free(a);
 	free(b);
+}
+
+void	free_scenario(t_scenario *scena)
+{
+	t_obj	*tmp;
+
+	if (scena->amb_lux)
+		free(scena->amb_lux);
+	if (scena->cam)
+		free(scena->cam);
+	if (scena->spot_lux)
+		free(scena->spot_lux);
+	while (scena->obj)
+	{
+		tmp = scena->obj->next;
+		free(scena->obj);
+		scena->obj = tmp;
+	}
 }

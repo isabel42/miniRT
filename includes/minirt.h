@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 16:13:16 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/02 13:07:34 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/02 16:41:49 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ typedef struct s_scenario
 	struct s_cam		*cam;
 	struct s_spotlux	*spot_lux;
 	struct s_obj		*obj;
-
 }				t_scenario;
 
 typedef struct s_obj
@@ -76,48 +75,53 @@ typedef struct s_obj
 }			t_obj;
 
 /*---ERROR---*/
-void	ft_exit(char *msg);
-void	ft_exit_fd(int fd);
+void		ft_exit(char *msg);
+void		ft_exit_fd(int fd);
+
+/*---FREE---*/
+void		print_parsing(t_scenario *sc);
+void		free_scenario(t_scenario *scena);
+
+/*---PARSING---*/
+t_scenario	*init_scenario(void);
+t_scenario	*parsing(char *argv1);
+void		parse_line(char *line, t_scenario *scena);
+void		new_sphere(char **split, t_scenario *scena);
+void		new_plan(char **split, t_scenario *scena);
+void		new_cylinder(char **split, t_scenario *scena);
+void		new_abm_lux(char **split, t_scenario *scena);
+void		new_cam(char **split, t_scenario *scena);
+void		new_spot_lux(char **split, t_scenario *scena);
+t_rgb		ft_rgb(char *line);
+float		ft_get_float_d(char *line);
+float		ft_get_float(char *line);
+t_vec3d		ft_pos(char *line);
+
 // free.c
 void	ft_free_ii(int **split, int j);
-void	ft_free_cc_c(char **cc, char *c);
 void	ft_free_c_c(char *a, char *b);
 
 // get_next_line
 char	*get_next_line(int fd);
 char	*ft_testret(char *line, int ret, char *buf, int limit);
-void	ft_free_cc(char **s);
 void	ft_free_ii(int **s, int j);
 char	*ft_strjoin_free(char *s1, char *s2);
 
 // parsing_pos.c
-float	ft_get_float(char *line);
-t_vec3d	ft_pos(char *line);
+
 
 // parsing_rgb.c
 int		ft_get_rgb(char *line);
-t_rgb	ft_rgb(char *line);
+
 
 // parsing_diam.c
-float	ft_get_float_d(char *line);
 
 // parsing_obj.c
 t_obj	*ft_obj_init(t_obj *obj);
-void	ft_sp(char **split, t_list **obj);
-void	ft_pl(char **split, t_list **obj);
-void	ft_cy(char **split, t_list **obj);
 
 //parsing_scena.c
-void	ft_scena_init(t_scenario **scena_first);
-void	ft_abm_lux(char **split, t_scenario *scena);
-void	ft_cam(char **split, t_scenario *scena);
-void	ft_spot_lux(char **split, t_scenario *scena);
 
 // parsing.c
-void	ft_sp(char **split, t_list **obj);
-void	ft_get_ft_pars(char *line, t_list **obj, t_scenario *scena);
 void	ft_scena_init(t_scenario **scena);
-t_obj	*ft_obj_init(t_obj *obj);
-void	ft_parsing(char *argv1, t_list **obj, t_scenario *scena);
 
 #endif

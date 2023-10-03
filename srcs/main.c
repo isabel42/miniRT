@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 17:43:57 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/02 10:58:38 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/02 16:42:31 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,77 +46,15 @@ void	ft_check_argc(int argc)
 	}
 }
 
-void	ft_free_scena(t_scenario *scena)
+void	ft_image(t_data_img img, char *argv1)
 {
-	if (!scena)
-		return ;
-	if (scena->amb_lux)
-	{
-		// free(scena->amb_lux->rgb);
-		free(scena->amb_lux);
-	}
-	if (scena->cam)
-	{
-		// free(scena->cam->pos);
-		// free(scena->cam->dir);
-		free(scena->cam);
-	}
-	if (scena->spot_lux)
-	{
-		// free(scena->spot_lux->pos);
-		// free(scena->spot_lux->rgb);
-		free(scena->spot_lux);
-	}
-	free(scena);
-}
+	t_scenario	*sc;
 
-void	ft_free_obj(t_list *obj)
-{
-	t_obj	*content;
-	t_list	*next;
-
-	if (!obj)
-		return ;
-	while (obj)
-	{
-		content = (t_obj *) (obj->content);
-		next = obj->next;
-		// if (content->pos)
-		// 	free(content->pos);
-		// if (content->rgb)
-		// 	free(content->rgb);
-		// if (content->dir)
-		// 	free(content->dir);
-		free(content);
-		free(obj);
-		obj = next;
-	}
-}
-
-void	ft_image( t_data_img img, char *argv1)
-{
-	// int			i;
-	t_scenario	*scena;
-	t_list		*obj;
-
-	scena = NULL;
-	ft_scena_init(&scena);
-	ft_parsing(argv1, &obj, scena);
-	printf("fov: %d\n", scena->cam->fov);
-	printf("pos0: %f\n", scena->spot_lux->pos.x);
-	printf("pos1: %f\n", scena->spot_lux->pos.y);
-	printf("pos2: %f\n", scena->spot_lux->pos.z);
-	ft_free_obj(obj);
-	ft_free_scena(scena);
+	sc = parsing(argv1);
+	print_parsing(sc);
+	free_scenario(sc);
 	printf("address img: %p\n", &img);
-	printf("argv1: %s\n", argv1);
-	printf("OK!!\n");
-	// i = 0;
-	// while (i < 100)
-	// {
-	// 	my_mlx_pixel_put(&img, i, i, 0x0000FFFF);
-	// 	i++;
-	// }
+	printf("\n\nOK!!\n");
 }
 
 int	main(int argc, char **argv)
