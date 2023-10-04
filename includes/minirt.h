@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
+/*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 16:13:16 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/02 16:41:49 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/04 16:44:27 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,5 +123,9 @@ t_obj	*ft_obj_init(t_obj *obj);
 
 // parsing.c
 void	ft_scena_init(t_scenario **scena);
+
+
+
+t_vec3d *in_cy_1(t_vec3d p1, t_vec3d p2, t_obj *cy);
 
 #endif

@@ -15,6 +15,7 @@ SRCS = \
 		gnl/get_next_line.c\
 		gnl/get_next_line_utils.c\
 		\
+		srcs/in_fig.c\
 		
 OBJS 	= ${SRCS:.c=.o}
 

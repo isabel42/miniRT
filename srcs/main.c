@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
+/*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 17:43:57 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/02 16:42:31 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/04 16:45:37 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,43 @@ void	ft_check_argc(int argc)
 	}
 }
 
+void check_cy(t_scenario *sc)
+{
+	t_obj *test;
+	int i;
+	t_vec3d p1;
+	t_vec3d p2;
+	
+	test = sc->obj;
+	i = 0;
+	while (test && test->id != 2)
+	{
+		test = test->next;
+		i++;
+	}
+	printf("i: %d\n", i);
+	p1.x = 0.0;
+	p1.y = 0.0;
+	p1.z = 0.0;
+	p2.x = 10.0;
+	p2.y = 0.0;
+	p2.z = 0.0;
+
+	if (i>0)
+		printf("WORKED!! \n");
+	else
+		printf("FAIL \n");
+
+
+}
+
 void	ft_image(t_data_img img, char *argv1)
 {
 	t_scenario	*sc;
 
 	sc = parsing(argv1);
-	print_parsing(sc);
+	check_cy(sc);
+	// print_parsing(sc);
 	free_scenario(sc);
 	printf("address img: %p\n", &img);
 	printf("\n\nOK!!\n");
