@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 16:13:16 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/04 16:48:14 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/04 20:03:24 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,15 +83,20 @@ void		print_parsing(t_scenario *sc);
 void		print_q(t_quat q);
 void		print_q_cache(t_quat_cache cache);
 void		test_print_vecteur(t_vec3d v);
-int			render_camera(t_scenario *scena);
-void		camera_param(t_cam *cam);
 t_quat		*init_quat_camera(int plane_height, int plane_width, t_vec3d pos, int dist);
 void		test_print_meta(t_meta *meta);
-void		rotate_camera(t_cam *cam, t_quat rotation);
 int			mouse_move(int x, int y, t_meta *meta);
 int			mouse_pressed(int button, int x, int y, t_meta *meta);
 int			mouse_released(int button, int x, int y, t_meta *meta);
+t_quat		*init_box(void);
+
+void		rotate_camera(t_cam *cam, t_quat rotation);
+int			render(t_scenario *scena);
+void		draw_box(t_scenario *scena);
 void		apply_rotation(t_scenario *scena);
+void		apply_rotation_box(t_scenario *scena);
+void		camera_param(t_cam *cam);
+void		draw_ray(t_scenario *scena);
 
 /*---KEY---*/
 int			key_press(int key, t_meta *meta);

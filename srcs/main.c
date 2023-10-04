@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 17:43:57 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/04 16:20:57 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/04 18:37:31 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	main(int argc, char **argv)
 	test_print_meta(scena->meta);
 	print_q_cache(*scena->meta->cache);
 	apply_rotation(scena);
-	render_camera(scena);
+	render(scena);
 	printf("Test 1\n");
 	mlx_hook(scena->mlx->win, 2, 2, key_press, scena->meta);
 	printf("Test 2\n");

@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 11:39:23 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/04 17:00:16 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/04 20:05:00 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	mouse_rotate(int move_x, int move_y, t_meta *meta)
 	// 		-deg_to_rad(atan(move_y / 1)) * 2);
 	// meta->idenditiy_quat = quat_multiply(meta->rotation_quat,
 	// 		meta->idenditiy_quat);
-	printf("Moving mouse x:%i y:%i\n", move_x, move_y);
+	// printf("Moving mouse x:%i y:%i\n", move_x, move_y);
 	// if (move_x < 0)
 	// 	rotate_camera(meta->scena->cam, meta->cache->yaw_m);
 	// if (move_x > 0)
@@ -62,9 +62,19 @@ void	mouse_rotate(int move_x, int move_y, t_meta *meta)
 			-ft_deg_to_rad(atan(move_y / 1)) * 2);
 	// meta->scena->cam->dir = quat_multiply(meta->rotation_quat,
 	// 		meta->idenditiy_quat);
-	printf("Meta->scena->cam: ");
-	print_q(meta->scena->cam->dir);
+	// printf("Meta->scena->cam: ");
+	// print_q(meta->scena->cam->dir);
 	apply_rotation(meta->scena);
+	return ;
+}
+
+void	mouse_rotate_box(int move_x, int move_y, t_meta *meta)
+{
+	printf("BOX Moving mouse x:%i y:%i\n", move_x, move_y);
+	meta->scena->rotation_quat = euler_to_quat(0,
+			ft_deg_to_rad(atan(move_x / 1)) * 2,
+			-ft_deg_to_rad(atan(move_y / 1)) * 2);
+	apply_rotation_box(meta->scena);
 	return ;
 }
 
@@ -72,23 +82,29 @@ int	mouse_move(int x, int y, t_meta *meta)
 {
 	static int	previous_x = 0;
 	static int	previous_y = 0;
-	int			x_move;
-	int			y_move;
+	int			move_x;
+	int			move_y;
 
-	x_move = x - previous_x;
-	y_move = y - previous_y;
-	if ((abs(x_move) || abs(y_move)) && (meta->click_state)
+	move_x = x - previous_x;
+	move_y = y - previous_y;
+	if ((abs(move_x) || abs(move_y)) && (meta->click_state)
 		&& (((x < WIDTH) && (x > 0)) && ((y < HEIGHT) && (y > 0))))
 	{
 		if (meta->shift_state == 1)
-			mouse_rotate(x_move, y_move, meta);
+			mouse_rotate(move_x, move_y, meta);
 		else if (meta->ctrl_state == 1)
 		{
-			meta->offset[0] += x_move;
-			meta->offset[1] += y_move;
-			// mouse_translate(x_move, y_move, meta);
+			meta->offset[0] += move_x;
+			meta->offset[1] += move_y;
 		}
-		render_camera(meta->scena);
+		else if (meta->c_state == 1)
+			mouse_rotate_box(move_x, move_y, meta);
+		else if (meta->b_state == 1)
+		{
+			meta->box_offset[0] += move_x;
+			meta->box_offset[1] += move_y;
+		}
+		render(meta->scena);
 	}
 	previous_x = x;
 	previous_y = y;

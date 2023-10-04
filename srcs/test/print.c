@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:42:02 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/04 16:48:17 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/04 20:14:59 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	test_print_meta(t_meta *meta)
 
 void	print_q(t_quat q)
 {
-	printf("%s   ORIENTATION QUATERNION: w:%f x:%f y:%f z:%f%s\n", WHITE,
+	printf("%s   QUATERNION: w:%f x:%f y:%f z:%f%s\n", WHITE,
 		q.w, q.x, q.y, q.z, DEF_C);
 }
 

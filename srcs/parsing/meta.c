@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 11:35:10 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/04 15:49:04 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/04 18:56:15 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	meta_default_value(t_meta *meta)
 	meta->scroll_state = 0;
 	meta->shift_state = 0;
 	meta->ctrl_state = 0;
+	meta->c_state = 0;
+	meta->b_state = 0;
 	meta->idenditiy_quat = quat_create(1, 0, 0, 0);
 }
 
@@ -49,11 +51,15 @@ t_meta	*meta_init(void)
 		ft_exit("Malloc");
 	meta->offset[0] = WIDTH / 2;
 	meta->offset[1] = HEIGHT / 2;
+	meta->box_offset[0] = WIDTH / 2;
+	meta->box_offset[1] = HEIGHT / 2;
 	meta->key = 0;
 	meta->click_state = 0;
 	meta->scroll_state = 0;
 	meta->shift_state = 0;
 	meta->ctrl_state = 0;
+	meta->c_state = 0;
+	meta->b_state = 0;
 	printf("Init= ");
 	test_print_meta(meta);
 	meta->cache = init_quat_cache();

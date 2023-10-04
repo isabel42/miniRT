@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 13:56:17 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/04 16:25:57 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/04 20:04:04 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,10 +117,12 @@ void	my_new_mlx_img_data(t_scenario *meta)
 			&meta->img_data->line_length, &meta->img_data->endian);
 }
 
-int	render_camera(t_scenario *scena)
+int	render(t_scenario *scena)
 {
 	mlx_clear_window(scena->mlx->ptr, scena->mlx->win);
 	draw_camera(scena);
+	draw_box(scena);
+	draw_ray(scena);
 	mlx_put_image_to_window(scena->mlx->ptr,
 		scena->mlx->win, scena->img_data->img, 0, 0);
 	mlx_destroy_image(scena->mlx->ptr, scena->img_data->img);

@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 12:26:05 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/04 17:05:22 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/04 18:57:16 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,32 +33,33 @@ int	numpad_press(int key, t_meta *meta)
 	test_print_vecteur(meta->scena->cam->vdir);
 	meta->scena->cam->dir = quat_normalize(vector_to_quat(meta->scena->cam->vdir));
 	apply_rotation(meta->scena);
-	render_camera(meta->scena);
+	render(meta->scena);
 	return (0);
 }
 
 int	key_release(int key, t_meta *meta)
 {
 	if (key == 257 && meta->shift_state == 1)
-	{
 		meta->shift_state = 0;
-		printf("SHIFT RELEASE\n");
-	}
 	if (key == 256 && meta->ctrl_state == 1)
-	{
 		meta->ctrl_state = 0;
-		printf("CTRL RELEASE\n");
-	}
+	if (key == KEY_C && meta->c_state == 1)
+		meta->c_state = 0;
+	if (key == KEY_B && meta->b_state == 1)
+		meta->b_state = 0;
 	return (0);
 }
 
 int	key_press(int key, t_meta *meta)
 {
-	printf("Key: %i\n", key);
 	if (key == 257 && meta->shift_state != 1)
 		meta->shift_state = 1;
 	if (key == 256 && meta->ctrl_state != 1)
 		meta->ctrl_state = 1;
+	if (key == KEY_C && meta->c_state != 1)
+		meta->c_state = 1;
+	if (key == KEY_B && meta->b_state != 1)
+		meta->b_state = 1;
 	else if (key == KEY_ESC)
 		close_esc(meta->scena);
 	else if (key <= KEY_N8 && key >= KEY_N2)

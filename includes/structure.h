@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 11:27:11 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/04 13:57:43 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/04 19:51:52 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,9 @@ typedef struct s_scenario
 	struct s_data_img	*img_data;
 	struct s_mlx		*mlx;
 	struct s_meta		*meta;
+	t_quat				identity_quat;
+	t_quat				rotation_quat;
+	t_quat				*box;
 }				t_scenario;
 
 typedef struct s_meta
@@ -84,10 +87,13 @@ typedef struct s_meta
 	int			key;
 	int			size[2];
 	int			offset[2];
+	int			box_offset[2];
 	int			click_state;
 	int			scroll_state;
 	int			shift_state;
 	int			ctrl_state;
+	int			c_state;
+	int			b_state;
 }				t_meta;
 
 typedef struct s_quat_cache
@@ -99,7 +105,6 @@ typedef struct s_quat_cache
 	t_quat	roll_m;
 	t_quat	roll_p;
 }				t_quat_cache;
-
 /*--------------*/
 
 /*---TRACING---*/
