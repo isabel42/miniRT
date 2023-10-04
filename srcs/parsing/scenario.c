@@ -28,13 +28,15 @@ t_scenario	*init_scenario(void)
 {
 	t_scenario	*scena;
 
-	scena = malloc(sizeof(t_scenario));
+	scena = malloc(sizeof (t_scenario));
 	if (!scena)
 		ft_exit("Malloc");
 	scena->amb_lux = NULL;
 	scena->cam = NULL;
 	scena->spot_lux = NULL;
 	scena->obj = NULL;
+	scena->meta = meta_init();
+	scena->meta->scena = scena;
 	scena->mlx = mlx_init_struct(WIDTH, HEIGHT);
 	scena->img_data = malloc(sizeof(t_data_img));
 	if (!scena->img_data)
@@ -68,6 +70,7 @@ void	new_cam(char **split, t_scenario *scena)
 	scena->cam->pos = ft_pos(split[1]);
 	scena->cam->vdir = ft_pos(split[2]);
 	scena->cam->dir = vector_to_quat(ft_pos(split[2]));
+	// scena->cam->dir = quat_create(1, 0, 0, 0);
 	scena->cam->fov = ft_atoi(split[3]);
 	scena->cam->dist = 100;
 	scena->cam->c = NULL;

@@ -6,7 +6,7 @@
 #    By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/03 17:19:38 by lsohler           #+#    #+#              #
-#    Updated: 2023/10/03 17:20:01 by lsohler          ###   ########.fr        #
+#    Updated: 2023/10/04 12:26:27 by lsohler          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,9 +23,12 @@ SRCS = \
 		srcs/parsing/rgb.c\
 		srcs/parsing/scenario.c\
 		srcs/parsing/parsing.c\
+		srcs/parsing/meta.c\
 		\
 		srcs/test/print.c\
 		srcs/test/cameratest.c\
+		srcs/test/mouse.c\
+		srcs/test/key.c\
 		\
 		gnl/get_next_line.c\
 		gnl/get_next_line_utils.c\
