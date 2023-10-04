@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:42:02 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/02 17:48:40 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/03 17:39:04 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,16 @@ void	print_parsing(t_scenario *sc)
 	print_spotlux(sc->spot_lux);
 	print_cam(sc->cam);
 	print_obj(sc->obj);
+	printf("address img: %p\n", &sc->img_data);
+	printf("\n\nOK!!\n");
+}
+
+void	test_print_vecteur(void)
+{
+	t_vec3d	v1 = {-42, 0, 0};
+	t_vec3d	v2 = {84, 42, 42};
+	t_vec3d v42;
+
+	v42 = ft_v_add(v1, v2);
+	printf("Vector addition: x:%f y:%f z:%f\n", v42.x, v42.y, v42.z);
 }

@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 17:43:57 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/04 16:45:37 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/04 18:15:16 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,19 @@ int	ft_abs(int a)
 	return (a);
 }
 
-int	close_w(int keycode, t_vars *vars)
+// int	close_w(int keycode, t_mlx *vars)
+// {
+// 	if (keycode == 53)
+// 		mlx_destroy_window(vars->ptr, vars->win);
+// 	exit(0);
+// 	return (0);
+// }
+int	close_w(t_scenario *scena)
 {
-	if (keycode == 53)
-		mlx_destroy_window(vars->mlx, vars->win);
-	exit(0);
-	return (0);
-}
-
-void	my_mlx_pixel_put(t_data_img *data, int x, int y, int color)
-{
-	char	*dst;
-	int		offset;
-
-	offset = y * data->line_length + x * (data->bits_per_pixel / 8);
-	dst = data->addr + offset + (data->bits_per_pixel / 8);
-	*(unsigned int *) dst = color;
+	mlx_destroy_window(scena->mlx->ptr, scena->mlx->win);
+	//free_lists(meta);
+	printf("     CLOSING FROM CLICK !\n");
+	exit (0);
 }
 
 void	ft_check_argc(int argc)
@@ -45,18 +42,20 @@ void	ft_check_argc(int argc)
 		exit (0);
 	}
 }
-
-void check_cy(t_scenario *sc)
+void check_ob(t_scenario *sc)
 {
 	t_obj *test;
 	int i;
 	t_vec3d p1;
 	t_vec3d p2;
+	t_vec3d *sol;
 	
 	test = sc->obj;
 	i = 0;
-	while (test && test->id != 2)
+	while (test)
 	{
+		if (test->id == 2)
+			break ;
 		test = test->next;
 		i++;
 	}
@@ -68,42 +67,47 @@ void check_cy(t_scenario *sc)
 	p2.y = 0.0;
 	p2.z = 0.0;
 
-	if (i>0)
-		printf("WORKED!! \n");
+	sol = in_cy_1(p1, p2, test);
+	if (sol)
+	{
+		printf("WORKED!! sol.x = %f\n", sol->x);
+		printf("WORKED!! sol.y = %f\n", sol->y);
+		printf("WORKED!! sol.z = %f\n", sol->z);
+	}
 	else
 		printf("FAIL \n");
+	printf("module sol %f\n",ft_mod(*sol));
 
 
-}
-
-void	ft_image(t_data_img img, char *argv1)
-{
-	t_scenario	*sc;
-
-	sc = parsing(argv1);
-	check_cy(sc);
-	// print_parsing(sc);
-	free_scenario(sc);
-	printf("address img: %p\n", &img);
-	printf("\n\nOK!!\n");
 }
 
 int	main(int argc, char **argv)
 {
-	t_vars		vars;
-	t_data_img	img;
+	t_scenario	*scena;
+	// t_vars		vars;
+	// t_data_img	img;
 
 	ft_check_argc(argc);
-	vars.mlx = mlx_init();
-	vars.win = mlx_new_window(vars.mlx, 1920, 1080, "miniRT");
-	img.img = mlx_new_image(vars.mlx, 1920, 1080);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel,
-			&img.line_length, &img.endian);
-	ft_image(img, argv[1]);
-	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
-	mlx_hook(vars.win, 17, 0, close_w, &vars);
-	mlx_hook(vars.win, 2, 0, close_w, &vars);
-	mlx_loop(vars.mlx);
-	free(img.img);
+	// vars.mlx = mlx_init();
+	// vars.win = mlx_new_window(vars.mlx, WIDTH, HEIGHT, "miniRT");
+	// img.img = mlx_new_image(vars.mlx, WIDTH, HEIGHT);
+	// img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel,
+	// 		&img.line_length, &img.endian);
+	scena = parsing(argv[1]);
+	check_ob(scena);
+	// print_parsing(scena);
+	// render_camera(scena);
+	// mlx_hook(scena->mlx->win, 2, 2, keypress, scena);
+	// mlx_hook(scena->mlx->win, 3, 3, shift_released, scena);
+	// mlx_hook(scena->mlx->win, 17, 0, close_w, scena);
+	// mlx_hook(scena->mlx->win, 6, 1L << 6, mouse_move, scena);
+	// mlx_hook(scena->mlx->win, 4, 1L << 2, mouse_pressed, scena);
+	// mlx_hook(scena->mlx->win, 5, 1L << 3, mouse_released, scena);
+	// mlx_loop(scena->mlx->ptr);
+	// mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
+	// mlx_hook(vars.win, 17, 0, close_w, &vars);
+	// mlx_hook(vars.win, 2, 0, close_w, &vars);
+	// mlx_loop(vars.mlx);
+	// free(img.img);
 	return (0);
 }

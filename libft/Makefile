@@ -6,7 +6,7 @@
 #    By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/27 12:53:01 by lsohler           #+#    #+#              #
-#    Updated: 2023/10/02 18:00:44 by lsohler          ###   ########.fr        #
+#    Updated: 2023/10/03 16:47:27 by lsohler          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,15 @@ SRCS		= \
 			list/ft_lstmap_bonus.c\
 			list/ft_lstnew_bonus.c\
 			list/ft_lstsize_bonus.c\
+			\
+			math/ft_mod.c\
+			math/ft_dot.c\
+			math/ft_vector_lenght.c\
+			math/ft_normalize.c\
+			math/ft_v_add.c\
+			math/ft_v_mul.c\
+			math/ft_v_sub.c\
+			math/ft_deg_to_rag.c\
 			\
 			mem/ft_bzero.c\
 			mem/ft_calloc.c\

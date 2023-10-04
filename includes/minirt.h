@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 16:13:16 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/04 16:44:27 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/04 18:13:57 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,17 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <math.h>
+# include <stdbool.h>
 # include "mlx.h"
 # include "libft.h"
 
+# define WIDTH 1920
+# define HEIGHT 1080
+
 enum e_form {sp, pl, cy};
 
-typedef struct s_data_img {
+typedef struct s_data_img
+{
 	void	*img;
 	char	*addr;
 	int		bits_per_pixel;
@@ -30,10 +35,11 @@ typedef struct s_data_img {
 	int		endian;
 }				t_data_img;
 
-typedef struct s_vars {
-	void	*mlx;
+typedef struct s_mlx
+{
+	void	*ptr;
 	void	*win;
-}				t_vars;
+}				t_mlx;
 
 typedef struct s_amblux
 {
@@ -43,9 +49,12 @@ typedef struct s_amblux
 
 typedef struct s_cam
 {
-	int				fov;
-	struct s_vec3d	pos;
-	t_quat			dir;
+	int					fov;
+	int					dist;
+	struct s_vec3d		pos;
+	struct s_vec3d		vdir;
+	t_quat				dir;
+	t_quat				*c;
 }				t_cam;
 
 typedef struct s_spotlux
@@ -61,6 +70,8 @@ typedef struct s_scenario
 	struct s_cam		*cam;
 	struct s_spotlux	*spot_lux;
 	struct s_obj		*obj;
+	struct s_data_img	*img_data;
+	struct s_mlx		*mlx;
 }				t_scenario;
 
 typedef struct s_obj
@@ -74,12 +85,38 @@ typedef struct s_obj
 	struct s_obj	*next;
 }			t_obj;
 
+typedef struct s_hit
+{
+	bool			hit;
+	float			dst;
+	struct s_vec3d	pos;
+	struct s_vec3d	normal;
+}				t_hit;
+
+typedef struct s_ray
+{
+	struct s_vec3d	origin;
+	struct s_vec3d	dir;
+}				t_ray;
+
+typedef struct s_point
+{
+	int	x;
+	int	y;
+}				t_point;
+
+typedef struct s_rectangle
+{
+	t_vec3d	a;
+	t_vec3d	b;
+	t_vec3d	c;
+	t_vec3d	d;
+}				t_rectangle;
 /*---ERROR---*/
 void		ft_exit(char *msg);
 void		ft_exit_fd(int fd);
 
 /*---FREE---*/
-void		print_parsing(t_scenario *sc);
 void		free_scenario(t_scenario *scena);
 
 /*---PARSING---*/
@@ -97,6 +134,14 @@ float		ft_get_float_d(char *line);
 float		ft_get_float(char *line);
 t_vec3d		ft_pos(char *line);
 
+/*---TEST---*/
+void		print_parsing(t_scenario *sc);
+void		bresenham_draw_line(t_point a, t_point b,
+				t_scenario *meta, t_rgb color);
+void		test_print_vecteur(void);
+int			render_camera(t_scenario *scena);
+void		camera_param(t_cam *cam);
+t_quat		*init_quat_camera(int plane_height, int plane_width, t_vec3d pos, int dist);
 // free.c
 void	ft_free_ii(int **split, int j);
 void	ft_free_c_c(char *a, char *b);
@@ -127,5 +172,9 @@ void	ft_scena_init(t_scenario **scena);
 
 
 t_vec3d *in_cy_1(t_vec3d p1, t_vec3d p2, t_obj *cy);
-
+t_vec3d	*ft_is_pl(t_vec3d p1, t_vec3d p2, t_obj *pl);
+t_vec3d	*ft_is_sp_1(t_vec3d p1, t_vec3d p2, t_obj *sp);
+t_vec3d	*ft_is_sp_2(t_vec3d p1, t_vec3d p2, t_obj *sp);
+t_vec3d *in_cy_1(t_vec3d p1, t_vec3d p2, t_obj *cy);
+t_vec3d *in_cy_2(t_vec3d p1, t_vec3d p2, t_obj *cy);
 #endif
