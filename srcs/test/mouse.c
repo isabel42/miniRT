@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 11:39:23 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/04 20:05:00 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/06 18:43:53 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	apply_rotation(t_scenario *scena)
 	t_quat	*c;
 
 	c = scena->cam->c;
+	// scena->cam->dir = quat_multiply(quat_multiply(scena->meta->rotation_quat, scena->cam->dir), quat_conjugate(scena->meta->rotation_quat));
 	c[0] = quat_multiply(
 			quat_multiply(scena->cam->dir, c[0]),
 			quat_conjugate(scena->cam->dir));
@@ -70,11 +71,11 @@ void	mouse_rotate(int move_x, int move_y, t_meta *meta)
 
 void	mouse_rotate_box(int move_x, int move_y, t_meta *meta)
 {
-	printf("BOX Moving mouse x:%i y:%i\n", move_x, move_y);
+	// printf("BOX Moving mouse x:%i y:%i\n", move_x, move_y);
 	meta->scena->rotation_quat = euler_to_quat(0,
 			ft_deg_to_rad(atan(move_x / 1)) * 2,
 			-ft_deg_to_rad(atan(move_y / 1)) * 2);
-	apply_rotation_box(meta->scena);
+	apply_rotation_scenario(meta->scena);
 	return ;
 }
 
@@ -91,14 +92,26 @@ int	mouse_move(int x, int y, t_meta *meta)
 		&& (((x < WIDTH) && (x > 0)) && ((y < HEIGHT) && (y > 0))))
 	{
 		if (meta->shift_state == 1)
+		{
 			mouse_rotate(move_x, move_y, meta);
+			mouse_rotate_box(move_x, move_y, meta);
+		}
 		else if (meta->ctrl_state == 1)
 		{
 			meta->offset[0] += move_x;
 			meta->offset[1] += move_y;
+			meta->box_offset[0] += move_x;
+			meta->box_offset[1] += move_y;
 		}
 		else if (meta->c_state == 1)
-			mouse_rotate_box(move_x, move_y, meta);
+			// mouse_rotate_box(move_x, move_y, meta);
+		{
+			free(meta->scena->cam->c);
+			camera_param(meta->scena->cam);
+			meta->scena->cam->pos.x += move_x;
+			meta->scena->cam->pos.y += move_y;
+			// apply_rotation(meta->scena);
+		}
 		else if (meta->b_state == 1)
 		{
 			meta->box_offset[0] += move_x;

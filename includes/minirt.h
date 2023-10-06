@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 16:13:16 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/04 20:03:24 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/06 18:50:22 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,16 @@
 # define KEY_N4 86
 # define KEY_N2 84
 
+# define I_WHITE 0xFFFFFF
+# define I_RED 0x960018
+# define I_GREEN 0x00ab84
+# define I_BLACK 0x000000
+# define I_BLUE 0x005EFF
+# define I_DEEPBLUE 0x1B2287
+# define I_YELLOW 0xFFBC00
+# define I_BROWN 0x9F6212
+# define I_GRAY 0xACACAC
+
 enum e_form {sp, pl, cy};
 
 
@@ -89,15 +99,24 @@ int			mouse_move(int x, int y, t_meta *meta);
 int			mouse_pressed(int button, int x, int y, t_meta *meta);
 int			mouse_released(int button, int x, int y, t_meta *meta);
 t_quat		*init_box(void);
+t_quat		*init_cube(t_vec3d center, float size);
 
 void		rotate_camera(t_cam *cam, t_quat rotation);
 int			render(t_scenario *scena);
-void		draw_box(t_scenario *scena);
+void		apply_rotation_scenario(t_scenario *scena);
 void		apply_rotation(t_scenario *scena);
-void		apply_rotation_box(t_scenario *scena);
+t_quat		*apply_rotation_box(t_scenario *scena, t_quat *c);
 void		camera_param(t_cam *cam);
 void		draw_ray(t_scenario *scena);
+void		draw_scenario(t_scenario *scena);
+void		draw_box(t_quat *c, t_scenario *scena, t_rgb color);
+t_hit		sphere_hit(t_ray ray, t_quat center_q, float sphere_r);
+t_hit		sphere_hit2(t_ray ray, t_obj sphere);
 
+void		my_mlx_pixel_put(t_data_img *imgdata, int x, int y, int color);
+void draw_circle(t_data_img *imgdata, int x, int y, int r, int color);
+t_rgb		int_to_rgb(int icolor);
+int			rgb_to_int(t_rgb color);
 /*---KEY---*/
 int			key_press(int key, t_meta *meta);
 int			key_release(int key, t_meta *meta);

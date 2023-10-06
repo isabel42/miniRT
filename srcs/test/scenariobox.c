@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 17:58:57 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/04 19:03:48 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/06 16:53:22 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,8 @@ t_quat	*init_box(void)
 	return (box);
 }
 
-void	apply_rotation_box(t_scenario *scena)
+t_quat	*apply_rotation_box(t_scenario *scena, t_quat *c)
 {
-	t_quat	*c;
-
-	c = scena->box;
 	c[0] = quat_multiply(
 			quat_multiply(scena->rotation_quat, c[0]),
 			quat_conjugate(scena->rotation_quat));
@@ -69,7 +66,25 @@ void	apply_rotation_box(t_scenario *scena)
 	c[7] = quat_multiply(
 			quat_multiply(scena->rotation_quat, c[7]),
 			quat_conjugate(scena->rotation_quat));
-	scena->box = c;
+	return (c);
+}
+
+void	apply_rotation_scenario(t_scenario *scena)
+{
+	t_obj	*objects;
+
+	objects = scena->obj;
+	scena->box = apply_rotation_box(scena, scena->box);
+	while (objects)
+	{
+		if (objects->id == pl && objects->cube)
+			objects->cube = apply_rotation_box(scena, objects->cube);
+		if (objects->id == cy && objects->cube)
+			objects->cube = apply_rotation_box(scena, objects->cube);
+		if (objects->id == sp && objects->cube)
+			objects->cube = apply_rotation_box(scena, objects->cube);
+		objects = objects->next;
+	}
 }
 
 t_point	get_point_b(t_quat q, t_scenario *scena)
@@ -81,15 +96,11 @@ t_point	get_point_b(t_quat q, t_scenario *scena)
 	return (res);
 }
 
-void	draw_box(t_scenario *scena)
+void	draw_box(t_quat *c, t_scenario *scena, t_rgb color)
 {
-	t_rgb	color;
-	t_quat	*c;
-
-	color.r = 255;
-	color.g = 255;
-	color.b = 255;
-	c = scena->box;
+	// (void)c;
+	// (void)scena;
+	// (void)color;
 	bresenham_draw_line(get_point_b(c[0], scena), get_point_b(c[1], scena), scena, color);
 	bresenham_draw_line(get_point_b(c[1], scena), get_point_b(c[2], scena), scena, color);
 	bresenham_draw_line(get_point_b(c[2], scena), get_point_b(c[3], scena), scena, color);
@@ -102,4 +113,30 @@ void	draw_box(t_scenario *scena)
 	bresenham_draw_line(get_point_b(c[1], scena), get_point_b(c[5], scena), scena, color);
 	bresenham_draw_line(get_point_b(c[2], scena), get_point_b(c[6], scena), scena, color);
 	bresenham_draw_line(get_point_b(c[3], scena), get_point_b(c[7], scena), scena, color);
+}
+
+void	draw_objects(t_scenario *scena)
+{
+	t_obj	*objects;
+
+	objects = scena->obj;
+	while (objects)
+	{
+		if (objects->id == pl && objects->cube)
+			draw_box(objects->cube, scena, int_to_rgb(I_GREEN));
+		if (objects->id == cy && objects->cube)
+			draw_box(objects->cube, scena, int_to_rgb(I_RED));
+		if (objects->id == sp && objects->cube)
+		{
+			draw_box(objects->cube, scena, int_to_rgb(I_BLUE));
+			draw_circle(scena->img_data, objects->cube->x + scena->meta->offset[0], objects->cube->y + scena->meta->offset[1], objects->diam * 2, I_DEEPBLUE);
+		}
+		objects = objects->next;
+	}
+}
+
+void	draw_scenario(t_scenario *scena)
+{
+	draw_box(scena->box, scena, int_to_rgb(I_WHITE));
+	draw_objects(scena);
 }

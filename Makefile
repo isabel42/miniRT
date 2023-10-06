@@ -6,7 +6,7 @@
 #    By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/03 17:19:38 by lsohler           #+#    #+#              #
-#    Updated: 2023/10/04 17:58:54 by lsohler          ###   ########.fr        #
+#    Updated: 2023/10/06 12:18:33 by lsohler          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,8 @@ SRCS = \
 		srcs/test/key.c\
 		srcs/test/raytest.c\
 		srcs/test/scenariobox.c\
+		srcs/test/form.c\
+		srcs/tracing/hit.c\
 		\
 		gnl/get_next_line.c\
 		gnl/get_next_line_utils.c\

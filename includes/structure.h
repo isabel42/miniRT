@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 11:27:11 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/04 19:51:52 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/06 10:47:42 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_obj
 	struct s_rgb	rgb;
 	struct s_vec3d	dir;
 	struct s_obj	*next;
+	t_quat			*cube;
 }			t_obj;
 /*-------------*/
 
