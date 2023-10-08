@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 17:43:57 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/04 18:15:16 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/08 15:13:16 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ void check_ob(t_scenario *sc)
 	p1.x = 0.0;
 	p1.y = 0.0;
 	p1.z = 0.0;
-	p2.x = 10.0;
-	p2.y = 0.0;
+	p2.x = 0.0;
+	p2.y = 10.0;
 	p2.z = 0.0;
 
 	sol = in_cy_1(p1, p2, test);
@@ -76,7 +76,7 @@ void check_ob(t_scenario *sc)
 	}
 	else
 		printf("FAIL \n");
-	printf("module sol %f\n",ft_mod(*sol));
+	//printf("module sol %f\n",ft_mod(*sol));
 
 
 }
