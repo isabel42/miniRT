@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 17:50:20 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/06 19:15:41 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/08 19:39:46 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,11 @@ void	draw_ray(t_scenario *scena)
 			point.x = ref.x + ix * xstep_x;
 			point.y = ref.y + ix * xstep_y;
 			point.z = ref.z + ix * xstep_z;
-			point = quat_create(0, point.x, point.y, point.z);
+			t_vec3d	point_dir;
+			point_dir.x = point.x;
+			point_dir.y = point.y;
+			point_dir.z = point.z;
+			// point = quat_create(0, point.x, point.y, point.z);
 			// printf("New point ray: ");
 			// print_q(point);
 			// printf("New point: %d %d\n", point.x, point.y);
@@ -100,18 +104,27 @@ void	draw_ray(t_scenario *scena)
 				if (objects->cube && objects->id == sp)
 				{
 					t_hit	hit;
+					t_ray	ray;
 
-					//bresenham_draw_line(get_point_r(scena->cam->c[4], scena), get_point_r(objects->cube[0], scena), scena,int_to_rgb(I_BROWN));
+					ray = new_ray(new_point(scena->cam->c[4]), new_point(point));
+					// bresenham_draw_line(get_point_r(scena->cam->c[4], scena), get_point_r(objects->cube[0], scena), scena,int_to_rgb(I_BROWN));
 					objects->pos = quat_to_vector(objects->cube[0]);
-					hit = sphere_hit(new_ray(new_point(scena->cam->c[4]), new_point(point)), objects->cube[0], objects->diam);
+					hit = sphere_hit3(ray, objects->pos, objects->diam / 2);
+					// t_quat sphere_center = quat_create(0, objects->pos.x, objects->pos.y, objects->pos.z);
+					// hit = sphere_hit(ray, sphere_center, objects->diam / 2);
 					// hit = sphere_hit2(new_ray(new_point(scena->cam->c[4]), new_point(point)), *objects);
 					if (hit.hit == true)
 					{
 						t_quat	hitq = quat_create(0, hit.pos.x, hit.pos.y, hit.pos.z);
-						//hitq = quat_multiply(quat_multiply(scena->cam->dir, hitq),quat_conjugate(scena->cam->dir));
+						// hitq = quat_multiply(quat_multiply(scena->cam->dir, hitq),quat_conjugate(scena->cam->dir));
 						//bresenham_draw_line(get_point_r(scena->cam->c[4], scena), get_point_r(hitq, scena), scena, int_to_rgb(I_YELLOW));
-						my_mlx_pixel_put(scena->img_data, hitq.x + scena->meta->offset[0], hitq.y + scena->meta->offset[1], I_YELLOW);
-						bresenham_draw_line(get_point_r(scena->cam->c[4], scena), get_point_r(point, scena), scena, int_to_rgb(I_YELLOW));
+						// my_mlx_pixel_put(scena->img_data, hitq.x + scena->meta->offset[0], hitq.y + scena->meta->offset[1], I_YELLOW);
+						// bresenham_draw_line(get_point_r(scena->cam->c[4], scena), get_point_r(point, scena), scena, int_to_rgb(I_BLUE));
+						bresenham_draw_line(get_point_r(point, scena), get_point_r(hitq, scena), scena, int_to_rgb(I_YELLOW));
+						t_quat	ray_o = quat_create(0, ray.origin.x, ray.origin.y, ray.origin.z);
+						t_quat	ray_dir = quat_create(0, ray.dir.x, ray.dir.y, ray.dir.z);
+						bresenham_draw_line(get_point_r(ray_o, scena), get_point_r(ray_dir, scena), scena, int_to_rgb(I_RED));
+						// my_mlx_pixel_put(scena->img_data, point.x + scena->meta->offset[0], point.y + scena->meta->offset[1], rgb_to_int(objects->rgb));
 					}
 				}
 				objects = objects->next;
@@ -127,3 +140,19 @@ void	draw_ray(t_scenario *scena)
 		ix = 0;
 	}
 }
+
+// void	ray_test(scena)
+// {
+// 	float	plane_width = cam->dist * tan(ft_deg_to_rad(cam->fov) * 0.5f) * 4;
+// 	float	plane_height = plane_width * ((float)HEIGHT / (float)WIDTH);
+// 	t_vec3d	bottom_left = new_vector(-plane_width / 2, -plane_height / 2, dist);
+// 	int		n = 200;
+	
+// 	for (int x = 0; x < n)
+// 	{
+// 		for (int y = 0; y < n)
+// 		{
+			
+// 		}
+// 	}
+// }

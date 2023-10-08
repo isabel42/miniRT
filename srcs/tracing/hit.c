@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 10:15:38 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/06 19:18:00 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/08 19:42:10 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ t_vec3d	get_hit_point(t_vec3d origin, t_vec3d dir, float dst)
 {
 	t_vec3d	res;
 
-	res.x = origin.x + dir.x * dst;
-	res.y = origin.y + dir.y * dst;
-	res.z = origin.z + dir.z * dst;
+	res.x = origin.x + (dir.x * dst);
+	res.y = origin.y + (dir.y * dst);
+	res.z = origin.z + (dir.z * dst);
 	return (res);
 }
 
@@ -69,7 +69,7 @@ t_hit	sphere_hit(t_ray ray, t_quat center_q, float sphere_r)
 	q.y = 2 * ft_dot(offset_origin, ray.dir);
 	q.z = ft_dot(offset_origin, offset_origin) - sphere_r * sphere_r;
 	// printf("a:%f b:%f c:%f\n", q.x, q.y, q.z);
-	discriminant = q.y * q.y - 4 * q.x * q.z;
+	discriminant = (q.y * q.y) - (4 * q.x * q.z);
 	// dst = (-q.y - sqrt(discriminant)) / (2 * q.x);
 	// if (discriminant >= 0)
 	// {
@@ -173,8 +173,63 @@ t_hit	sphere_hit2(t_ray ray, t_obj sphere)
 		free(sol);
 		return (hit);
 	}
-	hit.pos = *sol;
+	hit.pos.x = sol->x;
+	hit.pos.y = sol->y;
+	hit.pos.z = sol->z;
 	hit.hit = true;
 	free(sol);
+	return (hit);
+}
+
+float	get_discriminant(t_ray r, t_vec3d center, float radius)
+{
+	t_vec3d oc;
+	float a;
+	float b;
+	float c;
+	float discriminant;
+
+	oc = ft_v_sub(r.origin, center);
+	a = ft_dot(r.dir, r.dir);
+	b = 2.0 * ft_dot(oc, r.dir);
+	c = ft_dot(oc, oc) - radius*radius;
+	discriminant = (b * b) - (4 * a * c);
+	if (discriminant < 0) {
+		return -1.0;
+	}
+	else
+	{
+		return (-b - sqrt(discriminant) ) / (2.0*a);
+	}
+}
+
+t_hit sphere_hit3(t_ray ray, t_vec3d center, float radius)
+{
+	t_hit	hit;
+	float	discriminant;
+	float	dst;
+	t_vec3d	oc;
+	float	a;
+	float	b;
+	float	c;
+
+	hit.hit = false;
+	oc = ft_v_sub(ray.origin, center);
+	a = ft_dot(ray.dir, ray.dir);
+	b = 2.0 * ft_dot(oc, ray.dir);
+	c = ft_dot(oc, oc) - radius*radius;
+	discriminant = (b * b) - (4 * a * c);
+	if (discriminant >= 0)
+	{
+		dst = (-b + sqrt(discriminant)) / (2 * a);
+		if (dst <= 0.0)
+		{
+			hit.hit = true;
+			hit.dst = dst;
+			hit.pos = get_hit_point(ray.origin, ray.dir, dst);
+			hit.normal = get_normal(hit.pos, center);
+			printf("---DID HIT SPHERE\n");
+		}
+	}
 	return (hit);
 }

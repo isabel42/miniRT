@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 16:13:16 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/06 18:50:22 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/08 18:30:47 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ int			mouse_pressed(int button, int x, int y, t_meta *meta);
 int			mouse_released(int button, int x, int y, t_meta *meta);
 t_quat		*init_box(void);
 t_quat		*init_cube(t_vec3d center, float size);
+t_quat		*init_axis(t_vec3d center, float size);
 
 void		rotate_camera(t_cam *cam, t_quat rotation);
 int			render(t_scenario *scena);
@@ -112,7 +113,7 @@ void		draw_scenario(t_scenario *scena);
 void		draw_box(t_quat *c, t_scenario *scena, t_rgb color);
 t_hit		sphere_hit(t_ray ray, t_quat center_q, float sphere_r);
 t_hit		sphere_hit2(t_ray ray, t_obj sphere);
-
+t_hit		sphere_hit3(t_ray ray, t_vec3d center, float radius);
 void		my_mlx_pixel_put(t_data_img *imgdata, int x, int y, int color);
 void draw_circle(t_data_img *imgdata, int x, int y, int r, int color);
 t_rgb		int_to_rgb(int icolor);

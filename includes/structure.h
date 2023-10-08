@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 11:27:11 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/06 10:47:42 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/08 16:32:15 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ typedef struct s_scenario
 	t_quat				identity_quat;
 	t_quat				rotation_quat;
 	t_quat				*box;
+	t_quat				*axis;
 }				t_scenario;
 
 typedef struct s_meta

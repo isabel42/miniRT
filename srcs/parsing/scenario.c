@@ -39,6 +39,7 @@ t_scenario	*init_scenario(void)
 	scena->identity_quat = quat_create(1, 0, 0, 0);
 	scena->rotation_quat = quat_create(1, 0, 0, 0);
 	scena->box = init_box();
+	scena->axis = init_axis((t_vec3d){0, 0, 0}, 50);
 	scena->meta->scena = scena;
 	scena->mlx = mlx_init_struct(WIDTH, HEIGHT);
 	scena->img_data = malloc(sizeof(t_data_img));

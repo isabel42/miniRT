@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 21:35:41 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/06 15:36:43 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/08 16:20:39 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	new_sphere(char **split, t_scenario *scena)
 	sph->pos = ft_pos(split[1]);
 	sph->diam = ft_atof(split[2]);
 	sph->rgb = ft_rgb(split[3]);
-	sph->cube = init_cube(sph->pos, sph->diam);
+	sph->cube = init_axis(sph->pos, 15);
 	sph->next = NULL;
 	free_array(split);
 	object_add_back(scena, sph);
@@ -62,7 +62,7 @@ void	new_plan(char **split, t_scenario *scena)
 	pln->pos = ft_pos(split[1]);
 	pln->dir = ft_pos(split[2]);
 	pln->rgb = ft_rgb(split[3]);
-	pln->cube = init_cube(pln->pos, 20.0);
+	pln->cube = init_axis(pln->pos, 15);
 	pln->next = NULL;
 	free_array(split);
 	object_add_back(scena, pln);
@@ -83,7 +83,7 @@ void	new_cylinder(char **split, t_scenario *scena)
 	cyl->diam = ft_atof(split[3]);
 	cyl->high = ft_atof(split[4]);
 	cyl->rgb = ft_rgb(split[5]);
-	cyl->cube = init_cube(cyl->pos, 20.0);
+	cyl->cube = init_axis(cyl->pos, 15);
 	cyl->next = NULL;
 	free_array(split);
 	object_add_back(scena, cyl);

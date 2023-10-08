@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 11:39:23 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/06 18:43:53 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/08 15:59:23 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,11 +106,11 @@ int	mouse_move(int x, int y, t_meta *meta)
 		else if (meta->c_state == 1)
 			// mouse_rotate_box(move_x, move_y, meta);
 		{
-			free(meta->scena->cam->c);
-			camera_param(meta->scena->cam);
 			meta->scena->cam->pos.x += move_x;
 			meta->scena->cam->pos.y += move_y;
-			// apply_rotation(meta->scena);
+			free(meta->scena->cam->c);
+			camera_param(meta->scena->cam);
+			apply_rotation(meta->scena);
 		}
 		else if (meta->b_state == 1)
 		{
