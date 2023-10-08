@@ -6,7 +6,7 @@
 #    By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/27 12:53:01 by lsohler           #+#    #+#              #
-#    Updated: 2023/10/03 16:47:27 by lsohler          ###   ########.fr        #
+#    Updated: 2023/10/06 16:16:31 by lsohler          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,6 +67,7 @@ SRCS		= \
 			quat/quat_multiply.c\
 			quat/quat_normalize.c\
 			quat/vector_to_quat.c\
+			quat/quat_to_vector.c\
 			\
 			str/ft_atof.c\
 			str/ft_atoi.c\

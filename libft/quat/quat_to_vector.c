@@ -1,18 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dot.c                                           :+:      :+:    :+:   */
+/*   quat_to_vector.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/03 12:12:19 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/06 18:40:13 by lsohler          ###   ########.fr       */
+/*   Created: 2023/10/06 16:15:52 by lsohler           #+#    #+#             */
+/*   Updated: 2023/10/06 16:19:06 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-float	ft_dot(t_vec3d v1, t_vec3d v2)
+t_vec3d	quat_to_vector(t_quat q)
 {
-	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
+	t_vec3d	res;
+
+	res.x = q.x;
+	res.y = q.y;
+	res.z = q.z;
+	return (res);
 }

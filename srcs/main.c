@@ -6,7 +6,11 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 17:43:57 by itovar-n          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/10/08 15:13:16 by itovar-n         ###   ########.fr       */
+=======
+/*   Updated: 2023/10/06 19:04:26 by lsohler          ###   ########.fr       */
+>>>>>>> leotest
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +98,7 @@ int	main(int argc, char **argv)
 	// img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel,
 	// 		&img.line_length, &img.endian);
 	scena = parsing(argv[1]);
+<<<<<<< HEAD
 	check_ob(scena);
 	// print_parsing(scena);
 	// render_camera(scena);
@@ -104,6 +109,20 @@ int	main(int argc, char **argv)
 	// mlx_hook(scena->mlx->win, 4, 1L << 2, mouse_pressed, scena);
 	// mlx_hook(scena->mlx->win, 5, 1L << 3, mouse_released, scena);
 	// mlx_loop(scena->mlx->ptr);
+=======
+	print_parsing(scena);
+	test_print_meta(scena->meta);
+	print_q_cache(*scena->meta->cache);
+	apply_rotation(scena);
+	render(scena);
+	mlx_hook(scena->mlx->win, 2, 2, key_press, scena->meta);
+	mlx_hook(scena->mlx->win, 3, 3, key_release, scena->meta);
+	mlx_hook(scena->mlx->win, 17, 0, close_w, scena);
+	mlx_hook(scena->mlx->win, 6, 1L << 6, mouse_move, scena->meta);
+	mlx_hook(scena->mlx->win, 4, 1L << 2, mouse_pressed, scena->meta);
+	mlx_hook(scena->mlx->win, 5, 1L << 3, mouse_released, scena->meta);
+	mlx_loop(scena->mlx->ptr);
+>>>>>>> leotest
 	// mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
 	// mlx_hook(vars.win, 17, 0, close_w, &vars);
 	// mlx_hook(vars.win, 2, 0, close_w, &vars);

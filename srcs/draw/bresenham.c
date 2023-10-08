@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 13:30:36 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/04 19:02:08 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/08 17:05:51 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,16 @@ typedef struct t_bres
 	int		delta[2];
 }				t_bres;
 
+t_rgb	int_to_rgb(int icolor)
+{
+	t_rgb	color;
+
+	color.r = (icolor >> 16) & 0xFF;
+	color.g = (icolor >> 8) & 0xFF;
+	color.b = icolor & 0xFF;
+	return (color);
+}
+
 int	rgb_to_int(t_rgb color)
 {
 	int	icolor;
@@ -35,6 +45,8 @@ void	my_mlx_pixel_put(t_data_img *imgdata, int x, int y, int color)
 {
 	char	*dst;
 
+	if (x > WIDTH - 1 || y > HEIGHT -1 || x < 0 || y < 0)
+		return ;
 	dst = imgdata->addr + (y * imgdata->line_length
 			+ x * (imgdata->bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
@@ -102,4 +114,30 @@ void	bresenham_draw_line(t_point a, t_point b, t_scenario *meta, t_rgb color)
 			bres.iy += bres.y;
 		}
 	}
+}
+
+
+void draw_circle(t_data_img *imgdata, int x, int y, int r, int color) {
+    int x0 = 0;
+    int y0 = r;
+    int d = 3 - 2 * r;
+
+    while (x0 <= y0) {
+        my_mlx_pixel_put(imgdata, x + x0, y + y0, color);
+        my_mlx_pixel_put(imgdata, x - x0, y + y0, color);
+        my_mlx_pixel_put(imgdata, x + x0, y - y0, color);
+        my_mlx_pixel_put(imgdata, x - x0, y - y0, color);
+        my_mlx_pixel_put(imgdata, x + y0, y + x0, color);
+        my_mlx_pixel_put(imgdata, x - y0, y + x0, color);
+        my_mlx_pixel_put(imgdata, x + y0, y - x0, color);
+        my_mlx_pixel_put(imgdata, x - y0, y - x0, color);
+
+        if (d < 0) {
+            d = d + 4 * x0 + 6;
+        } else {
+            d = d + 4 * (x0 - y0) + 10;
+            y0--;
+        }
+        x0++;
+    }
 }

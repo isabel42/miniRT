@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 16:04:31 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/08 16:56:01 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/08 17:05:51 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,15 +172,10 @@ t_vec3d *in_cy_1(t_vec3d p1, t_vec3d p2, t_obj *cy)
 	cal_cy_param_a(&a, p1, p2, cy);
 	cal_cy_param_b(&b, p1, p2, cy);
 	cal_cy_param_c(&c, p1, p2, cy);
-	printf("a: %f\n", a);
-	printf("b: %f\n", b);
-	printf("c: %f\n", c);
 	sol = malloc (sizeof(t_vec3d));
 	if(!sol)
 		return (NULL);
 	sq = powf(b, 2) - (4 * a * c);
-	printf(" sq: %f \n" ,sq);
-	printf(" t: %f \n" ,(-b + sqrt(sq)) / (2 * a));
 	if (sq < 0 || (sq == 0 && a == 0))
 		return (NULL);
 	if (sq == 0)

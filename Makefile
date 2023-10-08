@@ -6,7 +6,7 @@
 #    By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/03 17:19:38 by lsohler           #+#    #+#              #
-#    Updated: 2023/10/04 19:01:40 by itovar-n         ###   ########.fr        #
+#    Updated: 2023/10/08 17:05:51 by itovar-n         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,9 +23,16 @@ SRCS = \
 		srcs/parsing/rgb.c\
 		srcs/parsing/scenario.c\
 		srcs/parsing/parsing.c\
+		srcs/parsing/meta.c\
 		\
 		srcs/test/print.c\
 		srcs/test/cameratest.c\
+		srcs/test/mouse.c\
+		srcs/test/key.c\
+		srcs/test/raytest.c\
+		srcs/test/scenariobox.c\
+		srcs/test/form.c\
+		srcs/tracing/hit.c\
 		\
 		gnl/get_next_line.c\
 		gnl/get_next_line_utils.c\

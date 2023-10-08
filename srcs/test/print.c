@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 13:42:02 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/03 17:39:04 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/04 20:14:59 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,34 @@ void	print_parsing(t_scenario *sc)
 	printf("\n\nOK!!\n");
 }
 
-void	test_print_vecteur(void)
+void	test_print_vecteur(t_vec3d v)
 {
-	t_vec3d	v1 = {-42, 0, 0};
-	t_vec3d	v2 = {84, 42, 42};
-	t_vec3d v42;
+	printf("Vector x:%f y:%f z:%f\n", v.x, v.y, v.z);
+}
 
-	v42 = ft_v_add(v1, v2);
-	printf("Vector addition: x:%f y:%f z:%f\n", v42.x, v42.y, v42.z);
+void	test_print_meta(t_meta *meta)
+{
+	printf("Meta: key:%i click:%i shift:%i ctrl:%i\n", meta->key, meta->click_state, meta->shift_state, meta->ctrl_state);
+}
+
+void	print_q(t_quat q)
+{
+	printf("%s   QUATERNION: w:%f x:%f y:%f z:%f%s\n", WHITE,
+		q.w, q.x, q.y, q.z, DEF_C);
+}
+
+void	print_q_cache(t_quat_cache cache)
+{
+	printf("Pitch_m: ");
+	print_q(cache.pitch_m);
+	printf("Pitch_p: ");
+	print_q(cache.pitch_p);
+	printf("Yaw_m: ");
+	print_q(cache.yaw_m);
+	printf("Yaw_p: ");
+	print_q(cache.yaw_p);
+	printf("Roll_m: ");
+	print_q(cache.roll_m);
+	printf("Rollpm: ");
+	print_q(cache.roll_p);
 }
