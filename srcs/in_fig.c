@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 16:04:31 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/08 17:05:51 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/08 22:42:39 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,9 @@ t_vec3d	*ft_is_sp_1(t_vec3d p1, t_vec3d p2, t_obj *sp)
 		sol->z = p1.z - (b / (2 * a)) * (p2.z - p1.z);
 	}
 	else
-	{	sol->z = p1.z - ((b + sqrt(sq)) / (2 * a)) * (p2.z - p1.z);
-		sol->y = p1.y - ((b + sqrt(sq)) / (2 * a)) * (p2.y - p1.y);
-		sol->x = p1.x - ((b + sqrt(sq)) / (2 * a)) * (p2.x - p1.x);
+	{	sol->z = p1.z - ((b - sqrt(sq)) / (2 * a)) * (p2.z - p1.z);
+		sol->y = p1.y - ((b - sqrt(sq)) / (2 * a)) * (p2.y - p1.y);
+		sol->x = p1.x - ((b - sqrt(sq)) / (2 * a)) * (p2.x - p1.x);
 	}
 	return (sol);
 }
@@ -98,9 +98,9 @@ t_vec3d	*ft_is_sp_2(t_vec3d p1, t_vec3d p2, t_obj *sp)
 	if (sq == 0)
 		return (NULL);
 	else
-	{	sol->z = p1.z - ((b - sqrt(sq)) / (2 * a)) * (p2.z - p1.z);
-		sol->y = p1.y - ((b - sqrt(sq)) / (2 * a)) * (p2.y - p1.y);
-		sol->x = p1.x - ((b - sqrt(sq)) / (2 * a)) * (p2.x - p1.x);
+	{	sol->z = p1.z - ((b + sqrt(sq)) / (2 * a)) * (p2.z - p1.z);
+		sol->y = p1.y - ((b + sqrt(sq)) / (2 * a)) * (p2.y - p1.y);
+		sol->x = p1.x - ((b + sqrt(sq)) / (2 * a)) * (p2.x - p1.x);
 	}
 	return (sol);
 }
@@ -190,6 +190,8 @@ t_vec3d *in_cy_1(t_vec3d p1, t_vec3d p2, t_obj *cy)
 		sol->y = p1.y + ((-b - sqrt(powf(b, 2) - (4 * a * c))) / (2 * a)) * p2.y;
 		sol->z = p1.z + ((-b - sqrt(powf(b, 2) - (4 * a * c))) / (2 * a)) * p2.z;
 	}
+	if (powf(sol->x - cy->pos.x, 2) + powf(sol->y - cy->pos.y, 2) + powf(sol->z - cy->pos.z, 2) - powf(cy->diam / 2, 2) > cy->high / 2)
+		return (NULL);
 	return (sol);
 }
 
@@ -208,7 +210,7 @@ t_vec3d *in_cy_2(t_vec3d p1, t_vec3d p2, t_obj *cy)
 	if(!sol)
 		return (NULL);
 	sq = pow(b, 2) - 4 * a * c;
-	if (sq < 0)
+	if (sq < 0 || (sq == 0 && a == 0))
 		return (NULL);
 	if (sq == 0)
 		return (NULL);
@@ -218,5 +220,7 @@ t_vec3d *in_cy_2(t_vec3d p1, t_vec3d p2, t_obj *cy)
 		sol->y = p1.y + ((-b + sqrt(pow(b, 2) - 4 * a * c)) / (2 * a)) * p2.y;
 		sol->z = p1.z + ((-b + sqrt(pow(b, 2) - 4 * a * c)) / (2 * a)) * p2.z;
 	}
+	if (powf(sol->x - cy->pos.x, 2) + powf(sol->y - cy->pos.y, 2) + powf(sol->z - cy->pos.z, 2) - powf(cy->diam / 2, 2) > cy->high / 2)
+		return (NULL);
 	return (sol);
 }
