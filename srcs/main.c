@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 17:43:57 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/09 15:41:06 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/09 17:40:11 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,31 @@ void	ft_check_argc(int argc)
 	}
 }
 
+
 void	hit_redirect(t_vec3d *p1, t_vec3d *p2, t_obj *obj, t_hit *hit_loc)
 {
-	void	(*ptr_ft[1])(t_vec3d , t_vec3d , t_obj *, t_hit *);
+	void	(*ptr_ft[5])(t_vec3d , t_vec3d , t_obj *, t_hit *);
 
-	ptr_ft[0] = &in_pl;
-	ptr_ft[obj->id - 1](*p1, *p2, obj, hit_loc);
+	ptr_ft[0] = &in_sp_1;
+	ptr_ft[1] = &in_pl;
+	ptr_ft[2] = &in_cy_1;
+	ptr_ft[3] = &in_sp_2;
+	ptr_ft[4] = &in_cy_2;
+	ptr_ft[obj->id](*p1, *p2, obj, hit_loc);
+	if (obj->id == 0)
+		ptr_ft[3](*p1, *p2, obj, hit_loc);
+	if (obj->id == 2)
+		ptr_ft[4](*p1, *p2, obj, hit_loc);
 }
 
-void hit_init(t_hit *hit)
+t_hit *hit_init(t_hit *hit)
 {
+	hit = malloc (sizeof(t_hit));
+	if(!hit)
+		return (NULL);
 	hit->hit = 1;
 	hit->dst = -1;
+	return (hit);
 }
 
 void get_hit(t_scenario *sc, t_vec3d *p1, t_vec3d *p2, t_hit *hit)
@@ -62,15 +75,13 @@ void get_hit(t_scenario *sc, t_vec3d *p1, t_vec3d *p2, t_hit *hit)
 	t_hit *hit_loc;
 	t_obj *obj;
 
-	hit_loc = malloc (sizeof(t_hit));
-	if(!hit_loc)
-		return ;
-	hit_init(hit_loc);
+	hit_loc = NULL;
+	hit_loc = hit_init(hit_loc);
 	obj = sc->obj;
 	while(obj)
 	{
 		hit_redirect(p1, p2, obj, hit_loc);
-		if (hit_loc->dst > -1 && (hit->dst > hit_loc->dst || hit->dst < 0))
+		if (hit_loc->dst > -1.0 && (hit->dst > hit_loc->dst || hit->dst < 0))
 		{
 			hit->dst = hit_loc->dst;
 			hit->pos = hit_loc->pos;
@@ -85,8 +96,8 @@ void get_hit(t_scenario *sc, t_vec3d *p1, t_vec3d *p2, t_hit *hit)
 void check_ob(t_scenario *sc, t_data_img img)
 {
 	t_obj *test;
-	float i;
-	float j;
+	int i;
+	int j;
 	t_vec3d p1;
 	t_vec3d p2;
 	int d;
@@ -96,52 +107,39 @@ void check_ob(t_scenario *sc, t_data_img img)
 	i = 0;
 	while (test)
 	{
-		if (test->id == 1)
+		if (test->id == 0)
 			break ;
 		test = test->next;
 		i++;
 	}
-
-	hit = malloc (sizeof(t_hit));
-	if(!hit)
-		return ;
-	hit_init(hit);
 	p1.x = 0.0;
 	p1.y = 0.0;
 	p1.z = 0.0;
 	d = WIDTH / 2;	
 	i =  0;
-	while (i < WIDTH)
+	hit = NULL;
+	while (i <= WIDTH)
 	{
 		p2.x = i - WIDTH / 2;
 		p2.z = d;
 		j = 0;
-		while (j < HEIGHT)
+		while (j <= HEIGHT)
 		{
 			p2.y = j - HEIGHT / 2;
-			// get_hit(sc, &p1, &p2, hit);
-			in_pl(p1, p2, test, hit);
+			hit = hit_init(hit);
+			// in_sp_1(p1, p2, test, hit);
+			get_hit(sc, &p1, &p2, hit);	
 			if (hit->dst > 0)
-			{
 				my_mlx_pixel_put(&img, i, HEIGHT - j, hit->rgb.r * 256 * 256+ hit->rgb.g * 256 + hit->rgb.b);
-			}
-			// in_cy_2(p1, p2, test, hit);
-			// if (hit->dst > 0)
-			// {
-			// 	my_mlx_pixel_put(&img, i, HEIGHT - j, hit->rgb.r * 256 * 256+ hit->rgb.g * 256 + hit->rgb.b);
-			// }
+			free(hit);
+
 			j++;
 		}
 		i++;
 	}
 }
 
-// sp 0,0,960 50 255,0,0
-// pl 0,-300,0 0,1,0 255,0,225
 
-
-
-// cy 0.0,0.0,960.0 0.0,1.0,0.0 600 210.42 10,0,255
 
 int	main(int argc, char **argv)
 {

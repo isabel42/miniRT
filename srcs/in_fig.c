@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 16:04:31 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/09 15:30:59 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/09 17:26:13 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,17 @@ void	in_pl(t_vec3d p1, t_vec3d p2, t_obj *pl, t_hit *hit)
 		+ pl->dir.y * pl->pos.y + pl->dir.z * pl->pos.z;
 	if ((p2.x - p1.x) * pl->dir.x + (p2.y - p1.y) * pl->dir.y + (p2.z - p1.z) * pl->dir.z == 0
 		&& pl->dir.x * p1.x + pl->dir.y * p1.y + pl->dir.z * p1.z != pl_sing)
-		hit->dst = -1;
-	else
-	{
-		t = (pl_sing - p1.x * pl->dir.x - p1.y * pl->dir.y
-				- p1.z * pl->dir.z) / ((p2.x - p1.x) * pl->dir.x
-			+ ((p2.y - p1.y) * pl->dir.y + (p2.z - p1.z) * pl->dir.z));
-		if (t < 0)
-			return ;
-		hit->pos.x = p1.x + (p2.x - p1.x) * t;
-		hit->pos.y = p1.y + (p2.y - p1.y) * t;
-		hit->pos.z = p1.z + (p2.z - p1.z) * t;
-		hit->dst = sqrt(powf(hit->pos.x - p1.x, 2) + powf(hit->pos.y - p1.x, 2) + powf(hit->pos.z - p1.x, 2));
-		hit->rgb = pl->rgb;
-	}
+		return ;
+	t = (pl_sing - p1.x * pl->dir.x - p1.y * pl->dir.y
+			- p1.z * pl->dir.z) / ((p2.x - p1.x) * pl->dir.x
+		+ ((p2.y - p1.y) * pl->dir.y + (p2.z - p1.z) * pl->dir.z));
+	if (t < 0)
+		return ;
+	hit->pos.x = p1.x + (p2.x - p1.x) * t;
+	hit->pos.y = p1.y + (p2.y - p1.y) * t;
+	hit->pos.z = p1.z + (p2.z - p1.z) * t;
+	hit->dst = sqrt(powf(hit->pos.x - p1.x, 2) + powf(hit->pos.y - p1.x, 2) + powf(hit->pos.z - p1.x, 2));
+	hit->rgb = pl->rgb;
 }
 
 // https://paulbourke.net/geometry/circlesphere/index.html#linesphere
@@ -53,7 +50,7 @@ void cal_sp_param(float *a, float *b, float *c, t_vec3d p1, t_vec3d p2, t_obj *s
 			* p1.x + sp->pos.z * p1.z) - pow(sp->diam / 2, 2);
 }
 
-void	ft_is_sp_1(t_vec3d p1, t_vec3d p2, t_obj *sp, t_hit *hit)
+void	in_sp_1(t_vec3d p1, t_vec3d p2, t_obj *sp, t_hit *hit)
 {
 	float	a;
 	float	b;
@@ -62,16 +59,16 @@ void	ft_is_sp_1(t_vec3d p1, t_vec3d p2, t_obj *sp, t_hit *hit)
 
 	cal_sp_param(&a, &b, &c, p1, p2, sp);
 	sq = pow(b, 2) - 4 * a * c;
-	if (sq < 0 || ((b - sqrt(sq)) / (2 * a) < 0) || (sq == 0 && a == 0))
+	if (sq < 0 || ((b - sqrt(sq)) / (2 * a) > 0) || (sq == 0 && a == 0))
 		return ;
-	hit->pos.z = p1.z - ((b - sqrt(sq)) / (2 * a)) * (p2.z - p1.z);
-	hit->pos.y = p1.y - ((b - sqrt(sq)) / (2 * a)) * (p2.y - p1.y);
-	hit->pos.x = p1.x - ((b - sqrt(sq)) / (2 * a)) * (p2.x - p1.x);
+	hit->pos.z = p1.z + ((b - sqrt(sq)) / (2 * a)) * (p2.z - p1.z);
+	hit->pos.y = p1.y + ((b - sqrt(sq)) / (2 * a)) * (p2.y - p1.y);
+	hit->pos.x = p1.x + ((b - sqrt(sq)) / (2 * a)) * (p2.x - p1.x);
 	hit->dst = sqrt(powf(hit->pos.x - p1.x, 2) + powf(hit->pos.y - p1.x, 2) + powf(hit->pos.z - p1.x, 2));
 	hit->rgb = sp->rgb;
 }
 
-void	ft_is_sp_2(t_vec3d p1, t_vec3d p2, t_obj *sp, t_hit *hit)
+void	in_sp_2(t_vec3d p1, t_vec3d p2, t_obj *sp, t_hit *hit)
 {
 	float	a;
 	float	b;
@@ -80,11 +77,11 @@ void	ft_is_sp_2(t_vec3d p1, t_vec3d p2, t_obj *sp, t_hit *hit)
 
 	cal_sp_param(&a, &b, &c, p1, p2, sp);
 	sq = pow(b, 2) - 4 * a * c;
-	if (sq < 0 || sq == 0 || (b + sqrt(sq)) / (2 * a) < 0)
+	if (sq < 0 || sq == 0 || (b + sqrt(sq)) / (2 * a) > 0)
 		return ;
-	hit->pos.z = p1.z - ((b + sqrt(sq)) / (2 * a)) * (p2.z - p1.z);
-	hit->pos.y = p1.y - ((b + sqrt(sq)) / (2 * a)) * (p2.y - p1.y);
-	hit->pos.x = p1.x - ((b + sqrt(sq)) / (2 * a)) * (p2.x - p1.x);
+	hit->pos.z = p1.z + ((b + sqrt(sq)) / (2 * a)) * (p2.z - p1.z);
+	hit->pos.y = p1.y + ((b + sqrt(sq)) / (2 * a)) * (p2.y - p1.y);
+	hit->pos.x = p1.x + ((b + sqrt(sq)) / (2 * a)) * (p2.x - p1.x);
 	hit->dst = sqrt(powf(hit->pos.x - p1.x, 2) + powf(hit->pos.y - p1.x, 2) + powf(hit->pos.z - p1.x, 2));
 	hit->rgb = sp->rgb;
 }

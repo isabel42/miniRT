@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 10:15:38 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/08 17:28:38 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/09 16:13:23 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,22 +159,22 @@ t_hit	sphere_hit(t_ray ray, t_quat center_q, float sphere_r)
 // 	return (sol);
 // }
 
-t_hit	sphere_hit2(t_ray ray, t_obj sphere)
-{
-	t_hit	hit;
-	t_vec3d	*sol;
+// t_hit	sphere_hit2(t_ray ray, t_obj sphere)
+// {
+// 	t_hit	hit;
+// 	t_vec3d	*sol;
 
-	hit.hit = false;
-	sol = ft_is_sp_1(ray.origin, ray.dir, &sphere);
-	if (!sol)
-		sol = ft_is_sp_2(ray.origin, ray.dir, &sphere);
-	if (!sol)
-	{
-		free(sol);
-		return (hit);
-	}
-	hit.pos = *sol;
-	hit.hit = true;
-	free(sol);
-	return (hit);
-}
+// 	hit.hit = false;
+// 	sol = ft_is_sp_1(ray.origin, ray.dir, &sphere);
+// 	if (!sol)
+// 		sol = ft_is_sp_2(ray.origin, ray.dir, &sphere);
+// 	if (!sol)
+// 	{
+// 		free(sol);
+// 		return (hit);
+// 	}
+// 	hit.pos = *sol;
+// 	hit.hit = true;
+// 	free(sol);
+// 	return (hit);
+// }
