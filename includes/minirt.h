@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 16:13:16 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/08 17:22:18 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/09 15:30:59 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,10 +150,9 @@ void	ft_scena_init(t_scenario **scena);
 
 
 
-t_vec3d *in_cy_1(t_vec3d p1, t_vec3d p2, t_obj *cy);
-t_vec3d	*ft_is_pl(t_vec3d p1, t_vec3d p2, t_obj *pl);
-t_vec3d	*ft_is_sp_1(t_vec3d p1, t_vec3d p2, t_obj *sp);
-t_vec3d	*ft_is_sp_2(t_vec3d p1, t_vec3d p2, t_obj *sp);
-t_vec3d *in_cy_1(t_vec3d p1, t_vec3d p2, t_obj *cy);
-t_vec3d *in_cy_2(t_vec3d p1, t_vec3d p2, t_obj *cy);
+void	in_pl(t_vec3d p1, t_vec3d p2, t_obj *pl, t_hit *hit);
+void	ft_is_sp_1(t_vec3d p1, t_vec3d p2, t_obj *sp, t_hit *hit);
+void	ft_is_sp_2(t_vec3d p1, t_vec3d p2, t_obj *sp, t_hit *hit);
+void 	in_cy_1(t_vec3d p1, t_vec3d p2, t_obj *cy, t_hit *hit);
+void	in_cy_2(t_vec3d p1, t_vec3d p2, t_obj *cy, t_hit *hit);
 #endif

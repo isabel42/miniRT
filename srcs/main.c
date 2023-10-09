@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 17:43:57 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/08 22:43:51 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/09 15:41:06 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,46 @@ void	ft_check_argc(int argc)
 		exit (0);
 	}
 }
+
+void	hit_redirect(t_vec3d *p1, t_vec3d *p2, t_obj *obj, t_hit *hit_loc)
+{
+	void	(*ptr_ft[1])(t_vec3d , t_vec3d , t_obj *, t_hit *);
+
+	ptr_ft[0] = &in_pl;
+	ptr_ft[obj->id - 1](*p1, *p2, obj, hit_loc);
+}
+
+void hit_init(t_hit *hit)
+{
+	hit->hit = 1;
+	hit->dst = -1;
+}
+
+void get_hit(t_scenario *sc, t_vec3d *p1, t_vec3d *p2, t_hit *hit)
+{
+	t_hit *hit_loc;
+	t_obj *obj;
+
+	hit_loc = malloc (sizeof(t_hit));
+	if(!hit_loc)
+		return ;
+	hit_init(hit_loc);
+	obj = sc->obj;
+	while(obj)
+	{
+		hit_redirect(p1, p2, obj, hit_loc);
+		if (hit_loc->dst > -1 && (hit->dst > hit_loc->dst || hit->dst < 0))
+		{
+			hit->dst = hit_loc->dst;
+			hit->pos = hit_loc->pos;
+			hit->normal = hit_loc->normal;
+			hit->rgb = hit_loc->rgb;
+		}
+		obj = obj->next;
+	}
+	free (hit_loc);
+}
+
 void check_ob(t_scenario *sc, t_data_img img)
 {
 	t_obj *test;
@@ -50,17 +90,22 @@ void check_ob(t_scenario *sc, t_data_img img)
 	t_vec3d p1;
 	t_vec3d p2;
 	int d;
-	t_vec3d *sol;
+	t_hit *hit;
 	
 	test = sc->obj;
 	i = 0;
 	while (test)
 	{
-		if (test->id == 2)
+		if (test->id == 1)
 			break ;
 		test = test->next;
 		i++;
 	}
+
+	hit = malloc (sizeof(t_hit));
+	if(!hit)
+		return ;
+	hit_init(hit);
 	p1.x = 0.0;
 	p1.y = 0.0;
 	p1.z = 0.0;
@@ -74,21 +119,29 @@ void check_ob(t_scenario *sc, t_data_img img)
 		while (j < HEIGHT)
 		{
 			p2.y = j - HEIGHT / 2;
-			sol = in_cy_1(p1, p2, test);
-			if (sol)
+			// get_hit(sc, &p1, &p2, hit);
+			in_pl(p1, p2, test, hit);
+			if (hit->dst > 0)
 			{
-				my_mlx_pixel_put(&img, i, HEIGHT - j, 0xFFFFFF);
+				my_mlx_pixel_put(&img, i, HEIGHT - j, hit->rgb.r * 256 * 256+ hit->rgb.g * 256 + hit->rgb.b);
 			}
-			sol = in_cy_2(p1, p2, test);
-			if (sol)
-			{
-				my_mlx_pixel_put(&img, i, HEIGHT - j, 0xFFFFFF);
-			}
+			// in_cy_2(p1, p2, test, hit);
+			// if (hit->dst > 0)
+			// {
+			// 	my_mlx_pixel_put(&img, i, HEIGHT - j, hit->rgb.r * 256 * 256+ hit->rgb.g * 256 + hit->rgb.b);
+			// }
 			j++;
 		}
 		i++;
 	}
 }
+
+// sp 0,0,960 50 255,0,0
+// pl 0,-300,0 0,1,0 255,0,225
+
+
+
+// cy 0.0,0.0,960.0 0.0,1.0,0.0 600 210.42 10,0,255
 
 int	main(int argc, char **argv)
 {

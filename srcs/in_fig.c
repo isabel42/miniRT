@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 16:04:31 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/08 22:42:39 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/09 15:30:59 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,29 @@
 
 // https://www.kristakingmath.com/blog/intersection-of-a-line-and-a-plane
 
-t_vec3d	*ft_is_pl(t_vec3d p1, t_vec3d p2, t_obj *pl)
+void	in_pl(t_vec3d p1, t_vec3d p2, t_obj *pl, t_hit *hit)
 {
-	t_vec3d	*sol;
 	float	pl_sing;
 	float	t;
 
-	sol = malloc (sizeof(t_vec3d));
-	if(!sol)
-		return (NULL);
 	pl_sing = pl->dir.x * pl->pos.x
 		+ pl->dir.y * pl->pos.y + pl->dir.z * pl->pos.z;
 	if ((p2.x - p1.x) * pl->dir.x + (p2.y - p1.y) * pl->dir.y + (p2.z - p1.z) * pl->dir.z == 0
 		&& pl->dir.x * p1.x + pl->dir.y * p1.y + pl->dir.z * p1.z != pl_sing)
-		return (NULL);
-	t = (pl_sing - p1.x * pl->dir.x - p1.y * pl->dir.y
-			- p1.z * pl->dir.z) / ((p2.x - p1.x) * pl->dir.x
-		+ ((p2.y - p1.y) * pl->dir.y + (p2.z - p1.z) * pl->dir.z));
-	sol->x = p1.x + (p2.x - p1.x) * t;
-	sol->y = p1.y + (p2.y - p1.y)  * t;
-	sol->z = p1.z + (p2.z - p1.z) * t;
-	return (sol);
+		hit->dst = -1;
+	else
+	{
+		t = (pl_sing - p1.x * pl->dir.x - p1.y * pl->dir.y
+				- p1.z * pl->dir.z) / ((p2.x - p1.x) * pl->dir.x
+			+ ((p2.y - p1.y) * pl->dir.y + (p2.z - p1.z) * pl->dir.z));
+		if (t < 0)
+			return ;
+		hit->pos.x = p1.x + (p2.x - p1.x) * t;
+		hit->pos.y = p1.y + (p2.y - p1.y) * t;
+		hit->pos.z = p1.z + (p2.z - p1.z) * t;
+		hit->dst = sqrt(powf(hit->pos.x - p1.x, 2) + powf(hit->pos.y - p1.x, 2) + powf(hit->pos.z - p1.x, 2));
+		hit->rgb = pl->rgb;
+	}
 }
 
 // https://paulbourke.net/geometry/circlesphere/index.html#linesphere
@@ -51,58 +53,40 @@ void cal_sp_param(float *a, float *b, float *c, t_vec3d p1, t_vec3d p2, t_obj *s
 			* p1.x + sp->pos.z * p1.z) - pow(sp->diam / 2, 2);
 }
 
-t_vec3d	*ft_is_sp_1(t_vec3d p1, t_vec3d p2, t_obj *sp)
+void	ft_is_sp_1(t_vec3d p1, t_vec3d p2, t_obj *sp, t_hit *hit)
 {
 	float	a;
 	float	b;
 	float	c;
 	float	sq;
-	t_vec3d	*sol;
 
 	cal_sp_param(&a, &b, &c, p1, p2, sp);
-	sol = malloc (sizeof(t_vec3d));
-	if(!sol)
-		return (NULL);
 	sq = pow(b, 2) - 4 * a * c;
-	if (sq < 0)
-		return (NULL);
-	if (sq == 0)
-	{
-		sol->x = p1.x - (b / (2 * a)) * (p2.x - p1.x);
-		sol->y = p1.y - (b / (2 * a)) * (p2.y - p1.y);
-		sol->z = p1.z - (b / (2 * a)) * (p2.z - p1.z);
-	}
-	else
-	{	sol->z = p1.z - ((b - sqrt(sq)) / (2 * a)) * (p2.z - p1.z);
-		sol->y = p1.y - ((b - sqrt(sq)) / (2 * a)) * (p2.y - p1.y);
-		sol->x = p1.x - ((b - sqrt(sq)) / (2 * a)) * (p2.x - p1.x);
-	}
-	return (sol);
+	if (sq < 0 || ((b - sqrt(sq)) / (2 * a) < 0) || (sq == 0 && a == 0))
+		return ;
+	hit->pos.z = p1.z - ((b - sqrt(sq)) / (2 * a)) * (p2.z - p1.z);
+	hit->pos.y = p1.y - ((b - sqrt(sq)) / (2 * a)) * (p2.y - p1.y);
+	hit->pos.x = p1.x - ((b - sqrt(sq)) / (2 * a)) * (p2.x - p1.x);
+	hit->dst = sqrt(powf(hit->pos.x - p1.x, 2) + powf(hit->pos.y - p1.x, 2) + powf(hit->pos.z - p1.x, 2));
+	hit->rgb = sp->rgb;
 }
 
-t_vec3d	*ft_is_sp_2(t_vec3d p1, t_vec3d p2, t_obj *sp)
+void	ft_is_sp_2(t_vec3d p1, t_vec3d p2, t_obj *sp, t_hit *hit)
 {
 	float	a;
 	float	b;
 	float	c;
 	float	sq;
-	t_vec3d	*sol;
 
 	cal_sp_param(&a, &b, &c, p1, p2, sp);
-	sol = malloc (sizeof(t_vec3d));
-	if(!sol)
-		return (NULL);
 	sq = pow(b, 2) - 4 * a * c;
-	if (sq < 0)
-		return (NULL);
-	if (sq == 0)
-		return (NULL);
-	else
-	{	sol->z = p1.z - ((b + sqrt(sq)) / (2 * a)) * (p2.z - p1.z);
-		sol->y = p1.y - ((b + sqrt(sq)) / (2 * a)) * (p2.y - p1.y);
-		sol->x = p1.x - ((b + sqrt(sq)) / (2 * a)) * (p2.x - p1.x);
-	}
-	return (sol);
+	if (sq < 0 || sq == 0 || (b + sqrt(sq)) / (2 * a) < 0)
+		return ;
+	hit->pos.z = p1.z - ((b + sqrt(sq)) / (2 * a)) * (p2.z - p1.z);
+	hit->pos.y = p1.y - ((b + sqrt(sq)) / (2 * a)) * (p2.y - p1.y);
+	hit->pos.x = p1.x - ((b + sqrt(sq)) / (2 * a)) * (p2.x - p1.x);
+	hit->dst = sqrt(powf(hit->pos.x - p1.x, 2) + powf(hit->pos.y - p1.x, 2) + powf(hit->pos.z - p1.x, 2));
+	hit->rgb = sp->rgb;
 }
 
 // https://www.youtube.com/watch?v=IKQCtqvGTJM
@@ -161,66 +145,46 @@ void cal_cy_param_c(float *c, t_vec3d p1, t_vec3d p2, t_obj *cy)
 	
 }
 
-t_vec3d *in_cy_1(t_vec3d p1, t_vec3d p2, t_obj *cy)
+void in_cy_1(t_vec3d p1, t_vec3d p2, t_obj *cy, t_hit *hit)
 { 
 	float	a;
 	float	b;
 	float	c;
 	float	sq;
-	t_vec3d	*sol;
 
 	cal_cy_param_a(&a, p1, p2, cy);
 	cal_cy_param_b(&b, p1, p2, cy);
 	cal_cy_param_c(&c, p1, p2, cy);
-	sol = malloc (sizeof(t_vec3d));
-	if(!sol)
-		return (NULL);
 	sq = powf(b, 2) - (4 * a * c);
-	if (sq < 0 || (sq == 0 && a == 0))
-		return (NULL);
-	if (sq == 0)
-	{
-		sol->x = p1.x + (-b / (2 * a)) * p2.x;
-		sol->y = p1.y + (-b / (2 * a)) * p2.y;
-		sol->z = p1.z + (-b / (2 * a)) * p2.z;
-	}
-	else
-	{
-		sol->x = p1.x + ((-b - sqrt(powf(b, 2) - (4 * a * c))) / (2 * a)) * p2.x;
-		sol->y = p1.y + ((-b - sqrt(powf(b, 2) - (4 * a * c))) / (2 * a)) * p2.y;
-		sol->z = p1.z + ((-b - sqrt(powf(b, 2) - (4 * a * c))) / (2 * a)) * p2.z;
-	}
-	if (powf(sol->x - cy->pos.x, 2) + powf(sol->y - cy->pos.y, 2) + powf(sol->z - cy->pos.z, 2) - powf(cy->diam / 2, 2) > cy->high / 2)
-		return (NULL);
-	return (sol);
+	if (sq < 0 || (sq == 0 && a == 0) || ((-b - sqrt(sq)) / (2 * a) < 0))
+		return ;
+	hit->pos.x = p1.x + ((-b - sqrt(sq)) / (2 * a)) * p2.x;
+	hit->pos.y = p1.y + ((-b - sqrt(sq)) / (2 * a)) * p2.y;
+	hit->pos.z = p1.z + ((-b - sqrt(sq)) / (2 * a)) * p2.z;
+	if (powf(hit->pos.x - cy->pos.x, 2) + powf(hit->pos.y - cy->pos.y, 2) + powf(hit->pos.z - cy->pos.z, 2) - powf(cy->diam / 2, 2) > cy->high / 2)
+		return ;
+	hit->dst = sqrt(powf(hit->pos.x - p1.x, 2) + powf(hit->pos.y - p1.x, 2) + powf(hit->pos.z - p1.x, 2));
+	hit->rgb = cy->rgb;
 }
 
-t_vec3d *in_cy_2(t_vec3d p1, t_vec3d p2, t_obj *cy)
-{ 
+void in_cy_2(t_vec3d p1, t_vec3d p2, t_obj *cy, t_hit *hit)
+{
 	float	a;
 	float	b;
 	float	c;
 	float	sq;
-	t_vec3d	*sol;
 
 	cal_cy_param_a(&a, p1, p2, cy);
 	cal_cy_param_b(&b, p1, p2, cy);
 	cal_cy_param_c(&c, p1, p2, cy);
-	sol = malloc (sizeof(t_vec3d));
-	if(!sol)
-		return (NULL);
 	sq = pow(b, 2) - 4 * a * c;
-	if (sq < 0 || (sq == 0 && a == 0))
-		return (NULL);
-	if (sq == 0)
-		return (NULL);
-	else
-	{
-		sol->x = p1.x + ((-b + sqrt(pow(b, 2) - 4 * a * c)) / (2 * a)) * p2.x;
-		sol->y = p1.y + ((-b + sqrt(pow(b, 2) - 4 * a * c)) / (2 * a)) * p2.y;
-		sol->z = p1.z + ((-b + sqrt(pow(b, 2) - 4 * a * c)) / (2 * a)) * p2.z;
-	}
-	if (powf(sol->x - cy->pos.x, 2) + powf(sol->y - cy->pos.y, 2) + powf(sol->z - cy->pos.z, 2) - powf(cy->diam / 2, 2) > cy->high / 2)
-		return (NULL);
-	return (sol);
+	if (sq < 0 || (sq == 0 && a == 0) || sq == 0 || ((-b + sqrt(sq)) / (2 * a) < 0))
+		return ;
+	hit->pos.x = p1.x + ((-b + sqrt(sq)) / (2 * a)) * p2.x;
+	hit->pos.y = p1.y + ((-b + sqrt(sq)) / (2 * a)) * p2.y;
+	hit->pos.z = p1.z + ((-b + sqrt(sq)) / (2 * a)) * p2.z;
+	if (powf(hit->pos.x - cy->pos.x, 2) + powf(hit->pos.y - cy->pos.y, 2) + powf(hit->pos.z - cy->pos.z, 2) - powf(cy->diam / 2, 2) > cy->high / 2)
+		return ;
+	hit->dst = sqrt(powf(hit->pos.x - p1.x, 2) + powf(hit->pos.y - p1.x, 2) + powf(hit->pos.z - p1.x, 2));
+	hit->rgb = cy->rgb;
 }
