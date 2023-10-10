@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 17:43:57 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/09 17:40:11 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/09 23:34:02 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,12 @@ void	ft_check_argc(int argc)
 
 void	hit_redirect(t_vec3d *p1, t_vec3d *p2, t_obj *obj, t_hit *hit_loc)
 {
-	void	(*ptr_ft[5])(t_vec3d , t_vec3d , t_obj *, t_hit *);
+	void	(*ptr_ft[4])(t_vec3d , t_vec3d , t_obj *, t_hit *);
 
-	ptr_ft[0] = &in_sp_1;
+	ptr_ft[0] = &in_sp;
 	ptr_ft[1] = &in_pl;
-	ptr_ft[2] = &in_cy_1;
-	ptr_ft[3] = &in_sp_2;
-	ptr_ft[4] = &in_cy_2;
+	ptr_ft[2] = &in_cy;
 	ptr_ft[obj->id](*p1, *p2, obj, hit_loc);
-	if (obj->id == 0)
-		ptr_ft[3](*p1, *p2, obj, hit_loc);
-	if (obj->id == 2)
-		ptr_ft[4](*p1, *p2, obj, hit_loc);
 }
 
 t_hit *hit_init(t_hit *hit)
