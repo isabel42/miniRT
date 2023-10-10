@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 16:04:31 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/09 23:52:59 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/10 15:27:25 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ void	cal_sp_param(t_vec3d *abc, t_vec3d p1, t_vec3d p2, t_obj *sp)
 			+ ray.z * (p1.z - sp->pos.z));
 	(*abc).z = pow(sp->pos.x, 2) + pow(sp->pos.y, 2) + pow(sp->pos.z, 2)
 		+ pow(p1.x, 2) + pow(p1.y, 2) + pow(p1.z, 2)
-		- 2 * (sp->pos.x + p1.x + sp->pos.y
-			* p1.x + sp->pos.z * p1.z) - pow(sp->diam / 2, 2);
+		- 2 * (sp->pos.x * p1.x + sp->pos.y * p1.x
+			+ sp->pos.z * p1.z) - pow(sp->diam / 2, 2);
 }
 
 void	in_sp(t_vec3d p1, t_vec3d p2, t_obj *sp, t_hit *hit)
@@ -62,7 +62,7 @@ void	in_sp(t_vec3d p1, t_vec3d p2, t_obj *sp, t_hit *hit)
 	float	sq;
 
 	cal_sp_param(&abc, p1, p2, sp);
-	sq = pow(abc.y, 2) - 4 * abc.x * abc.z;
+	sq = powf(abc.y, 2) - 4 * abc.x * abc.z;
 	if (sq < 0 || (sq == 0 && abc.x == 0))
 		return ;
 	if (((-abc.y - sqrt(sq)) / (2 * abc.x) >= 0))
@@ -72,7 +72,7 @@ void	in_sp(t_vec3d p1, t_vec3d p2, t_obj *sp, t_hit *hit)
 		hit->pos.x = p1.x + ((-abc.y - sqrt(sq)) / (2 * abc.x)) * (p2.x - p1.x);
 		hit->dst = ft_mod(ft_v_sub(hit->pos, p1));
 	}
-	if ((-abc.y + sqrt(sq)) / (2 * abc.x) >= 0)
+	if ((-abc.y + sqrt(sq)) / (2 * abc.x) > 0)
 	{
 		sol2.z = p1.z + ((-abc.y + sqrt(sq)) / (2 * abc.x)) * (p2.z - p1.z);
 		sol2.y = p1.y + ((-abc.y + sqrt(sq)) / (2 * abc.x)) * (p2.y - p1.y);

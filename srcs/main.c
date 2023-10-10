@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 17:43:57 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/09 23:34:02 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/10 15:41:44 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,66 +66,69 @@ t_hit *hit_init(t_hit *hit)
 
 void get_hit(t_scenario *sc, t_vec3d *p1, t_vec3d *p2, t_hit *hit)
 {
-	t_hit *hit_loc;
+	t_hit hit_loc;
 	t_obj *obj;
 
-	hit_loc = NULL;
-	hit_loc = hit_init(hit_loc);
+	hit->dst = -1;
+	hit_loc.dst = -1;
 	obj = sc->obj;
-	while(obj)
+	while (obj)
 	{
-		hit_redirect(p1, p2, obj, hit_loc);
-		if (hit_loc->dst > -1.0 && (hit->dst > hit_loc->dst || hit->dst < 0))
+		hit_redirect(p1, p2, obj, &hit_loc);
+		if (hit_loc.dst > -1.0 && (hit->dst > hit_loc.dst || hit->dst < 0))
 		{
-			hit->dst = hit_loc->dst;
-			hit->pos = hit_loc->pos;
-			hit->normal = hit_loc->normal;
-			hit->rgb = hit_loc->rgb;
+			hit->dst = hit_loc.dst;
+			hit->pos = hit_loc.pos;
+			hit->normal = hit_loc.normal;
+			hit->rgb = hit_loc.rgb;
 		}
 		obj = obj->next;
 	}
-	free (hit_loc);
 }
+
+// t_vec3d    new_point(t_quat q)
+// {
+//     t_vec3d    res;
+
+//     res.x = q.x;
+//     res.y = q.y;
+//     res.z = q.z;
+//     return (res);
+// }
 
 void check_ob(t_scenario *sc, t_data_img img)
 {
-	t_obj *test;
 	int i;
 	int j;
 	t_vec3d p1;
 	t_vec3d p2;
 	int d;
-	t_hit *hit;
+	t_hit hit;
+	t_quat    pq2;
 	
-	test = sc->obj;
-	i = 0;
-	while (test)
-	{
-		if (test->id == 0)
-			break ;
-		test = test->next;
-		i++;
-	}
-	p1.x = 0.0;
-	p1.y = 0.0;
-	p1.z = 0.0;
+	p1 = sc->cam->pos;
 	d = WIDTH / 2;	
-	i =  0;
-	hit = NULL;
+	i = 0;
 	while (i <= WIDTH)
 	{
-		p2.x = i - WIDTH / 2;
-		p2.z = d;
 		j = 0;
 		while (j <= HEIGHT)
 		{
-			p2.y = j - HEIGHT / 2;
-			hit = hit_init(hit);
-			// in_sp_1(p1, p2, test, hit);
-			get_hit(sc, &p1, &p2, hit);	
-			if (hit->dst > 0)
-				my_mlx_pixel_put(&img, i, HEIGHT - j, hit->rgb.r * 256 * 256+ hit->rgb.g * 256 + hit->rgb.b);
-			free(hit);
+			p2.y = sc->cam->pos.y + j - HEIGHT / 2;
+			p2.x = sc->cam->pos.x + i - WIDTH / 2;
+			p2.z = sc->cam->pos.z + d;
+
+			pq2 = quat_create(0, p2.x, p2.y, p2.z);
+            pq2 = quat_multiply(
+                quat_multiply((sc->cam->dir), pq2),
+                quat_conjugate((sc->cam->dir)));
+            p2 = new_point(pq2);
+
+			get_hit(sc, &p1, &p2, &hit);	
+			if (hit.dst > 0)
+			{
+				my_mlx_pixel_put(&img, i, HEIGHT - j, rgb_to_int(hit.rgb));
+			}
 
 			j++;
 		}
