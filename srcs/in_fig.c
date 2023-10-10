@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 16:04:31 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/10 15:27:25 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/10 17:03:23 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	in_pl(t_vec3d p1, t_vec3d p2, t_obj *pl, t_hit *hit)
 	hit->pos.y = p1.y + ray.y * t;
 	hit->pos.z = p1.z + ray.z * t;
 	hit->dst = ft_mod(ft_v_sub(hit->pos, p1));
+	hit->nomal = pl->dir;
 	hit->rgb = pl->rgb;
 }
 
@@ -71,6 +72,7 @@ void	in_sp(t_vec3d p1, t_vec3d p2, t_obj *sp, t_hit *hit)
 		hit->pos.y = p1.y + ((-abc.y - sqrt(sq)) / (2 * abc.x)) * (p2.y - p1.y);
 		hit->pos.x = p1.x + ((-abc.y - sqrt(sq)) / (2 * abc.x)) * (p2.x - p1.x);
 		hit->dst = ft_mod(ft_v_sub(hit->pos, p1));
+		hit->normal = ft_v_sub(hit->pos, sp->pos);
 	}
 	if ((-abc.y + sqrt(sq)) / (2 * abc.x) > 0)
 	{
@@ -83,6 +85,7 @@ void	in_sp(t_vec3d p1, t_vec3d p2, t_obj *sp, t_hit *hit)
 			hit->pos.y = p1.y + ((-abc.y + sqrt(sq)) / (2 * abc.x)) * (p2.y - p1.y);
 			hit->pos.x = p1.x + ((-abc.y + sqrt(sq)) / (2 * abc.x)) * (p2.x - p1.x);
 			hit->dst = ft_mod(ft_v_sub(sol2, p1));
+			hit->normal = ft_v_sub(hit->pos, sp->pos);
 		}
 	}
 	hit->rgb = sp->rgb;
@@ -174,6 +177,7 @@ void	in_cy(t_vec3d p1, t_vec3d p2, t_obj *cy, t_hit *hit)
 		if (powf(ft_mod(ft_v_sub(hit->pos, cy->pos)), 2) - powf(cy->diam / 2, 2)
 			<= cy->high / 2)
 			hit->dst = ft_mod(ft_v_sub(hit->pos, p1));
+		hit->normal = ft_v_sub(hit->pos, cy->pos);
 	}
 	t = (-abc.y + sqrt(sq)) / (2 * abc.x);
 	if (t >= 0)
@@ -189,7 +193,9 @@ void	in_cy(t_vec3d p1, t_vec3d p2, t_obj *cy, t_hit *hit)
 			hit->pos.y = p1.y + t * (p2.y - p1.y);
 			hit->pos.x = p1.x + t * (p2.x - p1.x);
 			hit->dst = ft_mod(ft_v_sub(sol2, p1));
+			hit->normal = ft_v_sub(hit->pos, cy->pos);
 		}
 	}
+	
 	hit->rgb = cy->rgb;
 }

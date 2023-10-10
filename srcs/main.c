@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 17:43:57 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/10 15:41:44 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/10 17:03:23 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,15 +86,6 @@ void get_hit(t_scenario *sc, t_vec3d *p1, t_vec3d *p2, t_hit *hit)
 	}
 }
 
-// t_vec3d    new_point(t_quat q)
-// {
-//     t_vec3d    res;
-
-//     res.x = q.x;
-//     res.y = q.y;
-//     res.z = q.z;
-//     return (res);
-// }
 
 void check_ob(t_scenario *sc, t_data_img img)
 {
