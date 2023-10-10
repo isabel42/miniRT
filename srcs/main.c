@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 17:43:57 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/10 17:03:23 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/10 23:17:02 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,27 +44,18 @@ void	ft_check_argc(int argc)
 }
 
 
-void	hit_redirect(t_vec3d *p1, t_vec3d *p2, t_obj *obj, t_hit *hit_loc)
+void	hit_redirect(t_ray ray, t_obj *obj, t_hit *hit_loc)
 {
-	void	(*ptr_ft[4])(t_vec3d , t_vec3d , t_obj *, t_hit *);
+	void	(*ptr_ft[4])(t_ray, t_obj *, t_hit *);
 
 	ptr_ft[0] = &in_sp;
 	ptr_ft[1] = &in_pl;
 	ptr_ft[2] = &in_cy;
-	ptr_ft[obj->id](*p1, *p2, obj, hit_loc);
+	ptr_ft[obj->id](ray, obj, hit_loc);
 }
 
-t_hit *hit_init(t_hit *hit)
-{
-	hit = malloc (sizeof(t_hit));
-	if(!hit)
-		return (NULL);
-	hit->hit = 1;
-	hit->dst = -1;
-	return (hit);
-}
 
-void get_hit(t_scenario *sc, t_vec3d *p1, t_vec3d *p2, t_hit *hit)
+void get_hit(t_scenario *sc, t_ray ray, t_hit *hit)
 {
 	t_hit hit_loc;
 	t_obj *obj;
@@ -74,7 +65,7 @@ void get_hit(t_scenario *sc, t_vec3d *p1, t_vec3d *p2, t_hit *hit)
 	obj = sc->obj;
 	while (obj)
 	{
-		hit_redirect(p1, p2, obj, &hit_loc);
+		hit_redirect(ray, obj, &hit_loc);
 		if (hit_loc.dst > -1.0 && (hit->dst > hit_loc.dst || hit->dst < 0))
 		{
 			hit->dst = hit_loc.dst;
@@ -96,6 +87,7 @@ void check_ob(t_scenario *sc, t_data_img img)
 	int d;
 	t_hit hit;
 	t_quat    pq2;
+	t_ray	ray;
 	
 	p1 = sc->cam->pos;
 	d = WIDTH / 2;	
@@ -114,8 +106,9 @@ void check_ob(t_scenario *sc, t_data_img img)
                 quat_multiply((sc->cam->dir), pq2),
                 quat_conjugate((sc->cam->dir)));
             p2 = new_point(pq2);
-
-			get_hit(sc, &p1, &p2, &hit);	
+			ray.dir = ft_v_sub(p2, p1);
+			ray.origin = p1;
+			get_hit(sc, ray, &hit);	
 			if (hit.dst > 0)
 			{
 				my_mlx_pixel_put(&img, i, HEIGHT - j, rgb_to_int(hit.rgb));

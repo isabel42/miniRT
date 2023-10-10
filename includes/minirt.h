@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 16:13:16 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/10 15:40:27 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/10 23:10:32 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,9 +150,9 @@ void	ft_scena_init(t_scenario **scena);
 
 
 
-void	in_pl(t_vec3d p1, t_vec3d p2, t_obj *pl, t_hit *hit);
-void	in_sp(t_vec3d p1, t_vec3d p2, t_obj *sp, t_hit *hit);
-void 	in_cy(t_vec3d p1, t_vec3d p2, t_obj *cy, t_hit *hit);
+void	in_pl(t_ray ray, t_obj *pl, t_hit *hit);
+void	in_sp(t_ray ray, t_obj *sp, t_hit *hit);
+void 	in_cy(t_ray ray, t_obj *cy, t_hit *hit);
 
 t_vec3d    new_point(t_quat q);
 #endif
