@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 11:27:11 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/09 12:23:24 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/11 18:56:26 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ typedef struct s_hit
 	struct s_vec3d	pos;
 	struct s_vec3d	normal;
 	struct s_rgb	rgb;
+	int				id;
 }				t_hit;
 
 typedef struct s_ray

@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 17:43:57 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/11 17:22:19 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/11 19:13:11 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ void get_hit(t_scenario *sc, t_ray ray, t_hit *hit)
 			hit->pos = hit_loc.pos;
 			hit->normal = hit_loc.normal;
 			hit->rgb = hit_loc.rgb;
+			hit->id = hit_loc.id;
+			hit->hit = true;
 		}
 		obj = obj->next;
 	}
@@ -85,16 +87,21 @@ void check_ob(t_scenario *sc, t_data_img img)
 	t_vec3d p1;
 	t_vec3d p2;
 	int d;
-	t_hit hit;
+	t_hit *hit;
 	t_quat    pq2;
 	t_ray	ray;
+	t_ray	ray_lux;
+	t_hit	hit_lux;
+	t_obj	*sp = sc->obj;
 	
 	p1 = sc->cam->pos;
+	printf("lum.x: %f\t", sc->spot_lux->pos.x);
+	printf("lum.y: %f\t", sc->spot_lux->pos.y);
+	printf("lum.z: %f\t", sc->spot_lux->pos.z);
 	if (sc->cam->fov == 180)
 		d = 0;
 	else
 		d = tan(ft_deg_to_rad(sc->cam->fov/2)) * WIDTH / 2;	
-	printf("d = %f\n",tan(ft_deg_to_rad(sc->cam->fov/2)));	
 	i = 0;
 	while (i <= WIDTH)
 	{
@@ -112,12 +119,32 @@ void check_ob(t_scenario *sc, t_data_img img)
             p2 = new_point(pq2);
 			ray.dir = ft_v_sub(p2, p1);
 			ray.origin = p1;
-			get_hit(sc, ray, &hit);	
-			if (hit.dst > 0)
+			hit = malloc (sizeof (t_hit));
+			get_hit(sc, ray, hit);	
+			if (hit->hit == true)
 			{
-				my_mlx_pixel_put(&img, i, HEIGHT - j, rgb_to_int(hit.rgb));
+				ray_lux.origin = hit->pos;
+				ray_lux.dir = ft_v_sub(sc->spot_lux->pos, hit->pos);
+				hit_lux.hit = false;
+				if (hit->id == 1)
+				{
+					// printf("hit.pos.x: %f\t", hit.pos.x);
+					// printf("hit.pos.y: %f\t", hit.pos.y);
+					// printf("hit.pos.z: %f\n", hit.pos.z);
+					in_sp(ray_lux, sp, &hit_lux);
+					if(hit_lux.hit == false)
+					{
+						my_mlx_pixel_put(&img, i, HEIGHT - j, I_WHITE);
+					}
+					else
+					{
+						my_mlx_pixel_put(&img, i, HEIGHT - j, I_RED);
+					}
+				}
+				else
+					my_mlx_pixel_put(&img, i, HEIGHT - j, I_GREEN);
+				// my_mlx_pixel_put(&img, i, HEIGHT - j, rgb_to_int(hit.rgb));		
 			}
-
 			j++;
 		}
 		i++;

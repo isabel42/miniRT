@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 16:04:31 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/11 16:50:47 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/11 19:00:23 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	in_pl(t_ray ray, t_obj *pl, t_hit *hit)
 		hit->normal = pl->dir;
 		hit->rgb = pl->rgb;
 		hit->hit = true;
+		hit->id = 1;
 	}
 }
 
@@ -73,6 +74,7 @@ void	in_sp_all(t_ray ray, t_obj *sp, t_hit *hit, float t)
 			hit->normal = ft_v_sub(hit->pos, sp->pos);
 			hit->rgb = sp->rgb;
 			hit->hit = true;
+			hit->id = 0;
 		}
 	}
 }
@@ -172,6 +174,7 @@ void	in_cy_body(t_ray ray, t_obj *cy, t_hit *hit, float t)
 			hit->normal = ft_v_sub(hit->pos, cy->pos);
 			hit->rgb = cy->rgb;
 			hit->hit = true;
+			hit->id = 2;
 		}
 	}
 }
@@ -194,6 +197,7 @@ void	in_cy_caps(t_ray ray, t_obj *cy, t_hit *hit, float t)
 		hit->normal = cy->dir;
 		hit->rgb = cy->rgb;
 		hit->hit = true;
+		hit->id = 2;
 	}
 }
 
