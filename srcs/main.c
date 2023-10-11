@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 17:43:57 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/11 13:57:21 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/11 17:38:43 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void check_ob(t_scenario *sc, t_data_img img)
 	t_vec3d p2;
 	int d;
 	t_hit hit;
+	t_rgb new_col;
 	t_quat    pq2;
 	
 	p1 = sc->cam->pos;
@@ -120,7 +121,9 @@ void check_ob(t_scenario *sc, t_data_img img)
 			if (hit.dst > 0)
 			{
 				// my_mlx_pixel_put(&img, i, HEIGHT - j, rgb_to_int(hit.rgb));
-				my_mlx_pixel_put(&img, i, HEIGHT - j, rgb_to_int(shadow_ray_rgb(hit.pos, sc->spot_lux->pos, sc, hit)));
+				new_col = shadow_ray_rgb(hit.pos, sc->spot_lux->pos, sc, hit);
+				my_mlx_pixel_put(&img, i, HEIGHT - j, rgb_to_int(new_col));
+				// my_mlx_pixel_put(&img, i, HEIGHT - j, rgb_to_int(shadow_ray_rgb(hit.pos, sc->spot_lux->pos, sc, hit)));
 			}
 
 			j++;
