@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 17:18:44 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/11 17:33:42 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/11 18:05:40 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_rgb	shadow_ray_rgb(t_vec3d p1, t_vec3d p2, t_scenario *scena, t_hit object_hit
 	hit.dst = -1.0000;
 	get_hit(scena, &p1, &p2, &hit);
 	(void) object_hit;
-	// // printf("hit.dst: %f\n", hit.dst);
+	// printf("hit.dst: %f\n", hit.dst);
 	if (hit.dst < 0.000)
 	{
 		return((t_rgb){0, 0, 255});
