@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 16:13:16 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/10 15:40:27 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/10 18:03:29 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,5 +154,8 @@ void	in_pl(t_vec3d p1, t_vec3d p2, t_obj *pl, t_hit *hit);
 void	in_sp(t_vec3d p1, t_vec3d p2, t_obj *sp, t_hit *hit);
 void 	in_cy(t_vec3d p1, t_vec3d p2, t_obj *cy, t_hit *hit);
 
-t_vec3d    new_point(t_quat q);
+t_vec3d	new_point(t_quat q);
+void	get_hit(t_scenario *sc, t_vec3d *p1, t_vec3d *p2, t_hit *hit);
+t_rgb	shadow_ray_rgb(t_vec3d p1, t_vec3d p2, t_scenario *scena, t_hit object_hit);
+
 #endif

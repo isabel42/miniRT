@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 17:43:57 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/10 17:03:23 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/11 13:57:21 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_hit *hit_init(t_hit *hit)
 	hit = malloc (sizeof(t_hit));
 	if(!hit)
 		return (NULL);
-	hit->hit = 1;
+	hit->hit = false;
 	hit->dst = -1;
 	return (hit);
 }
@@ -77,6 +77,7 @@ void get_hit(t_scenario *sc, t_vec3d *p1, t_vec3d *p2, t_hit *hit)
 		hit_redirect(p1, p2, obj, &hit_loc);
 		if (hit_loc.dst > -1.0 && (hit->dst > hit_loc.dst || hit->dst < 0))
 		{
+			hit->hit = true;
 			hit->dst = hit_loc.dst;
 			hit->pos = hit_loc.pos;
 			hit->normal = hit_loc.normal;
@@ -118,7 +119,8 @@ void check_ob(t_scenario *sc, t_data_img img)
 			get_hit(sc, &p1, &p2, &hit);	
 			if (hit.dst > 0)
 			{
-				my_mlx_pixel_put(&img, i, HEIGHT - j, rgb_to_int(hit.rgb));
+				// my_mlx_pixel_put(&img, i, HEIGHT - j, rgb_to_int(hit.rgb));
+				my_mlx_pixel_put(&img, i, HEIGHT - j, rgb_to_int(shadow_ray_rgb(hit.pos, sc->spot_lux->pos, sc, hit)));
 			}
 
 			j++;

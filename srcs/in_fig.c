@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   in_fig.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 16:04:31 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/10 17:03:23 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/10 18:10:12 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	in_pl(t_vec3d p1, t_vec3d p2, t_obj *pl, t_hit *hit)
 	hit->pos.y = p1.y + ray.y * t;
 	hit->pos.z = p1.z + ray.z * t;
 	hit->dst = ft_mod(ft_v_sub(hit->pos, p1));
-	hit->nomal = pl->dir;
+	hit->normal = pl->dir;
 	hit->rgb = pl->rgb;
 }
 
