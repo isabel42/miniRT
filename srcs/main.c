@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 17:43:57 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/11 19:13:11 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/11 23:13:44 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,12 @@ void get_hit(t_scenario *sc, t_ray ray, t_hit *hit)
 	hit->dst = -1;
 	hit_loc.dst = -1;
 	obj = sc->obj;
+	hit_loc.hit = false;
+	hit->hit = false;
 	while (obj)
 	{
 		hit_redirect(ray, obj, &hit_loc);
-		if (hit_loc.dst > -1.0 && (hit->dst > hit_loc.dst || hit->dst < 0))
+		if (hit_loc.hit == true && (hit->dst > hit_loc.dst || hit->hit == false))
 		{
 			hit->dst = hit_loc.dst;
 			hit->pos = hit_loc.pos;
@@ -87,7 +89,7 @@ void check_ob(t_scenario *sc, t_data_img img)
 	t_vec3d p1;
 	t_vec3d p2;
 	int d;
-	t_hit *hit;
+	t_hit 	hit;
 	t_quat    pq2;
 	t_ray	ray;
 	t_ray	ray_lux;
@@ -119,27 +121,19 @@ void check_ob(t_scenario *sc, t_data_img img)
             p2 = new_point(pq2);
 			ray.dir = ft_v_sub(p2, p1);
 			ray.origin = p1;
-			hit = malloc (sizeof (t_hit));
-			get_hit(sc, ray, hit);	
-			if (hit->hit == true)
+			get_hit(sc, ray, &hit);	
+			if (hit.hit == true)
 			{
-				ray_lux.origin = hit->pos;
-				ray_lux.dir = ft_v_sub(sc->spot_lux->pos, hit->pos);
+				ray_lux.origin = hit.pos;
+				ray_lux.dir = ft_v_sub(sc->spot_lux->pos, hit.pos);
 				hit_lux.hit = false;
-				if (hit->id == 1)
+				if (hit.id == 1)
 				{
-					// printf("hit.pos.x: %f\t", hit.pos.x);
-					// printf("hit.pos.y: %f\t", hit.pos.y);
-					// printf("hit.pos.z: %f\n", hit.pos.z);
 					in_sp(ray_lux, sp, &hit_lux);
 					if(hit_lux.hit == false)
-					{
 						my_mlx_pixel_put(&img, i, HEIGHT - j, I_WHITE);
-					}
 					else
-					{
 						my_mlx_pixel_put(&img, i, HEIGHT - j, I_RED);
-					}
 				}
 				else
 					my_mlx_pixel_put(&img, i, HEIGHT - j, I_GREEN);
@@ -177,8 +171,8 @@ int	main(int argc, char **argv)
 	// mlx_hook(scena->mlx->win, 5, 1L << 3, mouse_released, scena);
 	// mlx_loop(scena->mlx->ptr);
 	mlx_put_image_to_window(vars.ptr, vars.win, img.img, 0, 0);
-	mlx_hook(vars.win, 17, 0, close_w, &vars);
-	mlx_hook(vars.win, 2, 0, close_w, &vars);
+	// mlx_hook(vars.win, 17, 0, close_w, &vars);
+	// mlx_hook(vars.win, 2, 0, close_w, &vars);
 	mlx_loop(vars.ptr);
 	free(img.img);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 16:04:31 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/11 19:00:23 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/11 22:51:37 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	cal_sp_param(t_vec3d *abc, t_ray ray, t_obj *sp)
 			+ ray.dir.z * (ray.origin.z - sp->pos.z));
 	(*abc).z = pow(sp->pos.x, 2) + pow(sp->pos.y, 2) + pow(sp->pos.z, 2)
 		+ pow(ray.origin.x, 2) + pow(ray.origin.y, 2) + pow(ray.origin.z, 2)
-		- 2 * (sp->pos.x * ray.origin.x + sp->pos.y * ray.origin.x
+		- 2 * (sp->pos.x * ray.origin.x + sp->pos.y * ray.origin.y
 			+ sp->pos.z * ray.origin.z) - pow(sp->diam / 2, 2);
 }
 
