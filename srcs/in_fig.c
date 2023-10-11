@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 16:04:31 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/10 23:32:34 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/11 12:19:30 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,14 @@ void	in_pl(t_ray ray, t_obj *pl, t_hit *hit)
 	t = (pl_sing - ray.origin.x * pl->dir.x - ray.origin.y * pl->dir.y
 			- ray.origin.z * pl->dir.z) / (ray.dir.x * pl->dir.x
 			+ (ray.dir.y * pl->dir.y + ray.dir.z * pl->dir.z));
-	if (t <= 0)
-		return ;
-	hit->pos.x = ray.origin.x + ray.dir.x * t;
-	hit->pos.y = ray.origin.y + ray.dir.y * t;
-	hit->pos.z = ray.origin.z + ray.dir.z * t;
-	hit->dst = ft_mod(ft_v_sub(hit->pos, ray.origin));
-	hit->normal = pl->dir;
+	if (t > 0)
+	{
+		hit->pos.x = ray.origin.x + ray.dir.x * t;
+		hit->pos.y = ray.origin.y + ray.dir.y * t;
+		hit->pos.z = ray.origin.z + ray.dir.z * t;
+		hit->dst = ft_mod(ft_v_sub(hit->pos, ray.origin));
+		hit->normal = pl->dir;
+	}
 	hit->rgb = pl->rgb;
 }
 
@@ -51,38 +52,37 @@ void	cal_sp_param(t_vec3d *abc, t_ray ray, t_obj *sp)
 			+ sp->pos.z * ray.origin.z) - pow(sp->diam / 2, 2);
 }
 
+void	in_sp_pos(t_ray ray, t_obj *sp, t_hit *hit, float t)
+{
+	t_vec3d	sol2;
+
+	if (t > 0)
+	{
+		sol2.z = ray.origin.z + t * ray.dir.z;
+		sol2.y = ray.origin.y + t * ray.dir.y;
+		sol2.x = ray.origin.x + t * ray.dir.x;
+		if (hit->dst > ft_mod(ft_v_sub(sol2, ray.origin)) || hit->dst < 0)
+		{
+			hit->pos.z = ray.origin.z + t * ray.dir.z;
+			hit->pos.y = ray.origin.y + t * ray.dir.y;
+			hit->pos.x = ray.origin.x + t * ray.dir.x;
+			hit->dst = ft_mod(ft_v_sub(sol2, ray.origin));
+			hit->normal = ft_v_sub(hit->pos, sp->pos);
+		}
+	}
+}
+
 void	in_sp(t_ray ray, t_obj *sp, t_hit *hit)
 {
 	t_vec3d	abc;
-	t_vec3d	sol2;
 	float	sq;
 
 	cal_sp_param(&abc, ray, sp);
 	sq = powf(abc.y, 2) - 4 * abc.x * abc.z;
 	if (sq < 0 || (sq == 0 && abc.x == 0))
 		return ;
-	if (((-abc.y - sqrt(sq)) / (2 * abc.x) > 0))
-	{
-		hit->pos.z = ray.origin.z + ((-abc.y - sqrt(sq)) / (2 * abc.x)) * ray.dir.z;
-		hit->pos.y = ray.origin.y + ((-abc.y - sqrt(sq)) / (2 * abc.x)) * ray.dir.y;
-		hit->pos.x = ray.origin.x + ((-abc.y - sqrt(sq)) / (2 * abc.x)) * ray.dir.x;
-		hit->dst = ft_mod(ft_v_sub(hit->pos, ray.origin));
-		hit->normal = ft_v_sub(hit->pos, sp->pos);
-	}
-	if ((-abc.y + sqrt(sq)) / (2 * abc.x) > 0)
-	{
-		sol2.z = ray.origin.z + ((-abc.y + sqrt(sq)) / (2 * abc.x)) * ray.dir.z;
-		sol2.y = ray.origin.y + ((-abc.y + sqrt(sq)) / (2 * abc.x)) * ray.dir.y;
-		sol2.x = ray.origin.x + ((-abc.y + sqrt(sq)) / (2 * abc.x)) * ray.dir.x;
-		if (hit->dst > ft_mod(ft_v_sub(sol2, ray.origin)) || hit->dst < 0)
-		{
-			hit->pos.z = ray.origin.z + ((-abc.y + sqrt(sq)) / (2 * abc.x)) * ray.dir.z;
-			hit->pos.y = ray.origin.y + ((-abc.y + sqrt(sq)) / (2 * abc.x)) * ray.dir.y;
-			hit->pos.x = ray.origin.x + ((-abc.y + sqrt(sq)) / (2 * abc.x)) * ray.dir.x;
-			hit->dst = ft_mod(ft_v_sub(sol2, ray.origin));
-			hit->normal = ft_v_sub(hit->pos, sp->pos);
-		}
-	}
+	in_sp_pos(ray, sp, hit, (-abc.y - sqrt(sq)) / (2 * abc.x));
+	in_sp_pos(ray, sp, hit, (-abc.y + sqrt(sq)) / (2 * abc.x));
 	hit->rgb = sp->rgb;
 }
 
@@ -146,29 +146,10 @@ void	cal_cy_param(t_vec3d *abc, t_ray ray, t_obj *cy)
 
 }
 
-void	in_cy(t_ray ray, t_obj *cy, t_hit *hit)
+void	in_cy_pos(t_ray ray, t_obj *cy, t_hit *hit, float t)
 {
-	t_vec3d	abc;
 	t_vec3d	sol2;
-	float	sq;
-	float	t;
 
-	cal_cy_param(&abc, ray, cy);
-	sq = powf(abc.y, 2) - (4 * abc.x * abc.z);
-	if (sq >= 0 && abc.x > 0)
-	{
-	t = (-abc.y - sqrt(sq)) / (2 * abc.x);
-	if (t > 0)
-	{
-		hit->pos.x = ray.origin.x + t * ray.dir.x;
-		hit->pos.y = ray.origin.y + t * ray.dir.y;
-		hit->pos.z = ray.origin.z + t * ray.dir.z;
-		if (powf(ft_mod(ft_v_sub(hit->pos, cy->pos)), 2) - powf(cy->diam / 2, 2)
-			<= powf(cy->high / 2, 2))
-			hit->dst = ft_mod(ft_v_sub(hit->pos, ray.origin));
-		hit->normal = ft_v_sub(hit->pos, cy->pos);
-	}
-	t = (-abc.y + sqrt(sq)) / (2 * abc.x);
 	if (t > 0)
 	{
 		sol2.z = ray.origin.z + t * ray.dir.z;
@@ -185,11 +166,24 @@ void	in_cy(t_ray ray, t_obj *cy, t_hit *hit)
 			hit->normal = ft_v_sub(hit->pos, cy->pos);
 		}
 	}
+}
+
+void	in_cy(t_ray ray, t_obj *cy, t_hit *hit)
+{
+	t_vec3d	abc;
+	float	sq;
+	t_obj	cap;
+	t_hit	hit_loc;
+
+	cal_cy_param(&abc, ray, cy);
+	sq = powf(abc.y, 2) - (4 * abc.x * abc.z);
+	if (sq >= 0 && abc.x != 0)
+	{
+		in_cy_pos(ray, cy, hit, (-abc.y - sqrt(sq)) / (2 * abc.x));
+		in_cy_pos(ray, cy, hit, (-abc.y + sqrt(sq)) / (2 * abc.x));
 	}
-	t_obj cap;
-	t_hit hit_loc;
 	cap.dir = cy->dir;
-	
+
 	cap.pos.x = cy->pos.x + ((cy->high / 2) / ft_mod(cy->dir)) * cy->dir.x;
 	cap.pos.y = cy->pos.y + ((cy->high / 2) / ft_mod(cy->dir)) * cy->dir.y;
 	cap.pos.z = cy->pos.z + ((cy->high / 2) / ft_mod(cy->dir)) * cy->dir.z;
