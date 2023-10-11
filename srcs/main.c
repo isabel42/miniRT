@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 17:43:57 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/10 23:17:02 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/11 17:22:19 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,11 @@ void check_ob(t_scenario *sc, t_data_img img)
 	t_ray	ray;
 	
 	p1 = sc->cam->pos;
-	d = WIDTH / 2;	
+	if (sc->cam->fov == 180)
+		d = 0;
+	else
+		d = tan(ft_deg_to_rad(sc->cam->fov/2)) * WIDTH / 2;	
+	printf("d = %f\n",tan(ft_deg_to_rad(sc->cam->fov/2)));	
 	i = 0;
 	while (i <= WIDTH)
 	{

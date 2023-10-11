@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 16:04:31 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/11 13:58:27 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/11 16:50:47 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	in_pl(t_ray ray, t_obj *pl, t_hit *hit)
 		hit->dst = ft_mod(ft_v_sub(hit->pos, ray.origin));
 		hit->normal = pl->dir;
 		hit->rgb = pl->rgb;
+		hit->hit = true;
 	}
 }
 
@@ -63,7 +64,7 @@ void	in_sp_all(t_ray ray, t_obj *sp, t_hit *hit, float t)
 		sol2.z = ray.origin.z + t * ray.dir.z;
 		sol2.y = ray.origin.y + t * ray.dir.y;
 		sol2.x = ray.origin.x + t * ray.dir.x;
-		if (hit->dst > ft_mod(ft_v_sub(sol2, ray.origin)) || hit->dst < 0)
+		if (hit->dst > ft_mod(ft_v_sub(sol2, ray.origin)) || hit->hit == false)
 		{
 			hit->pos.z = ray.origin.z + t * ray.dir.z;
 			hit->pos.y = ray.origin.y + t * ray.dir.y;
@@ -71,6 +72,7 @@ void	in_sp_all(t_ray ray, t_obj *sp, t_hit *hit, float t)
 			hit->dst = ft_mod(ft_v_sub(sol2, ray.origin));
 			hit->normal = ft_v_sub(hit->pos, sp->pos);
 			hit->rgb = sp->rgb;
+			hit->hit = true;
 		}
 	}
 }
@@ -159,7 +161,7 @@ void	in_cy_body(t_ray ray, t_obj *cy, t_hit *hit, float t)
 		sol2.z = ray.origin.z + t * ray.dir.z;
 		sol2.y = ray.origin.y + t * ray.dir.y;
 		sol2.x = ray.origin.x + t * ray.dir.x;
-		if ((hit->dst > ft_mod(ft_v_sub(sol2, ray.origin)) || hit->dst < 0)
+		if ((hit->dst > ft_mod(ft_v_sub(sol2, ray.origin)) || hit->hit == false)
 			&& powf(ft_mod(ft_v_sub(sol2, cy->pos)), 2) - powf(cy->diam / 2, 2)
 			<= powf(cy->high / 2, 2))
 		{
@@ -169,6 +171,7 @@ void	in_cy_body(t_ray ray, t_obj *cy, t_hit *hit, float t)
 			hit->dst = ft_mod(ft_v_sub(sol2, ray.origin));
 			hit->normal = ft_v_sub(hit->pos, cy->pos);
 			hit->rgb = cy->rgb;
+			hit->hit = true;
 		}
 	}
 }
@@ -183,13 +186,14 @@ void	in_cy_caps(t_ray ray, t_obj *cy, t_hit *hit, float t)
 	cap.pos.y = cy->pos.y + t * cy->dir.y;
 	cap.pos.z = cy->pos.z + t * cy->dir.z;
 	in_pl(ray, &cap, &hit_loc);
-	if (hit_loc.dst > 0 && (hit->dst > hit_loc.dst || hit->dst < 0)
+	if (hit_loc.dst > 0 && (hit->dst > hit_loc.dst || hit->hit == false)
 		&& ft_mod(ft_v_sub(hit_loc.pos, cap.pos)) <= cy->diam / 2)
 	{
 		hit->pos = hit_loc.pos;
 		hit->dst = hit_loc.dst;
 		hit->normal = cy->dir;
 		hit->rgb = cy->rgb;
+		hit->hit = true;
 	}
 }
 
