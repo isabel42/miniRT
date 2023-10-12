@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   in_fig.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lsohler@student.42.fr <lsohler>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 16:04:31 by itovar-n          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/10/10 18:10:12 by lsohler          ###   ########.fr       */
-=======
-/*   Updated: 2023/10/11 16:50:47 by itovar-n         ###   ########.fr       */
->>>>>>> f2d9dc9bc5ffe24c83bab5036ee0521e21e87db0
+/*   Updated: 2023/10/12 13:36:56 by lsohler@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +26,6 @@ void	in_pl(t_ray ray, t_obj *pl, t_hit *hit)
 		&& pl->dir.x * ray.origin.x + pl->dir.y * ray.origin.y
 		+ pl->dir.z * ray.origin.z != pl_sing)
 		return ;
-<<<<<<< HEAD
 	t = (pl_sing - p1.x * pl->dir.x - p1.y * pl->dir.y
 			- p1.z * pl->dir.z) / (ray.x * pl->dir.x
 			+ (ray.y * pl->dir.y + ray.z * pl->dir.z));
@@ -42,21 +37,6 @@ void	in_pl(t_ray ray, t_obj *pl, t_hit *hit)
 	hit->dst = ft_mod(ft_v_sub(hit->pos, p1));
 	hit->normal = pl->dir;
 	hit->rgb = pl->rgb;
-=======
-	t = (pl_sing - ray.origin.x * pl->dir.x - ray.origin.y * pl->dir.y
-			- ray.origin.z * pl->dir.z) / (ray.dir.x * pl->dir.x
-			+ (ray.dir.y * pl->dir.y + ray.dir.z * pl->dir.z));
-	if (t > 0)
-	{
-		hit->pos.x = ray.origin.x + ray.dir.x * t;
-		hit->pos.y = ray.origin.y + ray.dir.y * t;
-		hit->pos.z = ray.origin.z + ray.dir.z * t;
-		hit->dst = ft_mod(ft_v_sub(hit->pos, ray.origin));
-		hit->normal = pl->dir;
-		hit->rgb = pl->rgb;
-		hit->hit = true;
-	}
->>>>>>> f2d9dc9bc5ffe24c83bab5036ee0521e21e87db0
 }
 
 // https://paulbourke.net/geometry/circlesphere/index.html#raysphere
@@ -69,7 +49,7 @@ void	cal_sp_param(t_vec3d *abc, t_ray ray, t_obj *sp)
 			+ ray.dir.z * (ray.origin.z - sp->pos.z));
 	(*abc).z = pow(sp->pos.x, 2) + pow(sp->pos.y, 2) + pow(sp->pos.z, 2)
 		+ pow(ray.origin.x, 2) + pow(ray.origin.y, 2) + pow(ray.origin.z, 2)
-		- 2 * (sp->pos.x * ray.origin.x + sp->pos.y * ray.origin.x
+		- 2 * (sp->pos.x * ray.origin.x + sp->pos.y * ray.origin.y
 			+ sp->pos.z * ray.origin.z) - pow(sp->diam / 2, 2);
 }
 
@@ -91,6 +71,7 @@ void	in_sp_all(t_ray ray, t_obj *sp, t_hit *hit, float t)
 			hit->normal = ft_v_sub(hit->pos, sp->pos);
 			hit->rgb = sp->rgb;
 			hit->hit = true;
+			hit->id = 0;
 		}
 	}
 }
@@ -190,6 +171,7 @@ void	in_cy_body(t_ray ray, t_obj *cy, t_hit *hit, float t)
 			hit->normal = ft_v_sub(hit->pos, cy->pos);
 			hit->rgb = cy->rgb;
 			hit->hit = true;
+			hit->id = 2;
 		}
 	}
 }
@@ -212,6 +194,7 @@ void	in_cy_caps(t_ray ray, t_obj *cy, t_hit *hit, float t)
 		hit->normal = cy->dir;
 		hit->rgb = cy->rgb;
 		hit->hit = true;
+		hit->id = 2;
 	}
 }
 
