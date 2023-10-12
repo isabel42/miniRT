@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 17:43:57 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/11 23:13:44 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/12 13:53:27 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	ft_check_argc(int argc)
 	}
 }
 
-
 void	hit_redirect(t_ray ray, t_obj *obj, t_hit *hit_loc)
 {
 	void	(*ptr_ft[4])(t_ray, t_obj *, t_hit *);
@@ -54,8 +53,7 @@ void	hit_redirect(t_ray ray, t_obj *obj, t_hit *hit_loc)
 	ptr_ft[obj->id](ray, obj, hit_loc);
 }
 
-
-void get_hit(t_scenario *sc, t_ray ray, t_hit *hit)
+void get_hit(t_scenario *sc, t_ray ray, t_hit *hit, bool stop_first)
 {
 	t_hit hit_loc;
 	t_obj *obj;
@@ -76,30 +74,66 @@ void get_hit(t_scenario *sc, t_ray ray, t_hit *hit)
 			hit->rgb = hit_loc.rgb;
 			hit->id = hit_loc.id;
 			hit->hit = true;
+			if (stop_first == true)
+				break;
 		}
 		obj = obj->next;
 	}
 }
 
+float	ft_cos(t_vec3d a, t_vec3d b)
+{
+	float	cos;
+
+	if (ft_mod(b) == 0)
+		return (1.0);
+	cos = ft_dot(a, b) / (ft_mod(a) * ft_mod (b));
+	return (cos);
+}
+
+float	ft_sin(t_vec3d a, t_vec3d b)
+{
+	float	sin;
+	t_vec3d	mult;
+
+	if (ft_mod(a) == 0 || ft_mod(b) == 0)
+		return (0.0);
+	mult = ft_v_mul(a, b);
+	sin = ft_mod(mult) / (ft_mod(a) * ft_mod (b));
+	return (sin);
+}
+
+int	put_color(t_scenario *sc, t_hit hit)
+{
+	float	sl_new;
+	float	amb_new;
+	float	ratio;
+	t_ray	ray_lux;
+	t_hit	hit_lux;
+
+	ratio = (sc->spot_lux->ratio + sc->amb_lux->ratio);
+	sl_new = (sc->spot_lux->ratio / ratio);
+	amb_new = (sc->amb_lux->ratio / ratio);
+	ray_lux.origin = hit.pos;
+	ray_lux.dir = ft_v_sub(sc->spot_lux->pos, hit.pos);
+	hit_lux.hit = false;
+	get_hit(sc, ray_lux, &hit_lux, true);
+	if(hit_lux.hit == false)
+		return ((sl_new * ft_sin(ray_lux.dir, hit.normal) + amb_new) * rgb_to_int(hit.rgb));
+	else
+		return (amb_new * rgb_to_int(hit.rgb));
+}
 
 void check_ob(t_scenario *sc, t_data_img img)
 {
 	int i;
 	int j;
-	t_vec3d p1;
 	t_vec3d p2;
 	int d;
 	t_hit 	hit;
 	t_quat    pq2;
 	t_ray	ray;
-	t_ray	ray_lux;
-	t_hit	hit_lux;
-	t_obj	*sp = sc->obj;
 	
-	p1 = sc->cam->pos;
-	printf("lum.x: %f\t", sc->spot_lux->pos.x);
-	printf("lum.y: %f\t", sc->spot_lux->pos.y);
-	printf("lum.z: %f\t", sc->spot_lux->pos.z);
 	if (sc->cam->fov == 180)
 		d = 0;
 	else
@@ -119,26 +153,11 @@ void check_ob(t_scenario *sc, t_data_img img)
                 quat_multiply((sc->cam->dir), pq2),
                 quat_conjugate((sc->cam->dir)));
             p2 = new_point(pq2);
-			ray.dir = ft_v_sub(p2, p1);
-			ray.origin = p1;
-			get_hit(sc, ray, &hit);	
+			ray.dir = ft_v_sub(p2, sc->cam->pos);
+			ray.origin = sc->cam->pos;
+			get_hit(sc, ray, &hit, false);	
 			if (hit.hit == true)
-			{
-				ray_lux.origin = hit.pos;
-				ray_lux.dir = ft_v_sub(sc->spot_lux->pos, hit.pos);
-				hit_lux.hit = false;
-				if (hit.id == 1)
-				{
-					in_sp(ray_lux, sp, &hit_lux);
-					if(hit_lux.hit == false)
-						my_mlx_pixel_put(&img, i, HEIGHT - j, I_WHITE);
-					else
-						my_mlx_pixel_put(&img, i, HEIGHT - j, I_RED);
-				}
-				else
-					my_mlx_pixel_put(&img, i, HEIGHT - j, I_GREEN);
-				// my_mlx_pixel_put(&img, i, HEIGHT - j, rgb_to_int(hit.rgb));		
-			}
+				my_mlx_pixel_put(&img, i, HEIGHT - j, put_color(sc, hit));
 			j++;
 		}
 		i++;
@@ -171,8 +190,8 @@ int	main(int argc, char **argv)
 	// mlx_hook(scena->mlx->win, 5, 1L << 3, mouse_released, scena);
 	// mlx_loop(scena->mlx->ptr);
 	mlx_put_image_to_window(vars.ptr, vars.win, img.img, 0, 0);
-	// mlx_hook(vars.win, 17, 0, close_w, &vars);
-	// mlx_hook(vars.win, 2, 0, close_w, &vars);
+	mlx_hook(vars.win, 17, 0, close_w, &vars);
+	mlx_hook(vars.win, 2, 0, close_w, &vars);
 	mlx_loop(vars.ptr);
 	free(img.img);
 	return (0);
