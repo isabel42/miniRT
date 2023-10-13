@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsohler@student.42.fr <lsohler>            +#+  +:+       +#+        */
+/*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 16:13:16 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/12 14:28:42 by lsohler@stu      ###   ########.fr       */
+/*   Updated: 2023/10/13 11:03:40 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,8 @@ void		draw_scenario(t_scenario *scena);
 void		draw_box(t_quat *c, t_scenario *scena, t_rgb color);
 t_hit		sphere_hit(t_ray ray, t_quat center_q, float sphere_r);
 t_hit		sphere_hit2(t_ray ray, t_obj sphere);
-void 		sphere_hit3(t_ray ray, t_obj *obj, t_hit *hit);
-
+void		sphere_hit3(t_ray ray, t_obj *obj, t_hit *hit);
+void		plan_hit(t_ray ray, t_obj *obj, t_hit *hit);
 void		my_mlx_pixel_put(t_data_img *imgdata, int x, int y, int color);
 void draw_circle(t_data_img *imgdata, int x, int y, int r, int color);
 t_rgb		int_to_rgb(int icolor);

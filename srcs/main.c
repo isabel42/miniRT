@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsohler@student.42.fr <lsohler>            +#+  +:+       +#+        */
+/*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 17:43:57 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/12 17:39:09 by lsohler@stu      ###   ########.fr       */
+/*   Updated: 2023/10/13 12:49:00 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	hit_redirect(t_ray ray, t_obj *obj, t_hit *hit_loc)
 	void	(*ptr_ft[4])(t_ray, t_obj *, t_hit *);
 
 	ptr_ft[0] = &sphere_hit3;
-	ptr_ft[1] = &in_pl;
+	ptr_ft[1] = &plan_hit;
 	ptr_ft[2] = &in_cy;
 	ptr_ft[obj->id](ray, obj, hit_loc);
 }
@@ -163,7 +163,7 @@ int	main(int argc, char **argv)
 	// 		&img.line_length, &img.endian);
 	scena = parsing(argv[1]);
 	render(scena);
-	// print_parsing(scena);
+	print_parsing(scena);
 	// render_camera(scena);
 	mlx_hook(scena->mlx->win, 2, 2, key_press, scena);
 	mlx_hook(scena->mlx->win, 3, 3, key_release, scena);

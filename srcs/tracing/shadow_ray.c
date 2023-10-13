@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shadow_ray.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsohler@student.42.fr <lsohler>            +#+  +:+       +#+        */
+/*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 17:18:44 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/12 14:13:29 by lsohler@stu      ###   ########.fr       */
+/*   Updated: 2023/10/13 13:11:35 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,16 @@ t_rgb	scale_color(t_rgb c, float scale)
 	result.r = c.r * scale;
 	result.g = c.g * scale;
 	result.b = c.b * scale;
+	return (result);
+}
+
+t_rgb	mix_color(t_rgb color1, t_rgb color2, float scale)
+{
+	t_rgb	result;
+
+	result.r = fmin(255, ((color1.r + (color2.r - color1.r) * scale) * scale));
+	result.g = fmin(255, ((color1.g + (color2.g - color1.g) * scale) * scale));
+	result.b = fmin(255, ((color1.b + (color2.b - color1.b) * scale) * scale));
 	return (result);
 }
 
@@ -37,8 +47,9 @@ t_rgb	shadow_ray_rgb(t_ray ray, t_scenario *scena, t_hit object_hit)
 			* scena->spot_lux->ratio;
 		if (scale > scena->amb_lux->ratio)
 		{
-			return (scale_color(object_hit.rgb, scale));
+			return (mix_color(object_hit.rgb, scena->amb_lux->rgb, scale));
 		}
+		// return (int_to_rgb(I_YELLOW));
 	}
 	return (scale_color(object_hit.rgb, scena->amb_lux->ratio));
 }

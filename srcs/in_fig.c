@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   in_fig.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsohler@student.42.fr <lsohler>            +#+  +:+       +#+        */
+/*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 16:04:31 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/12 13:40:10 by lsohler@stu      ###   ########.fr       */
+/*   Updated: 2023/10/13 12:35:10 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	in_sp(t_ray ray, t_obj *sp, t_hit *hit)
 	if (sq < 0 || (sq == 0 && abc.x == 0))
 		return ;
 	in_sp_all(ray, sp, hit, (-abc.y - sqrt(sq)) / (2 * abc.x));
-	in_sp_all(ray, sp, hit, (-abc.y + sqrt(sq)) / (2 * abc.x));
+	// in_sp_all(ray, sp, hit, (-abc.y + sqrt(sq)) / (2 * abc.x));
 }
 
 // https://www.youtube.com/watch?v=IKQCtqvGTJM

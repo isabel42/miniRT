@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hit.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsohler@student.42.fr <lsohler>            +#+  +:+       +#+        */
+/*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 10:15:38 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/12 17:44:57 by lsohler@stu      ###   ########.fr       */
+/*   Updated: 2023/10/13 12:50:12 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void sphere_hit3(t_ray ray, t_obj *obj, t_hit *hit)
 		// if (dst > 0)
 		// 	dst = (-b + sqrt(discriminant)) / (2 * a);
 		// printf("Dst:%f\n", dst);
-		if (dst >= 0.0)
+		if (dst >= -0.00001)
 		{
 			hit->hit = true;
 			hit->dst = dst;
@@ -142,6 +142,52 @@ void sphere_hit3(t_ray ray, t_obj *obj, t_hit *hit)
 	}
 }
 
+void	plan_hit(t_ray ray, t_obj *obj, t_hit *hit)
+{
+	float	denom;
+	float	dst;
+	t_vec3d	p;
+
+	denom = ft_dot(obj->dir, ray.dir);
+	if (denom > 0.00001 || denom < 0.00001)
+	{
+		p = ft_v_sub(obj->pos, ray.origin);
+		dst = (ft_dot(obj->dir, obj->pos) - ft_dot(obj->dir, ray.origin)) / denom;
+		if (dst >= 0.00001)
+		{
+			hit->hit = true;
+			hit->pos = get_hit_point(ray.origin, ray.dir, dst);
+
+			hit->dst = ft_vector_lenght(ft_v_sub(hit->pos, ray.origin));
+			hit->normal = obj->dir;
+			hit->rgb = obj->rgb;
+		}
+	}
+}
+	// float	pl_sing;
+	// float	t;
+
+	// pl_sing = pl->dir.x * pl->pos.x
+	// 	+ pl->dir.y * pl->pos.y + pl->dir.z * pl->pos.z;
+	// if (ray.dir.x * pl->dir.x + ray.dir.y * pl->dir.y
+	// 	+ ray.dir.z * pl->dir.z == 0
+	// 	&& pl->dir.x * ray.origin.x + pl->dir.y * ray.origin.y
+	// 	+ pl->dir.z * ray.origin.z != pl_sing)
+	// 	return ;
+	// t = (pl_sing - ray.origin.x * pl->dir.x - ray.origin.y * pl->dir.y
+	// 		- ray.origin.z * pl->dir.z) / (ray.dir.x * pl->dir.x
+	// 		+ (ray.dir.y * pl->dir.y + ray.dir.z * pl->dir.z));
+	// if (t > 0.0001)
+	// {
+	// 	hit->pos.x = ray.origin.x + ray.dir.x * t;
+	// 	hit->pos.y = ray.origin.y + ray.dir.y * t;
+	// 	hit->pos.z = ray.origin.z + ray.dir.z * t;
+	// 	hit->dst = ft_mod(ft_v_sub(hit->pos, ray.origin));
+	// 	hit->normal = pl->dir;
+	// 	hit->rgb = pl->rgb;
+	// 	hit->hit = true;
+	// 	hit->id = 1;
+	// }
 // void cal_sp_param(float *a, float *b, float *c, t_vec3d p1, t_vec3d p2, t_obj *sp)
 // {
 // 	*a = pow(p2.x - p1.x, 2) + pow(p2.y - p1.y, 2) + pow(p2.z - p1.z, 2);
