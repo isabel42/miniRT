@@ -20,7 +20,7 @@ t_mlx	*mlx_init_struct(int win_size_x, int win_size_y)
 	if (!new)
 		return (NULL);
 	new->ptr = mlx_init();
-	new->win = mlx_new_window(new->ptr, win_size_x, win_size_y, "FdF");
+	new->win = mlx_new_window(new->ptr, win_size_x, win_size_y, "miniRT");
 	return (new);
 }
 

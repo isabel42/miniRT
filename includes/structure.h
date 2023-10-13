@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 11:27:11 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/12 12:47:06 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/13 13:40:39 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ typedef struct s_ray
 {
 	struct s_vec3d	origin;
 	struct s_vec3d	dir;
+	struct s_vec3d	p2;
 }				t_ray;
 
 typedef struct s_point

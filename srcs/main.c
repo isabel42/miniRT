@@ -6,11 +6,12 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 17:43:57 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/12 13:53:27 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/13 13:58:34 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
 
 int	ft_abs(int a)
 {
@@ -133,6 +134,7 @@ void check_ob(t_scenario *sc, t_data_img img)
 	t_hit 	hit;
 	t_quat    pq2;
 	t_ray	ray;
+	t_ray	ray_lux;
 	
 	if (sc->cam->fov == 180)
 		d = 0;
@@ -157,7 +159,11 @@ void check_ob(t_scenario *sc, t_data_img img)
 			ray.origin = sc->cam->pos;
 			get_hit(sc, ray, &hit, false);	
 			if (hit.hit == true)
-				my_mlx_pixel_put(&img, i, HEIGHT - j, put_color(sc, hit));
+			{
+				ray_lux.origin = hit.pos;
+				ray_lux.dir = ft_v_sub(sc->spot_lux->pos, hit.pos);
+				my_mlx_pixel_put(&img, i, HEIGHT - j, rgb_to_int(shadow_ray_rgb(ray_lux, sc, hit)));
+			}
 			j++;
 		}
 		i++;

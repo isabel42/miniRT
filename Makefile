@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+         #
+#    By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/03 17:19:38 by lsohler           #+#    #+#              #
-#    Updated: 2023/10/08 17:05:51 by itovar-n         ###   ########.fr        #
+#    Updated: 2023/10/10 17:19:12 by lsohler          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRCS = \
 		srcs/test/scenariobox.c\
 		srcs/test/form.c\
 		srcs/tracing/hit.c\
+		srcs/tracing/shadow_ray.c\
 		\
 		gnl/get_next_line.c\
 		gnl/get_next_line_utils.c\

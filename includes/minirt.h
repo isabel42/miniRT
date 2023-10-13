@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 16:13:16 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/10 23:10:32 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/13 13:58:20 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ void		draw_scenario(t_scenario *scena);
 void		draw_box(t_quat *c, t_scenario *scena, t_rgb color);
 t_hit		sphere_hit(t_ray ray, t_quat center_q, float sphere_r);
 t_hit		sphere_hit2(t_ray ray, t_obj sphere);
+void 		sphere_hit3(t_ray ray, t_obj *obj, t_hit *hit);
 
 void		my_mlx_pixel_put(t_data_img *imgdata, int x, int y, int color);
 void draw_circle(t_data_img *imgdata, int x, int y, int r, int color);
@@ -154,5 +155,8 @@ void	in_pl(t_ray ray, t_obj *pl, t_hit *hit);
 void	in_sp(t_ray ray, t_obj *sp, t_hit *hit);
 void 	in_cy(t_ray ray, t_obj *cy, t_hit *hit);
 
-t_vec3d    new_point(t_quat q);
+t_vec3d	new_point(t_quat q);
+void	get_hit(t_scenario *sc, t_ray ray, t_hit *hit, bool stop_first);
+t_rgb	shadow_ray_rgb(t_ray ray, t_scenario *scena, t_hit object_hit);
+void check_ob(t_scenario *sc, t_data_img img);
 #endif

@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 16:04:31 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/12 13:11:52 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/13 13:54:48 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	in_pl(t_ray ray, t_obj *pl, t_hit *hit)
 	t = (pl_sing - ray.origin.x * pl->dir.x - ray.origin.y * pl->dir.y
 			- ray.origin.z * pl->dir.z) / (ray.dir.x * pl->dir.x
 			+ (ray.dir.y * pl->dir.y + ray.dir.z * pl->dir.z));
-	if (t > 0)
+	if (t > 0.0001)
 	{
 		hit->pos.x = ray.origin.x + ray.dir.x * t;
 		hit->pos.y = ray.origin.y + ray.dir.y * t;
@@ -60,7 +60,7 @@ void	in_sp_all(t_ray ray, t_obj *sp, t_hit *hit, float t)
 {
 	t_vec3d	sol2;
 
-	if (t > 0)
+	if (t > 0.0001)
 	{
 		sol2.z = ray.origin.z + t * ray.dir.z;
 		sol2.y = ray.origin.y + t * ray.dir.y;
@@ -158,7 +158,7 @@ void	in_cy_body(t_ray ray, t_obj *cy, t_hit *hit, float t)
 {
 	t_vec3d	sol2;
 
-	if (t > 0)
+	if (t > 0.0001)
 	{
 		sol2.z = ray.origin.z + t * ray.dir.z;
 		sol2.y = ray.origin.y + t * ray.dir.y;
