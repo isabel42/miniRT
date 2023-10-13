@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 17:43:57 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/13 14:03:15 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/13 14:05:05 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ void check_ob(t_scenario *sc)
 			{
 				ray_lux.origin = hit.pos;
 				ray_lux.dir = ft_v_sub(sc->spot_lux->pos, hit.pos);
-				my_mlx_pixel_put(&img, i, HEIGHT - j, rgb_to_int(shadow_ray_rgb(ray_lux, sc, hit)));
+				my_mlx_pixel_put(sc->img_data, i, HEIGHT - j, rgb_to_int(shadow_ray_rgb(ray_lux, sc, hit)));
 			}
 			j++;
 		}
