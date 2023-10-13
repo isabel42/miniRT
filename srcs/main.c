@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 17:43:57 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/13 13:58:34 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/13 14:03:15 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	hit_redirect(t_ray ray, t_obj *obj, t_hit *hit_loc)
 {
 	void	(*ptr_ft[4])(t_ray, t_obj *, t_hit *);
 
-	ptr_ft[0] = &in_sp;
+	ptr_ft[0] = &sphere_hit3;
 	ptr_ft[1] = &in_pl;
 	ptr_ft[2] = &in_cy;
 	ptr_ft[obj->id](ray, obj, hit_loc);
@@ -125,7 +125,7 @@ int	put_color(t_scenario *sc, t_hit hit)
 		return (amb_new * rgb_to_int(hit.rgb));
 }
 
-void check_ob(t_scenario *sc, t_data_img img)
+void check_ob(t_scenario *sc)
 {
 	int i;
 	int j;
@@ -175,30 +175,30 @@ void check_ob(t_scenario *sc, t_data_img img)
 int	main(int argc, char **argv)
 {
 	t_scenario	*scena;
-	t_mlx		vars;
-	t_data_img	img;
+	// t_mlx		vars;
+	// t_data_img	img;
 
 	ft_check_argc(argc);
-	vars.ptr = mlx_init();
-	vars.win = mlx_new_window(vars.ptr, WIDTH, HEIGHT, "miniRT");
-	img.img = mlx_new_image(vars.ptr, WIDTH, HEIGHT);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel,
-			&img.line_length, &img.endian);
+	// vars.ptr = mlx_init();
+	// vars.win = mlx_new_window(vars.ptr, WIDTH, HEIGHT, "miniRT");
+	// img.img = mlx_new_image(vars.ptr, WIDTH, HEIGHT);
+	// img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel,
+	// 		&img.line_length, &img.endian);
 	scena = parsing(argv[1]);
-	check_ob(scena, img);
+	render(scena);
 	// print_parsing(scena);
 	// render_camera(scena);
-	// mlx_hook(scena->mlx->win, 2, 2, keypress, scena);
-	// mlx_hook(scena->mlx->win, 3, 3, shift_released, scena);
-	// mlx_hook(scena->mlx->win, 17, 0, close_w, scena);
+	mlx_hook(scena->mlx->win, 2, 2, key_press, scena);
+	mlx_hook(scena->mlx->win, 3, 3, key_release, scena);
+	mlx_hook(scena->mlx->win, 17, 0, close_w, scena);
 	// mlx_hook(scena->mlx->win, 6, 1L << 6, mouse_move, scena);
 	// mlx_hook(scena->mlx->win, 4, 1L << 2, mouse_pressed, scena);
 	// mlx_hook(scena->mlx->win, 5, 1L << 3, mouse_released, scena);
-	// mlx_loop(scena->mlx->ptr);
-	mlx_put_image_to_window(vars.ptr, vars.win, img.img, 0, 0);
-	mlx_hook(vars.win, 17, 0, close_w, &vars);
-	mlx_hook(vars.win, 2, 0, close_w, &vars);
-	mlx_loop(vars.ptr);
-	free(img.img);
+	mlx_loop(scena->mlx->ptr);
+	// mlx_put_image_to_window(vars.ptr, vars.win, img.img, 0, 0);
+	// mlx_hook(vars.win, 17, 0, close_w, &vars);
+	// mlx_hook(vars.win, 2, 0, close_w, &vars);
+	// mlx_loop(vars.ptr);
+	// free(img.img);
 	return (0);
 }

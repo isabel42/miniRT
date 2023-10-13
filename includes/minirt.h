@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: lsohler@student.42.fr <lsohler>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 16:13:16 by itovar-n          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/10/13 13:58:20 by itovar-n         ###   ########.fr       */
+=======
+/*   Updated: 2023/10/12 14:28:42 by lsohler@stu      ###   ########.fr       */
+>>>>>>> leotest2
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,5 +162,5 @@ void 	in_cy(t_ray ray, t_obj *cy, t_hit *hit);
 t_vec3d	new_point(t_quat q);
 void	get_hit(t_scenario *sc, t_ray ray, t_hit *hit, bool stop_first);
 t_rgb	shadow_ray_rgb(t_ray ray, t_scenario *scena, t_hit object_hit);
-void check_ob(t_scenario *sc, t_data_img img);
+void	check_ob(t_scenario *sc);
 #endif
