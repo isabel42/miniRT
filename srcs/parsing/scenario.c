@@ -18,7 +18,7 @@ t_mlx	*mlx_init_struct(int win_size_x, int win_size_y)
 
 	new = malloc(sizeof(t_mlx));
 	if (!new)
-		return (NULL);
+		ft_exit("Malloc");
 	new->ptr = mlx_init();
 	new->win = mlx_new_window(new->ptr, win_size_x, win_size_y, "miniRT");
 	return (new);

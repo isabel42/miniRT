@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 12:26:05 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/04 18:57:16 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/13 15:45:33 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	close_esc(t_scenario *scena)
 {
+	(void)scena;
 	mlx_destroy_window(scena->mlx->ptr, scena->mlx->win);
 	//free_lists(meta);
 	printf("     CLOSING FROM ESCAPE !\n");

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cameratest.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsohler@student.42.fr <lsohler>            +#+  +:+       +#+        */
+/*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 13:56:17 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/12 13:54:02 by lsohler@stu      ###   ########.fr       */
+/*   Updated: 2023/10/13 15:45:23 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,6 @@ int	render(t_scenario *scena)
 	mlx_put_image_to_window(scena->mlx->ptr,
 		scena->mlx->win, scena->img_data->img, 0, 0);
 	mlx_destroy_image(scena->mlx->ptr, scena->img_data->img);
-	my_new_mlx_img_data(scena);
+	// my_new_mlx_img_data(scena);
 	return (0);
 }

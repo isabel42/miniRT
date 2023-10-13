@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 10:15:38 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/13 12:50:12 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/13 17:18:12 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void sphere_hit3(t_ray ray, t_obj *obj, t_hit *hit)
 		// if (dst > 0)
 		// 	dst = (-b + sqrt(discriminant)) / (2 * a);
 		// printf("Dst:%f\n", dst);
-		if (dst >= -0.00001)
+		if (dst >= -0.001)
 		{
 			hit->hit = true;
 			hit->dst = dst;
@@ -149,11 +149,11 @@ void	plan_hit(t_ray ray, t_obj *obj, t_hit *hit)
 	t_vec3d	p;
 
 	denom = ft_dot(obj->dir, ray.dir);
-	if (denom > 0.00001 || denom < 0.00001)
+	if (denom > 0.001 || denom < 0.001)
 	{
 		p = ft_v_sub(obj->pos, ray.origin);
 		dst = (ft_dot(obj->dir, obj->pos) - ft_dot(obj->dir, ray.origin)) / denom;
-		if (dst >= 0.00001)
+		if (dst >= 0.001)
 		{
 			hit->hit = true;
 			hit->pos = get_hit_point(ray.origin, ray.dir, dst);
