@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 17:50:20 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/08 19:39:46 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/13 18:09:44 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	draw_ray(t_scenario *scena)
 	t_quat	ref;
 	int		ix = 0;
 	int		iy = 0;
-	int		n = 200;
+	int		n = 50;
 	float	xstep_x;
 	float	xstep_y;
 	float	xstep_z;
@@ -117,13 +117,13 @@ void	draw_ray(t_scenario *scena)
 					{
 						t_quat	hitq = quat_create(0, hit.pos.x, hit.pos.y, hit.pos.z);
 						// hitq = quat_multiply(quat_multiply(scena->cam->dir, hitq),quat_conjugate(scena->cam->dir));
-						//bresenham_draw_line(get_point_r(scena->cam->c[4], scena), get_point_r(hitq, scena), scena, int_to_rgb(I_YELLOW));
+						bresenham_draw_line(get_point_r(scena->cam->c[4], scena), get_point_r(hitq, scena), scena, int_to_rgb(I_YELLOW));
 						// my_mlx_pixel_put(scena->img_data, hitq.x + scena->meta->offset[0], hitq.y + scena->meta->offset[1], I_YELLOW);
 						// bresenham_draw_line(get_point_r(scena->cam->c[4], scena), get_point_r(point, scena), scena, int_to_rgb(I_BLUE));
-						bresenham_draw_line(get_point_r(point, scena), get_point_r(hitq, scena), scena, int_to_rgb(I_YELLOW));
-						t_quat	ray_o = quat_create(0, ray.origin.x, ray.origin.y, ray.origin.z);
-						t_quat	ray_dir = quat_create(0, ray.dir.x, ray.dir.y, ray.dir.z);
-						bresenham_draw_line(get_point_r(ray_o, scena), get_point_r(ray_dir, scena), scena, int_to_rgb(I_RED));
+						// bresenham_draw_line(get_point_r(point, scena), get_point_r(hitq, scena), scena, int_to_rgb(I_YELLOW));
+						// t_quat	ray_o = quat_create(0, ray.origin.x, ray.origin.y, ray.origin.z);
+						// t_quat	ray_dir = quat_create(0, ray.dir.x, ray.dir.y, ray.dir.z);
+						// bresenham_draw_line(get_point_r(ray_o, scena), get_point_r(ray_dir, scena), scena, int_to_rgb(I_RED));
 						// my_mlx_pixel_put(scena->img_data, point.x + scena->meta->offset[0], point.y + scena->meta->offset[1], rgb_to_int(objects->rgb));
 					}
 				}
