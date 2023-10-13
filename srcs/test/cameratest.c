@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cameratest.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lsohler@student.42.fr <lsohler>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 13:56:17 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/06 18:40:00 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/12 13:54:02 by lsohler@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,9 +123,10 @@ void	my_new_mlx_img_data(t_scenario *meta)
 int	render(t_scenario *scena)
 {
 	mlx_clear_window(scena->mlx->ptr, scena->mlx->win);
-	draw_camera(scena);
-	draw_scenario(scena);
-	draw_ray(scena);
+	// draw_camera(scena);
+	// draw_scenario(scena);
+	// draw_ray(scena);
+	check_ob(scena);
 	mlx_put_image_to_window(scena->mlx->ptr,
 		scena->mlx->win, scena->img_data->img, 0, 0);
 	mlx_destroy_image(scena->mlx->ptr, scena->img_data->img);

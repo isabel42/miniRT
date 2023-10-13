@@ -6,7 +6,7 @@
 /*   By: lsohler@student.42.fr <lsohler>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 16:04:31 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/12 13:36:56 by lsohler@stu      ###   ########.fr       */
+/*   Updated: 2023/10/12 13:40:10 by lsohler@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,20 @@ void	in_pl(t_ray ray, t_obj *pl, t_hit *hit)
 		&& pl->dir.x * ray.origin.x + pl->dir.y * ray.origin.y
 		+ pl->dir.z * ray.origin.z != pl_sing)
 		return ;
-	t = (pl_sing - p1.x * pl->dir.x - p1.y * pl->dir.y
-			- p1.z * pl->dir.z) / (ray.x * pl->dir.x
-			+ (ray.y * pl->dir.y + ray.z * pl->dir.z));
-	if (t < 0)
-		return ;
-	hit->pos.x = p1.x + ray.x * t;
-	hit->pos.y = p1.y + ray.y * t;
-	hit->pos.z = p1.z + ray.z * t;
-	hit->dst = ft_mod(ft_v_sub(hit->pos, p1));
-	hit->normal = pl->dir;
-	hit->rgb = pl->rgb;
+	t = (pl_sing - ray.origin.x * pl->dir.x - ray.origin.y * pl->dir.y
+			- ray.origin.z * pl->dir.z) / (ray.dir.x * pl->dir.x
+			+ (ray.dir.y * pl->dir.y + ray.dir.z * pl->dir.z));
+	if (t > 0)
+	{
+		hit->pos.x = ray.origin.x + ray.dir.x * t;
+		hit->pos.y = ray.origin.y + ray.dir.y * t;
+		hit->pos.z = ray.origin.z + ray.dir.z * t;
+		hit->dst = ft_mod(ft_v_sub(hit->pos, ray.origin));
+		hit->normal = pl->dir;
+		hit->rgb = pl->rgb;
+		hit->hit = true;
+		hit->id = 1;
+	}
 }
 
 // https://paulbourke.net/geometry/circlesphere/index.html#raysphere

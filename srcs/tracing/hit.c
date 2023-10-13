@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hit.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: lsohler@student.42.fr <lsohler>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 10:15:38 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/09 16:13:23 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/12 17:44:57 by lsohler@stu      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,56 @@ t_hit	sphere_hit(t_ray ray, t_quat center_q, float sphere_r)
 		}
 	}
 	return (hit);
+}
+
+void sphere_hit3(t_ray ray, t_obj *obj, t_hit *hit)
+{
+	float	discriminant;
+	float	dst;
+	t_vec3d	oc;
+	float	a;
+	float	b;
+	float	c;
+	t_vec3d	center = obj->pos;
+	float	radius = obj->diam / 2;
+
+	hit->hit = false;
+	hit->dst = -1;
+	// printf("Origin ");
+	// test_print_vecteur(ray.origin);
+	// printf("Dir ");
+	// test_print_vecteur(ray.dir);
+	// printf("P2 ");
+	// test_print_vecteur(ray.p2);
+	oc = ft_v_sub(ray.origin, center);
+	a = ft_dot(ray.dir, ray.dir);
+	b = 2.0 * ft_dot(oc, ray.dir);
+	c = ft_dot(oc, oc) - radius*radius;
+	discriminant = (b * b) - (4 * a * c);
+	if (discriminant >= 0)
+	{
+		dst = (-b - sqrt(discriminant)) / (2 * a);
+		// if (dst > (-b - sqrt(discriminant)) / (2 * a))
+		// {
+		// 	dst = (-b - sqrt(discriminant)) / (2 * a);
+		// }
+		// else
+		// 	printf("test\n");
+		// printf("dst: %f\n", dst);
+		// printf("Dst:%f\n", dst);
+		// if (dst > 0)
+		// 	dst = (-b + sqrt(discriminant)) / (2 * a);
+		// printf("Dst:%f\n", dst);
+		if (dst >= 0.0)
+		{
+			hit->hit = true;
+			hit->dst = dst;
+			hit->pos = get_hit_point(ray.origin, ray.dir, dst);
+			hit->normal = get_normal(hit->pos, center);
+			hit->rgb = obj->rgb;
+			// printf("---DID HIT SPHERE\n");
+		}
+	}
 }
 
 // void cal_sp_param(float *a, float *b, float *c, t_vec3d p1, t_vec3d p2, t_obj *sp)
