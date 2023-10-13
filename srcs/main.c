@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 17:43:57 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/13 14:05:05 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/13 15:26:44 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,8 @@ void check_ob(t_scenario *sc)
 	t_hit 	hit;
 	t_quat    pq2;
 	t_ray	ray;
-	t_ray	ray_lux;
+	// t_ray	ray_lux;
+	// float	scale;
 	
 	if (sc->cam->fov == 180)
 		d = 0;
@@ -160,9 +161,14 @@ void check_ob(t_scenario *sc)
 			get_hit(sc, ray, &hit, false);	
 			if (hit.hit == true)
 			{
-				ray_lux.origin = hit.pos;
-				ray_lux.dir = ft_v_sub(sc->spot_lux->pos, hit.pos);
-				my_mlx_pixel_put(sc->img_data, i, HEIGHT - j, rgb_to_int(shadow_ray_rgb(ray_lux, sc, hit)));
+				// ray_lux.origin = hit.pos;
+				// ray_lux.dir = ft_v_sub(sc->spot_lux->pos, hit.pos);
+				shadow_ray_rgb_2(sc, hit, i, j);
+				// scale = shadow_ray_rgb_2(sc, hit);
+				// my_mlx_pixel_put(sc->img_data, i, HEIGHT - j, scale * rgb_to_int(hit.rgb));
+				// if (scale * rgb_to_int(hit.rgb) > 16777215)
+				// 	printf("scale: %f\tcolor int: %d\trgb.r: %d\trgb.g: %d\trgb.b: %d\tresult: %f\n", scale, rgb_to_int(hit.rgb), hit.rgb.r, hit.rgb.g, hit.rgb.b, scale * rgb_to_int(hit.rgb)) ;
+				// my_mlx_pixel_put(sc->img_data, i, HEIGHT - j, rgb_to_int(shadow_ray_rgb(ray_lux, sc, hit)));
 			}
 			j++;
 		}
