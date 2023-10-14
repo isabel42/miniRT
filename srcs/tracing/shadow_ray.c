@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 17:18:44 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/14 14:38:03 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/14 14:45:07 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	shadow_ray_rgb_2(t_scenario *sc, t_hit hit, int i, int j)
 	t_hit	hit_lux;
 	t_ray	ray_lux;
 	double	scale;
+	t_rgb	rgb_final;
 
 	ratio = fmax(1.0, sc->spot_lux->ratio + sc->amb_lux->ratio);
 	sl_new = (sc->spot_lux->ratio / ratio) ;
@@ -60,26 +61,14 @@ void	shadow_ray_rgb_2(t_scenario *sc, t_hit hit, int i, int j)
 
 	hit_lux.hit = false;
 	get_hit(sc, ray_lux, &hit_lux, false);
+	scale = amb_new;
 	if (hit_lux.hit == false)
-	{
-		scale = sl_new * fmax(0.0, ft_dot(ft_normalize(hit.normal), ft_normalize(ft_v_sub(sc->spot_lux->pos, hit.pos)))) + amb_new;
-	}
-	else
-	{
-		scale = amb_new;
-	}
-	// printf("scale: %f\trgb into int: %d\tnew color in int: %f\n", scale, rgb_to_int(hit.rgb), scale * rgb_to_int(hit.rgb));
+		scale = sl_new * fmax(0.0, ft_dot(ft_normalize(hit.normal), ft_normalize(ft_v_sub(sc->spot_lux->pos, hit.pos)))) + scale;
+	
 	scale = scale * 1000;
-	// if (final_col_k <= 0)
-		// printf("a %f\tcol: %d\tfinal_col_k: %d\n", a, col, final_col_k);
+	rgb_final.r = (hit.rgb.r * scale) /1000;
+	rgb_final.g = (hit.rgb.g * scale) /1000;
+	rgb_final.b = (hit.rgb.b * scale) /1000;
 
-	t_rgb rgb_test;
-	rgb_test.r = (hit.rgb.r * scale) /1000;
-	rgb_test.g = (hit.rgb.g * scale) /1000;
-	rgb_test.b = (hit.rgb.b * scale) /1000;
-		// printf("final col rgb.r %d \t",rgb_test.r);
-		// printf("final col rgb.g %d \t",rgb_test.g);
-		// printf("final col rgb.b %d \n",rgb_test.b);
-
-	my_mlx_pixel_put(sc->img_data, i, HEIGHT - j, rgb_to_int(rgb_test));
+	my_mlx_pixel_put(sc->img_data, i, HEIGHT - j, rgb_to_int(rgb_final));
 }
