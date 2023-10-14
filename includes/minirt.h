@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 16:13:16 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/13 15:26:36 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/14 15:40:10 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,6 @@ void 	in_cy(t_ray ray, t_obj *cy, t_hit *hit);
 
 t_vec3d	new_point(t_quat q);
 void	get_hit(t_scenario *sc, t_ray ray, t_hit *hit, bool stop_first);
-t_rgb	shadow_ray_rgb(t_ray ray, t_scenario *scena, t_hit object_hit);
-void	shadow_ray_rgb_2(t_scenario *scena, t_hit object_hit, int i, int j);
+void	shadow_ray_rgb(t_scenario *scena, t_hit object_hit, int i, int j);
 void	check_ob(t_scenario *sc);
 #endif

@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 17:43:57 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/13 15:26:44 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/14 15:40:10 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,49 +82,6 @@ void get_hit(t_scenario *sc, t_ray ray, t_hit *hit, bool stop_first)
 	}
 }
 
-float	ft_cos(t_vec3d a, t_vec3d b)
-{
-	float	cos;
-
-	if (ft_mod(b) == 0)
-		return (1.0);
-	cos = ft_dot(a, b) / (ft_mod(a) * ft_mod (b));
-	return (cos);
-}
-
-float	ft_sin(t_vec3d a, t_vec3d b)
-{
-	float	sin;
-	t_vec3d	mult;
-
-	if (ft_mod(a) == 0 || ft_mod(b) == 0)
-		return (0.0);
-	mult = ft_v_mul(a, b);
-	sin = ft_mod(mult) / (ft_mod(a) * ft_mod (b));
-	return (sin);
-}
-
-int	put_color(t_scenario *sc, t_hit hit)
-{
-	float	sl_new;
-	float	amb_new;
-	float	ratio;
-	t_ray	ray_lux;
-	t_hit	hit_lux;
-
-	ratio = (sc->spot_lux->ratio + sc->amb_lux->ratio);
-	sl_new = (sc->spot_lux->ratio / ratio);
-	amb_new = (sc->amb_lux->ratio / ratio);
-	ray_lux.origin = hit.pos;
-	ray_lux.dir = ft_v_sub(sc->spot_lux->pos, hit.pos);
-	hit_lux.hit = false;
-	get_hit(sc, ray_lux, &hit_lux, true);
-	if(hit_lux.hit == false)
-		return ((sl_new * ft_sin(ray_lux.dir, hit.normal) + amb_new) * rgb_to_int(hit.rgb));
-	else
-		return (amb_new * rgb_to_int(hit.rgb));
-}
-
 void check_ob(t_scenario *sc)
 {
 	int i;
@@ -160,16 +117,7 @@ void check_ob(t_scenario *sc)
 			ray.origin = sc->cam->pos;
 			get_hit(sc, ray, &hit, false);	
 			if (hit.hit == true)
-			{
-				// ray_lux.origin = hit.pos;
-				// ray_lux.dir = ft_v_sub(sc->spot_lux->pos, hit.pos);
-				shadow_ray_rgb_2(sc, hit, i, j);
-				// scale = shadow_ray_rgb_2(sc, hit);
-				// my_mlx_pixel_put(sc->img_data, i, HEIGHT - j, scale * rgb_to_int(hit.rgb));
-				// if (scale * rgb_to_int(hit.rgb) > 16777215)
-				// 	printf("scale: %f\tcolor int: %d\trgb.r: %d\trgb.g: %d\trgb.b: %d\tresult: %f\n", scale, rgb_to_int(hit.rgb), hit.rgb.r, hit.rgb.g, hit.rgb.b, scale * rgb_to_int(hit.rgb)) ;
-				// my_mlx_pixel_put(sc->img_data, i, HEIGHT - j, rgb_to_int(shadow_ray_rgb(ray_lux, sc, hit)));
-			}
+				shadow_ray_rgb(sc, hit, i, j);
 			j++;
 		}
 		i++;
@@ -194,8 +142,8 @@ int	main(int argc, char **argv)
 	render(scena);
 	// print_parsing(scena);
 	// render_camera(scena);
-	mlx_hook(scena->mlx->win, 2, 2, key_press, scena);
-	mlx_hook(scena->mlx->win, 3, 3, key_release, scena);
+	// mlx_hook(scena->mlx->win, 2, 2, key_press, scena);
+	// mlx_hook(scena->mlx->win, 3, 3, key_release, scena);
 	mlx_hook(scena->mlx->win, 17, 0, close_w, scena);
 	// mlx_hook(scena->mlx->win, 6, 1L << 6, mouse_move, scena);
 	// mlx_hook(scena->mlx->win, 4, 1L << 2, mouse_pressed, scena);

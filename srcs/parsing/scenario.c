@@ -12,6 +12,21 @@
 
 #include "minirt.h"
 
+void	spot_add_back(t_scenario *scena, t_spotlux *spot)
+{
+	t_spotlux	*list;
+
+	list = scena->spot_lux;
+	if (!list)
+		scena->spot_lux = spot;
+	else
+	{
+		while (list->next)
+			list = list->next;
+		list->next = spot;
+	}
+}
+
 t_mlx	*mlx_init_struct(int win_size_x, int win_size_y)
 {
 	t_mlx	*new;
@@ -83,13 +98,18 @@ void	new_cam(char **split, t_scenario *scena)
 
 void	new_spot_lux(char **split, t_scenario *scena)
 {
-	if (scena->spot_lux || !split || !split[3] || split[4])
+	t_spotlux *spot;
+
+	// if (scena->spot_lux || !split || !split[3] || split[4])
+	if (!split || !split[3] || split[4])
 		ft_exit("Spot light syntax");
-	scena->spot_lux = malloc(sizeof(t_spotlux));
-	if (!scena->spot_lux)
+	spot = malloc(sizeof(t_spotlux));
+	if (!spot)
 		ft_exit("Malloc");
-	scena->spot_lux->pos = ft_pos(split[1]);
-	scena->spot_lux->ratio = ft_get_float(split[2]);
-	scena->spot_lux->rgb = ft_rgb(split[3]);
+	spot->pos = ft_pos(split[1]);
+	spot->ratio = ft_get_float(split[2]);
+	spot->rgb = ft_rgb(split[3]);
+	spot->next = NULL;
 	free_array(split);
+	spot_add_back(scena, spot);
 }

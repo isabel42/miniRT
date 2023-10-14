@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 11:27:11 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/13 14:03:15 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/14 15:13:20 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_mlx
 typedef struct s_amblux
 {
 	float			ratio;
+	float			ratio_norm;
 	struct s_rgb	rgb;
 }				t_amblux;
 
@@ -46,9 +47,11 @@ typedef struct s_cam
 
 typedef struct s_spotlux
 {
-	float			ratio;
-	struct s_vec3d	pos;
-	struct s_rgb	rgb;
+	float				ratio;
+	float				ratio_norm;
+	struct s_vec3d		pos;
+	struct s_rgb		rgb;
+	struct s_spotlux	*next;
 }				t_spotlux;
 
 typedef struct s_obj
