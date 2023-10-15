@@ -6,32 +6,46 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:45:03 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/02 16:39:18 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/15 15:05:01 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	ft_free_c_c(char *a, char *b)
+void	free_spot(t_scenario *scena)
 {
-	free(a);
-	free(b);
+	t_spotlux	*tmp;
+
+	while (scena->spot_lux)
+	{
+		tmp = scena->spot_lux->next;
+		free(scena->spot_lux);
+		scena->spot_lux = tmp;
+	}
 }
 
-void	free_scenario(t_scenario *scena)
+void	free_obj(t_scenario	*scena)
 {
 	t_obj	*tmp;
 
-	if (scena->amb_lux)
-		free(scena->amb_lux);
-	if (scena->cam)
-		free(scena->cam);
-	if (scena->spot_lux)
-		free(scena->spot_lux);
 	while (scena->obj)
 	{
 		tmp = scena->obj->next;
 		free(scena->obj);
 		scena->obj = tmp;
 	}
+}
+
+void	free_scenario(t_scenario *scena)
+{
+	if (scena->amb_lux)
+		free(scena->amb_lux);
+	if (scena->cam)
+		free(scena->cam);
+	if (scena->mlx)
+		free(scena->mlx);
+	if (scena->img_data)
+		free(scena->img_data);
+	free_obj(scena);
+	free_spot(scena);
 }

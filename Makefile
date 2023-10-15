@@ -6,39 +6,38 @@
 #    By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/03 17:19:38 by lsohler           #+#    #+#              #
-#    Updated: 2023/10/10 17:19:12 by lsohler          ###   ########.fr        #
+#    Updated: 2023/10/15 15:32:36 by lsohler          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS = \
 		srcs/main.c\
 		\
-		srcs/draw/bresenham.c\
+		srcs/draw/render.c\
 		\
 		srcs/free/free.c\
 		srcs/free/error.c\
+		\
+		srcs/key/key.c\
+		\
+		srcs/interpolation/cylinder_param.c\
+		srcs/interpolation/cylinder.c\
+		srcs/interpolation/plan.c\
+		srcs/interpolation/sphere.c\
 		\
 		srcs/parsing/objects.c\
 		srcs/parsing/utils.c\
 		srcs/parsing/rgb.c\
 		srcs/parsing/scenario.c\
 		srcs/parsing/parsing.c\
-		srcs/parsing/meta.c\
 		\
-		srcs/test/print.c\
-		srcs/test/cameratest.c\
-		srcs/test/mouse.c\
-		srcs/test/key.c\
-		srcs/test/raytest.c\
-		srcs/test/scenariobox.c\
-		srcs/test/form.c\
 		srcs/tracing/hit.c\
 		srcs/tracing/shadow_ray.c\
+		srcs/tracing/tracing.c\
 		\
 		gnl/get_next_line.c\
 		gnl/get_next_line_utils.c\
 		\
-		srcs/in_fig.c\
 		
 OBJS 	= ${SRCS:.c=.o}
 
@@ -53,6 +52,8 @@ CC		= gcc
 RM		= rm -f
 
 CFLAGS	= -Wextra -Wall -Werror
+
+SANITIZE = -fsanitize=address -g3
 
 INCLUDE = -I./includes -I./libft/ -I./minilibx/
 

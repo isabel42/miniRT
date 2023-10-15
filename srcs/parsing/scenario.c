@@ -27,18 +27,6 @@ void	spot_add_back(t_scenario *scena, t_spotlux *spot)
 	}
 }
 
-t_mlx	*mlx_init_struct(int win_size_x, int win_size_y)
-{
-	t_mlx	*new;
-
-	new = malloc(sizeof(t_mlx));
-	if (!new)
-		return (NULL);
-	new->ptr = mlx_init();
-	new->win = mlx_new_window(new->ptr, win_size_x, win_size_y, "miniRT");
-	return (new);
-}
-
 t_scenario	*init_scenario(void)
 {
 	t_scenario	*scena;
@@ -50,11 +38,6 @@ t_scenario	*init_scenario(void)
 	scena->cam = NULL;
 	scena->spot_lux = NULL;
 	scena->obj = NULL;
-	scena->meta = meta_init();
-	scena->identity_quat = quat_create(1, 0, 0, 0);
-	scena->rotation_quat = quat_create(1, 0, 0, 0);
-	scena->box = init_box();
-	scena->meta->scena = scena;
 	scena->mlx = mlx_init_struct(WIDTH, HEIGHT);
 	scena->img_data = malloc(sizeof(t_data_img));
 	if (!scena->img_data)
@@ -73,7 +56,7 @@ void	new_abm_lux(char **split, t_scenario *scena)
 	scena->amb_lux = malloc(sizeof(t_amblux));
 	if (!scena->amb_lux)
 		ft_exit("Malloc");
-	scena->amb_lux->ratio = ft_get_float(split[1]);
+	scena->amb_lux->ratio = ft_atof(split[1]);
 	scena->amb_lux->rgb = ft_rgb(split[2]);
 	free_array(split);
 }
@@ -88,26 +71,22 @@ void	new_cam(char **split, t_scenario *scena)
 	scena->cam->pos = ft_pos(split[1]);
 	scena->cam->vdir = ft_pos(split[2]);
 	scena->cam->dir = quat_normalize(vector_to_quat(ft_pos(split[2])));
-	// scena->cam->dir = quat_create(1, 0, 0, 0);
 	scena->cam->fov = ft_atoi(split[3]);
 	scena->cam->dist = 100;
-	scena->cam->c = NULL;
-	camera_param(scena->cam);
 	free_array(split);
 }
 
 void	new_spot_lux(char **split, t_scenario *scena)
 {
-	t_spotlux *spot;
+	t_spotlux	*spot;
 
-	// if (scena->spot_lux || !split || !split[3] || split[4])
 	if (!split || !split[3] || split[4])
 		ft_exit("Spot light syntax");
 	spot = malloc(sizeof(t_spotlux));
 	if (!spot)
 		ft_exit("Malloc");
 	spot->pos = ft_pos(split[1]);
-	spot->ratio = ft_get_float(split[2]);
+	spot->ratio = ft_atof(split[2]);
 	spot->rgb = ft_rgb(split[3]);
 	spot->next = NULL;
 	free_array(split);

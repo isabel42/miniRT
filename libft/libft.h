@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:55:49 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/09 12:14:20 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/15 14:20:29 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void	*ft_memchr(const void *s, int c, size_t n);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 void	*ft_realloc(void *ptr, size_t newsize);
 /* MATH */
+int		ft_abs(int x);
 float	ft_mod(t_vec3d a);
 float	ft_dot(t_vec3d v1, t_vec3d v2);
 float	ft_vector_lenght(t_vec3d v);

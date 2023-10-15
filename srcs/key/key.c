@@ -1,29 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   key.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/02 12:48:06 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/15 15:18:02 by lsohler          ###   ########.fr       */
+/*   Created: 2023/10/15 14:17:28 by lsohler           #+#    #+#             */
+/*   Updated: 2023/10/15 15:04:17 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	ft_exit_fd(int fd)
+int	close_w(t_scenario *scena)
 {
-	if (fd == -1)
-	{
-		perror("Error");
-		exit (0);
-	}
+	mlx_destroy_window(scena->mlx->ptr, scena->mlx->win);
+	free_scenario(scena);
+	exit (0);
 }
 
-void	ft_exit(char *msg)
+int	close_esc(t_scenario *scena)
 {
-	ft_putstr_fd("Error: ", 2);
-	ft_putendl_fd(msg, 2);
+	mlx_destroy_window(scena->mlx->ptr, scena->mlx->win);
+	free_scenario(scena);
 	exit (0);
+}
+
+int	key_press(int key, t_scenario *scena)
+{
+	if (key == KEY_ESC)
+		close_esc(scena);
+	return (0);
 }
