@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 13:10:10 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/15 14:06:24 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/15 16:34:32 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,12 @@ t_ray	init_ray(t_scenario *sc, t_tracing t)
 	t_vec3d	p2;
 	t_quat	pq2;
 
-	p2.y = sc->cam->pos.y + t.j - HEIGHT / 2;
-	p2.x = sc->cam->pos.x + t.i - WIDTH / 2;
-	p2.z = sc->cam->pos.z + t.d;
-	pq2 = quat_create(0, p2.x, p2.y, p2.z);
+	pq2 = quat_create(0, t.i - WIDTH / 2, t.j - HEIGHT / 2, t.d);
 	pq2 = quat_multiply(
 			quat_multiply((sc->cam->dir), pq2),
 			quat_conjugate((sc->cam->dir)));
 	p2 = quat_to_point(pq2);
+	p2 = ft_v_add(p2, sc->cam->pos);
 	ray.dir = ft_v_sub(p2, sc->cam->pos);
 	ray.origin = sc->cam->pos;
 	return (ray);

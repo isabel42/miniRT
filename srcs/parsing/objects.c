@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 21:35:41 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/15 14:16:12 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/15 16:55:41 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	new_plan(char **split, t_scenario *scena)
 	pln->diam = 0;
 	pln->high = 0;
 	pln->pos = ft_pos(split[1]);
-	pln->dir = ft_pos(split[2]);
+	pln->dir = get_orientation(split[2], -1.0, 1.0);
 	pln->rgb = ft_rgb(split[3]);
 	pln->next = NULL;
 	free_array(split);

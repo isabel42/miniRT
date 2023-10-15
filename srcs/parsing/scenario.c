@@ -56,7 +56,7 @@ void	new_abm_lux(char **split, t_scenario *scena)
 	scena->amb_lux = malloc(sizeof(t_amblux));
 	if (!scena->amb_lux)
 		ft_exit("Malloc");
-	scena->amb_lux->ratio = ft_atof(split[1]);
+	scena->amb_lux->ratio = get_ratio(split[1], 0, 1);
 	scena->amb_lux->rgb = ft_rgb(split[2]);
 	free_array(split);
 }
@@ -69,7 +69,7 @@ void	new_cam(char **split, t_scenario *scena)
 	if (!scena->cam)
 		ft_exit("Malloc");
 	scena->cam->pos = ft_pos(split[1]);
-	scena->cam->vdir = ft_pos(split[2]);
+	scena->cam->vdir = get_orientation(split[2], -1.0, 1);
 	scena->cam->dir = quat_normalize(vector_to_quat(ft_pos(split[2])));
 	scena->cam->fov = ft_atoi(split[3]);
 	scena->cam->dist = 100;
@@ -86,7 +86,7 @@ void	new_spot_lux(char **split, t_scenario *scena)
 	if (!spot)
 		ft_exit("Malloc");
 	spot->pos = ft_pos(split[1]);
-	spot->ratio = ft_atof(split[2]);
+	spot->ratio = get_ratio(split[2], 0, 1);
 	spot->rgb = ft_rgb(split[3]);
 	spot->next = NULL;
 	free_array(split);

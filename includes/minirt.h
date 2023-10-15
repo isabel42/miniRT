@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 16:13:16 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/15 15:30:54 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/15 16:54:43 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ void		new_spot_lux(char **split, t_scenario *scena);
 t_rgb		ft_rgb(char *line);
 t_vec3d		ft_pos(char *line);
 int			ft_get_rgb(char *line);
+float		get_ratio(char *line, float min, float max);
+t_vec3d		get_orientation(char *line, float min, float max);
 
 /*---INTERPOLATION---*/
 void		sphere_hit(t_ray ray, t_obj *obj, t_hit *hit);
