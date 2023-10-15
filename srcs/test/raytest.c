@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 17:50:20 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/13 18:09:44 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/15 18:10:31 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,10 @@ void	draw_ray(t_scenario *scena)
 			point_dir.x = point.x;
 			point_dir.y = point.y;
 			point_dir.z = point.z;
+			if (iy == 0 || iy == n)
+				bresenham_draw_line(get_point_r(scena->cam->c[4], scena), get_point_r(point, scena), scena, int_to_rgb(I_RED));
+			if (ix == 0 || ix == n - 1)
+				bresenham_draw_line(get_point_r(scena->cam->c[4], scena), get_point_r(point, scena), scena, int_to_rgb(I_RED));
 			// point = quat_create(0, point.x, point.y, point.z);
 			// printf("New point ray: ");
 			// print_q(point);
