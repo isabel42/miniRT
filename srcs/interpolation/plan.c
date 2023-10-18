@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   plan.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
+/*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 13:33:13 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/15 13:35:56 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/18 15:27:54 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,10 @@ void	in_pl(t_ray ray, t_obj *pl, t_hit *hit)
 	float	pl_sing;
 	float	t;
 
-	pl_sing = pl->dir.x * pl->pos.x
-		+ pl->dir.y * pl->pos.y + pl->dir.z * pl->pos.z;
-	if (ray.dir.x * pl->dir.x + ray.dir.y * pl->dir.y
-		+ ray.dir.z * pl->dir.z == 0
-		&& pl->dir.x * ray.origin.x + pl->dir.y * ray.origin.y
-		+ pl->dir.z * ray.origin.z != pl_sing)
+	pl_sing = ft_dot(pl->dir, pl->pos);
+	if (!ft_dot(ray.dir, pl->dir) && ft_dot(pl->dir, ray.origin) != pl_sing)
 		return ;
-	t = (pl_sing - ray.origin.x * pl->dir.x - ray.origin.y * pl->dir.y
-			- ray.origin.z * pl->dir.z) / (ray.dir.x * pl->dir.x
-			+ (ray.dir.y * pl->dir.y + ray.dir.z * pl->dir.z));
+	t = (pl_sing - ft_dot(pl->dir, ray.origin)) / (ft_dot(ray.dir, pl->dir));
 	if (t > 0.0001)
 	{
 		hit->pos.x = ray.origin.x + ray.dir.x * t;
@@ -37,6 +31,13 @@ void	in_pl(t_ray ray, t_obj *pl, t_hit *hit)
 		hit->pos.z = ray.origin.z + ray.dir.z * t;
 		hit->dst = ft_mod(ft_v_sub(hit->pos, ray.origin));
 		hit->normal = pl->dir;
+		if (!fmax(0.0, ft_dot(ft_normalize(pl->dir),
+					ft_normalize(ft_v_sub(ray.origin, hit->pos)))))
+		{
+			hit->normal.x = -pl->dir.x;
+			hit->normal.y = -pl->dir.y;
+			hit->normal.z = -pl->dir.z;
+		}
 		hit->rgb = pl->rgb;
 		hit->hit = true;
 		hit->id = 1;
