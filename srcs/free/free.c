@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:45:03 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/15 15:05:01 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/24 12:32:05 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,10 @@ void	free_scenario(t_scenario *scena)
 		free(scena->mlx);
 	if (scena->img_data)
 		free(scena->img_data);
+	if (scena->view->mlx)
+		free(scena->view->mlx);
+	if (scena->view->img_data)
+		free(scena->view->img_data);
 	free_obj(scena);
 	free_spot(scena);
 }

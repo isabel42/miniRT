@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 16:13:16 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/15 16:54:43 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/24 18:16:59 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 
 # define WIDTH 1920
 # define HEIGHT 1080
+# define V_WIDTH 600
+# define V_HEIGHT 600
 
 /*KEYS*/
 # define KEY_LEFT 123
@@ -49,6 +51,15 @@
 # define KEY_N6 88
 # define KEY_N4 86
 # define KEY_N2 84
+# define KEY_CTRL 256
+# define KEY_SHIFT 257
+# define KEY_ALT 261
+# define KEY_CMD 259
+# define KEY_ENTER 36
+# define KEY_SCROLL_UP 5
+# define KEY_SCROLL_DOWN 4
+# define KEY_SCROLL_UP_S 7
+# define KEY_SCROLL_DOWN_S 6
 
 # define I_WHITE 0xFFFFFF
 # define I_RED 0x960018
@@ -72,7 +83,7 @@ void		free_scenario(t_scenario *scena);
 /*---PARSING---*/
 t_scenario	*init_scenario(void);
 t_scenario	*parsing(char *argv1);
-t_mlx		*mlx_init_struct(int win_size_x, int win_size_y);
+t_mlx		*mlx_init_struct(int win_size_x, int win_size_y, char *name);
 void		parse_line(char *line, t_scenario *scena);
 void		new_sphere(char **split, t_scenario *scena);
 void		new_plan(char **split, t_scenario *scena);
@@ -115,5 +126,23 @@ int			close_w(t_scenario *scena);
 void		get_hit(t_scenario *sc, t_ray ray, t_hit *hit, bool stop_first);
 void		shadow_ray_rgb(t_scenario *scena, t_hit object_hit, int i, int j);
 void		tracing(t_scenario *sc);
+
+/*---VIEW---*/
+t_view		*init_view(t_scenario *scena);
+t_quat		*init_quat_camera(t_scenario *scena, int dist);
+t_quat		*init_quat_box(void);
+int			key_press_view(int key, t_scenario *scena);
+int			key_release_view(int key, t_scenario *scena);
+int			mouse_pressed(int key, int x, int y, t_scenario *scena);
+int			mouse_released(int key, int x, int y, t_scenario *scena);
+t_quat		*init_axis(t_vec3d center, float size);
+void		bresenham_draw_line(t_point a, t_point b, t_scenario *meta, t_rgb color);
+void		apply_rotation_scena(t_scenario *scena);
+void		apply_rotation_o_cam(t_scenario *scena);
+void		my_new_mlx_img_data_view(t_scenario *meta);
+void		render_view(t_scenario *scena);
+int			mouse_move(int x, int y, t_scenario *scena);
+void		mouse_scroll(int key, t_scenario *scena);
+
 
 #endif

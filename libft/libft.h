@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:55:49 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/15 14:20:29 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/24 18:16:17 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ t_quat	quat_normalize(t_quat q);
 t_quat	euler_to_quat(float yaw, float pitch, float roll);
 t_quat	vector_to_quat(t_vec3d v);
 t_vec3d	quat_to_vector(t_quat q);
+t_quat	quat_add_offset(t_quat point, t_vec3d offset);
+t_quat	quat_sub_offset(t_quat point, t_vec3d offset);
 /* PRINT */
 void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);

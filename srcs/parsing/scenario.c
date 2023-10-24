@@ -38,7 +38,7 @@ t_scenario	*init_scenario(void)
 	scena->cam = NULL;
 	scena->spot_lux = NULL;
 	scena->obj = NULL;
-	scena->mlx = mlx_init_struct(WIDTH, HEIGHT);
+	scena->mlx = mlx_init_struct(WIDTH, HEIGHT, "MiniRT");
 	scena->img_data = malloc(sizeof(t_data_img));
 	if (!scena->img_data)
 		ft_exit("Malloc");

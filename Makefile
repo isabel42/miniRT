@@ -6,7 +6,7 @@
 #    By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/03 17:19:38 by lsohler           #+#    #+#              #
-#    Updated: 2023/10/15 17:06:54 by lsohler          ###   ########.fr        #
+#    Updated: 2023/10/24 15:17:28 by lsohler          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,16 @@ SRCS = \
 		srcs/tracing/hit.c\
 		srcs/tracing/shadow_ray.c\
 		srcs/tracing/tracing.c\
+		\
+		srcs/view/camera.c\
+		srcs/view/init.c\
+		srcs/view/utils.c\
+		srcs/view/key_press_view.c\
+		srcs/view/mouse.c\
+		srcs/view/form.c\
+		srcs/view/bresenham.c\
+		srcs/view/rotation.c\
+		srcs/view/draw.c\
 		\
 		gnl/get_next_line.c\
 		gnl/get_next_line_utils.c\

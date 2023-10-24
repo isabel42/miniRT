@@ -6,13 +6,13 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 15:20:46 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/15 15:23:07 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/24 16:18:14 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_mlx	*mlx_init_struct(int win_size_x, int win_size_y)
+t_mlx	*mlx_init_struct(int win_size_x, int win_size_y, char *name)
 {
 	t_mlx	*new;
 
@@ -20,7 +20,7 @@ t_mlx	*mlx_init_struct(int win_size_x, int win_size_y)
 	if (!new)
 		return (NULL);
 	new->ptr = mlx_init();
-	new->win = mlx_new_window(new->ptr, win_size_x, win_size_y, "miniRT");
+	new->win = mlx_new_window(new->ptr, win_size_x, win_size_y, name);
 	return (new);
 }
 
@@ -71,5 +71,6 @@ t_scenario	*parsing(char *argv1)
 	close(fd);
 	if (!scena->cam || !scena->amb_lux || !scena->spot_lux)
 		ft_exit("No camera or light source");
+	scena->view = init_view(scena);
 	return (scena);
 }

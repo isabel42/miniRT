@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 11:27:11 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/15 15:29:06 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/24 15:11:59 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_obj
 	int				id;
 	float			diam;
 	float			high;
+	t_quat			*axis;
 	struct s_vec3d	pos;
 	struct s_rgb	rgb;
 	struct s_vec3d	dir;
@@ -76,7 +77,28 @@ typedef struct s_scenario
 	struct s_obj		*obj;
 	struct s_data_img	*img_data;
 	struct s_mlx		*mlx;
+	struct s_view		*view;
 }				t_scenario;
+
+typedef struct s_view
+{
+	struct s_data_img	*img_data;
+	struct s_mlx		*mlx;
+	t_quat				identity_quat;
+	t_quat				rotation_quat;
+	t_quat				scena_quat;
+	t_quat				*camera;
+	t_quat				*box;
+	float				ratio;
+	int					c_state;
+	int					s_state;
+	int					a_state;
+	int					cmd_state;
+	int					click_state;
+	int					rclick_state;
+	int					box_offset_x;
+	int					box_offset_y;
+}				t_view;
 /*--------------*/
 
 /*---TRACING---*/
@@ -96,6 +118,14 @@ typedef struct s_ray
 	struct s_vec3d	dir;
 	struct s_vec3d	p2;
 }				t_ray;
+/*-----------*/
+
+/*---VIEW---*/
+typedef struct s_point
+{
+	int	x;
+	int	y;
+}				t_point;
 /*-----------*/
 
 #endif
