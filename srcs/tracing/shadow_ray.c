@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 17:18:44 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/18 14:37:50 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/18 16:00:23 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	get_scale_shadow(t_scenario *sc, t_hit hit, double *scale)
 						ft_normalize(ft_v_sub(spot->pos, hit.pos))));
 			scale[0] = spot->ratio_norm * cos * spot->rgb.r / 255 + scale[0];
 			scale[1] = spot->ratio_norm * cos * spot->rgb.g / 255 + scale[1];
-			scale[2] = spot->ratio_norm * cos * spot->rgb.b / 255 + scale[2];
+			scale[2] = spot->ratio_norm * cos * spot->rgb.b / 255 + scale[2]; 
 		}
 		spot = spot->next;
 	}
