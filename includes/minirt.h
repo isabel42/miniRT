@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 16:13:16 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/25 13:18:28 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/25 17:13:13 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void		cal_cy_param_c(t_vec3d *abc, t_ray ray, t_obj *cy);
 void		in_pl(t_ray ray, t_obj *pl, t_hit *hit);
 void		in_sp(t_ray ray, t_obj *sp, t_hit *hit);
 void		in_cy(t_ray ray, t_obj *cy, t_hit *hit);
-
+void		cylinder_hit(t_ray ray, t_obj *obj, t_hit *hit);
 /*---RENDER---*/
 void		my_mlx_pixel_put(t_data_img *imgdata, int x, int y, int color);
 t_rgb		int_to_rgb(int icolor);

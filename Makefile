@@ -6,7 +6,7 @@
 #    By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/03 17:19:38 by lsohler           #+#    #+#              #
-#    Updated: 2023/10/24 15:17:28 by lsohler          ###   ########.fr        #
+#    Updated: 2023/10/25 16:03:00 by lsohler          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRCS = \
 		srcs/interpolation/cylinder.c\
 		srcs/interpolation/plan.c\
 		srcs/interpolation/sphere.c\
+		srcs/interpolation/cylinder2.c\
 		\
 		srcs/parsing/objects.c\
 		srcs/parsing/utils.c\
