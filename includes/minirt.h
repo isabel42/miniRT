@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 16:13:16 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/24 18:16:59 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/25 13:18:28 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,9 @@ void		my_new_mlx_img_data_view(t_scenario *meta);
 void		render_view(t_scenario *scena);
 int			mouse_move(int x, int y, t_scenario *scena);
 void		mouse_scroll(int key, t_scenario *scena);
+void		apply_rotation_camera(t_scenario *scena);
+void		apply_rotation_box(t_scenario *scena);
+void		apply_rotation_scena(t_scenario *scena);
 
 
 #endif

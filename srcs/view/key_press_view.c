@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 12:32:59 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/24 17:40:39 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/25 13:26:11 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,14 @@ int	key_press_view(int key, t_scenario *scena)
 	{
 		render(scena);
 		mlx_do_sync(scena->mlx->ptr);
+	}
+	if (key == KEY_I)
+	{
+		scena->view->rotation_quat = quat_conjugate(scena->view->scena_quat);
+		scena->view->scena_quat = quat_create(1, 0, 0, 0);
+		printf("TESTETSTETST\n");
+		apply_rotation_scena(scena);
+		render_view(scena);
 	}
 	printf("PRESS:   S:%i C:%i A:%i CMD:%i\n", scena->view->s_state, scena->view->c_state, scena->view->a_state, scena->view->cmd_state);
 	return (0);

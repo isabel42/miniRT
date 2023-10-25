@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:18:29 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/24 18:35:24 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/25 13:04:53 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,9 @@ t_quat	*init_quat_camera(t_scenario *scena, int dist)
 	float	plane_width;
 
 	pos = scena->cam->pos;
-	plane_width = dist * tan(ft_deg_to_rad(scena->cam->fov) * 0.5f) * 4;
-	plane_height = plane_width * ((float)HEIGHT / (float)WIDTH);
+	dist = tan(ft_deg_to_rad(scena->cam->fov / 2)) * WIDTH / 2;
+	plane_width = WIDTH;
+	plane_height = HEIGHT;
 	c = malloc(sizeof(t_quat) * 5);
 	if (!c)
 		ft_exit("Malloc");
@@ -55,7 +56,7 @@ t_quat	*init_quat_box(void)
 	box = malloc(sizeof(t_quat) * 8);
 	if (!box)
 		ft_exit("Malloc");
-	half_size = 100;
+	half_size = 300;
 	box[0] = quat_create(0, -half_size, -half_size, -half_size);
 	box[1] = quat_create(0, -half_size, -half_size, half_size);
 	box[2] = quat_create(0, -half_size, half_size, half_size);

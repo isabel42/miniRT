@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 17:43:57 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/24 17:48:45 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/25 13:19:28 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	main(int argc, char **argv)
 		ft_exit("Usage: ./minirt <file.rt>");
 	scena = parsing(argv[1]);
 	render(scena);
+	apply_rotation_scena(scena);
 	render_view(scena);
 	mlx_hook(scena->mlx->win, 2, 2, key_press, scena);
 	mlx_hook(scena->view->mlx->win, 2, 2, key_press_view, scena);

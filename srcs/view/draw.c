@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:29:04 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/24 17:42:19 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/25 12:28:56 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,11 @@ void	draw_scenario(t_scenario *scena)
 	draw_box(scena->view->box, scena, int_to_rgb(I_WHITE));
 	draw_camera(scena->view->camera, scena, int_to_rgb(I_WHITE));
 	obj = scena->obj;
-	// while (obj)
-	// {
-	// 	draw_axis(obj->axis, scena);
-	// 	obj = obj->next;
-	// }
+	while (obj)
+	{
+		draw_axis(obj->axis, scena);
+		obj = obj->next;
+	}
 }
 
 void	render_view(t_scenario *scena)
