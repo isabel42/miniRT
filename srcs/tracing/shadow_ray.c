@@ -6,26 +6,50 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 17:18:44 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/15 15:27:01 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/25 17:23:18 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
+
+t_rgb	scale_color(t_rgb c, float scale)
+{
+	t_rgb	result;
+
+	result.r = c.r * scale;
+	result.g = c.g * scale;
+	result.b = c.b * scale;
+	return (result);
+}
+
 float	get_ratio_shadow(t_scenario *sc)
 {
-	float		ratio;
+	float		*ratio;
+	float		sol;
 	t_spotlux	*spot;
 
 	spot = sc->spot_lux;
-	ratio = sc->amb_lux->ratio;
+	ratio = malloc (sizeof(float) * 3);
+	if (!ratio)
+		ft_exit("Malloc");
+	ratio[0] = sc->amb_lux->ratio * sc->amb_lux->rgb.r / 255;
+	ratio[1] = sc->amb_lux->ratio * sc->amb_lux->rgb.g / 255;
+	ratio[2] = sc->amb_lux->ratio * sc->amb_lux->rgb.b / 255;
 	while (spot)
 	{
-		ratio = ratio + sc->spot_lux->ratio;
+		ratio[0] = spot->ratio * spot->rgb.r / 255 + ratio[0];
+		ratio[1] = spot->ratio * spot->rgb.g / 255 + ratio[1];
+		ratio[2] = spot->ratio * spot->rgb.b / 255 + ratio[2];
 		spot = spot->next;
 	}
-	ratio = fmax(1.0, ratio);
-	return (ratio);
+	ratio[0] = fmax(1.0, ratio[0]);
+	ratio[1] = fmax(1.0, ratio[1]);
+	ratio[2] = fmax(1.0, ratio[2]);
+	sol = fmax(ratio[0], ratio[1]);
+	sol = fmax(ratio[2], sol);
+	free (ratio);
+	return (sol);
 }
 
 void	set_ratio_norm(t_scenario *sc, float ratio)
@@ -41,15 +65,17 @@ void	set_ratio_norm(t_scenario *sc, float ratio)
 	sc->amb_lux->ratio_norm = (sc->amb_lux->ratio / ratio);
 }
 
-double	get_scale_shadow(t_scenario *sc, t_hit hit)
+void	get_scale_shadow(t_scenario *sc, t_hit hit, double *scale)
 {
 	t_hit		hit_lux;
 	t_ray		ray_lux;
 	t_spotlux	*spot;
-	double		scale;
+	double		cos;
 
 	ray_lux.origin = hit.pos;
-	scale = sc->amb_lux->ratio_norm;
+	scale[0] = sc->amb_lux->ratio_norm * sc->amb_lux->rgb.r / 255;
+	scale[1] = sc->amb_lux->ratio_norm * sc->amb_lux->rgb.g / 255;
+	scale[2] = sc->amb_lux->ratio_norm * sc->amb_lux->rgb.b / 255;
 	spot = sc->spot_lux;
 	while (spot)
 	{
@@ -57,26 +83,32 @@ double	get_scale_shadow(t_scenario *sc, t_hit hit)
 		hit_lux.hit = false;
 		get_hit(sc, ray_lux, &hit_lux, false);
 		if (hit_lux.hit == false)
-			scale = spot->ratio_norm * fmax(0.0,
-					ft_dot(ft_normalize(hit.normal),
-						ft_normalize(ft_v_sub(spot->pos, hit.pos)))) + scale;
+		{
+			cos = fmax(0.0, ft_dot(ft_normalize(hit.normal),
+						ft_normalize(ft_v_sub(spot->pos, hit.pos))));
+			scale[0] = spot->ratio_norm * cos * spot->rgb.r / 255 + scale[0];
+			scale[1] = spot->ratio_norm * cos * spot->rgb.g / 255 + scale[1];
+			scale[2] = spot->ratio_norm * cos * spot->rgb.b / 255 + scale[2]; 
+		}
 		spot = spot->next;
 	}
-	scale = scale * 1000;
-	return (scale);
 }
 
 void	shadow_ray_rgb(t_scenario *sc, t_hit hit, int i, int j)
 {
 	float	ratio;
-	double	scale;
+	double	*scale;
 	t_rgb	rgb_final;
 
 	ratio = get_ratio_shadow(sc);
 	set_ratio_norm(sc, ratio);
-	scale = get_scale_shadow(sc, hit);
-	rgb_final.r = (hit.rgb.r * scale) / 1000;
-	rgb_final.g = (hit.rgb.g * scale) / 1000;
-	rgb_final.b = (hit.rgb.b * scale) / 1000;
+	scale = malloc(sizeof(double) * 3);
+	if (!scale)
+		ft_exit("Malloc");
+	get_scale_shadow(sc, hit, scale);
+	rgb_final.r = (hit.rgb.r * scale[0]);
+	rgb_final.g = (hit.rgb.g * scale[1]);
+	rgb_final.b = (hit.rgb.b * scale[2]);
 	my_mlx_pixel_put(sc->img_data, i, HEIGHT - j, rgb_to_int(rgb_final));
+	free(scale);
 }

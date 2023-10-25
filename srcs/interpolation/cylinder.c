@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 13:33:00 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/15 15:18:19 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/25 17:23:34 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	in_cy_caps(t_ray ray, t_obj *cy, t_hit *hit, float t)
 	cap.pos.y = cy->pos.y + t * cy->dir.y;
 	cap.pos.z = cy->pos.z + t * cy->dir.z;
 	in_pl(ray, &cap, &hit_loc);
-	if (hit_loc.dst > 0 && (hit->dst > hit_loc.dst || hit->hit == false)
+	if (hit_loc.hit == true && (hit->dst > hit_loc.dst || hit->hit == false)
 		&& ft_mod(ft_v_sub(hit_loc.pos, cap.pos)) <= cy->diam / 2)
 	{
 		hit->pos = hit_loc.pos;
@@ -69,11 +69,10 @@ void	in_cy(t_ray ray, t_obj *cy, t_hit *hit)
 
 	cal_cy_param(&abc, ray, cy);
 	sq = powf(abc.y, 2) - (4 * abc.x * abc.z);
-	if (sq >= 0 && abc.x != 0)
-	{
-		in_cy_body(ray, cy, hit, (-abc.y - sqrt(sq)) / (2 * abc.x));
-		in_cy_body(ray, cy, hit, (-abc.y + sqrt(sq)) / (2 * abc.x));
-	}
+	if (sq < 0 || !abc.x)
+		return ;
+	in_cy_body(ray, cy, hit, (-abc.y - sqrt(sq)) / (2 * abc.x));
+	in_cy_body(ray, cy, hit, (-abc.y + sqrt(sq)) / (2 * abc.x));
 	in_cy_caps(ray, cy, hit, (cy->high / 2) / ft_mod(cy->dir));
 	in_cy_caps(ray, cy, hit, -(cy->high / 2) / ft_mod(cy->dir));
 }
