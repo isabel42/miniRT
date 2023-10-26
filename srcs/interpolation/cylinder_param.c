@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder_param.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
+/*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 13:36:53 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/15 13:58:00 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/25 23:12:06 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,16 @@ void	cal_cy_param_b(t_vec3d *abc, t_ray ray, t_obj *cy)
 			+ pow(cy->dir.y, 2) * ray.dir.y * ray.origin.y
 			+ pow(cy->dir.z, 2) * ray.dir.z * ray.origin.z
 			+ ray.dir.x * ray.origin.y * cy->dir.x * cy->dir.y
-			+ ray.dir.y * ray.origin.x * cy->dir.x * cy->dir.y
 			+ ray.dir.x * ray.origin.z * cy->dir.x * cy->dir.z
-			+ ray.dir.z * ray.origin.x * cy->dir.x * cy->dir.z
+			+ ray.dir.y * ray.origin.x * cy->dir.x * cy->dir.y
 			+ ray.dir.y * ray.origin.z * cy->dir.y * cy->dir.z
+			+ ray.dir.z * ray.origin.x * cy->dir.x * cy->dir.z
 			+ ray.dir.z * ray.origin.y * cy->dir.x * cy->dir.z
 			- ray.dir.x * (cy->dir.x * cy->dir.x * cy->pos.x + cy->dir.x
 				* cy->dir.y * cy->pos.y + cy->dir.x * cy->dir.z * cy->pos.z)
 			- ray.dir.y * (cy->dir.y * cy->dir.x * cy->pos.x + cy->dir.y
 				* cy->dir.y * cy->pos.y + cy->dir.y * cy->dir.z * cy->pos.z)
-			- ray.dir.z * (cy->dir.z * cy->pos.x * cy->pos.x + cy->dir.z
+			- ray.dir.z * (cy->dir.z * cy->dir.x * cy->pos.x + cy->dir.z
 				* cy->dir.y * cy->pos.y + cy->dir.z * cy->dir.z * cy->pos.z)
 			- powf(ft_mod(cy->dir), 2) * (ray.origin. x * ray.dir.x
 				+ ray.origin.y * ray.dir.y + ray.origin.z * ray.dir.z

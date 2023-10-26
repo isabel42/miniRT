@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 13:33:00 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/18 15:48:46 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/26 09:52:47 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,38 @@
 /* https://www.youtube.com/watch?v=IKQCtqvGTJM */
 /**/
 
+t_vec3d	vct_orto(t_vec3d a, t_vec3d b)
+{
+	t_vec3d	sol;
+
+	sol.x = a.y * b.z - a.z * b.y;
+	sol.y = a.z * b.x - a.x * b.z;
+	sol.z = a.x * b.y - a.y * b.x;
+	return (sol);
+}
 void	in_cy_body(t_ray ray, t_obj *cy, t_hit *hit, float t)
 {
 	t_vec3d	sol2;
 
 	if (t > 0.0001)
 	{
-		sol2.z = ray.origin.z + t * ray.dir.z;
-		sol2.y = ray.origin.y + t * ray.dir.y;
 		sol2.x = ray.origin.x + t * ray.dir.x;
+		sol2.y = ray.origin.y + t * ray.dir.y;
+		sol2.z = ray.origin.z + t * ray.dir.z;
 		if ((hit->dst > ft_mod(ft_v_sub(sol2, ray.origin)) || hit->hit == false)
 			&& powf(ft_mod(ft_v_sub(sol2, cy->pos)), 2) - powf(cy->diam / 2, 2)
 			<= powf(cy->high / 2, 2))
 		{
-			hit->pos.z = ray.origin.z + t * ray.dir.z;
-			hit->pos.y = ray.origin.y + t * ray.dir.y;
-			hit->pos.x = ray.origin.x + t * ray.dir.x;
+			hit->pos = sol2;
 			hit->dst = ft_mod(ft_v_sub(sol2, ray.origin));
-			hit->normal = ft_v_sub(hit->pos, cy->pos);
+			hit->normal = vct_orto(ft_v_sub(hit->pos, cy->pos), cy->dir);
+			hit->normal = vct_orto(hit->normal, cy->dir);
+			if (ft_dot(ray.dir, hit->normal) > 0.000)
+			{
+				hit->normal.x = -hit->normal.x;
+				hit->normal.y = -hit->normal.y;
+				hit->normal.z = -hit->normal.z;
+			}
 			hit->rgb = cy->rgb;
 			hit->hit = true;
 			hit->id = 2;
