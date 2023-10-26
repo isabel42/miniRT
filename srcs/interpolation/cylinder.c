@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 13:33:00 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/26 09:52:47 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/26 10:01:26 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_vec3d	vct_orto(t_vec3d a, t_vec3d b)
 void	in_cy_body(t_ray ray, t_obj *cy, t_hit *hit, float t)
 {
 	t_vec3d	sol2;
+	t_vec3d	norm;
 
 	if (t > 0.0001)
 	{
@@ -38,9 +39,9 @@ void	in_cy_body(t_ray ray, t_obj *cy, t_hit *hit, float t)
 			<= powf(cy->high / 2, 2))
 		{
 			hit->pos = sol2;
-			hit->dst = ft_mod(ft_v_sub(sol2, ray.origin));
-			hit->normal = vct_orto(ft_v_sub(hit->pos, cy->pos), cy->dir);
-			hit->normal = vct_orto(hit->normal, cy->dir);
+			hit->dst = ft_mod(ft_v_sub(hit->pos, ray.origin));
+			norm = vct_orto(ft_v_sub(hit->pos, cy->pos), cy->dir);
+			hit->normal = vct_orto(norm, cy->dir);
 			if (ft_dot(ray.dir, hit->normal) > 0.000)
 			{
 				hit->normal.x = -hit->normal.x;
