@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   quat_to_vector.c                                   :+:      :+:    :+:   */
+/*   quat_v_create.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/06 16:15:52 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/06 16:19:06 by lsohler          ###   ########.fr       */
+/*   Created: 2023/10/27 12:25:40 by lsohler           #+#    #+#             */
+/*   Updated: 2023/10/27 12:32:49 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_vec3d	quat_to_vector(t_quat q)
+t_quat	quat_v_create(t_vec3d p)
 {
-	t_vec3d	res;
-
-	res.x = q.x;
-	res.y = q.y;
-	res.z = q.z;
-	return (res);
+	return (quat_create(0, p.x, p.y, p.z));
 }

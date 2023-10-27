@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:59:53 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/25 18:05:46 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/27 14:13:15 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,25 @@ int solve_quadratic(float *t0, float *t1, t_obj *obj, t_ray ray)
 
 void	transform_ray(t_ray *ray, t_obj	*obj)
 {
-	t_quat	qrdir;
-	t_quat	qrorigin;
-	t_quat	qcdir;
+	ray->origin = ft_v_sub(ray->origin, obj->pos);
+	ray->dir = ft_v_sub(ray->dir, obj->pos);
+	ray->dir = quat_v_transform(obj->q_dir, ray->dir);
+	ray->origin = quat_v_transform(obj->q_dir, ray->origin);
+}
 
-	qcdir = vector_to_quat(obj->dir); 
-	// ray->origin = ft_v_sub(ray->origin, obj->pos);
-	// ray->dir = ft_v_sub(ray->dir, obj->pos);
-	qrorigin = quat_create(0, ray->origin.x, ray->origin.y, ray->origin.z);
-	qrdir = quat_create(0, ray->dir.x, ray->dir.y, ray->dir.z);
-	qrorigin = quat_multiply(quat_multiply(qrorigin, qcdir), quat_conjugate(qcdir));
-	qrdir = quat_multiply(quat_multiply(qrdir, qcdir), quat_conjugate(qcdir));
-	ray->origin = quat_to_vector(qrorigin);
-	ray->dir = quat_to_vector(qrdir);
+void	cyl_hit(t_hit *hit, float t_min, t_ray ray, t_obj *obj, float y)
+{
+	hit->hit = true;
+	hit->dst = t_min;
+	hit->pos = ft_v_add(ray.origin, ft_v_scale(ray.dir, t_min));
+	// hit->pos = quat_v_transform(quat_conjugate(obj->q_dir), hit->pos);
+	hit->pos = quat_v_transform(quat_conjugate(obj->q_dir), ft_v_add(hit->pos, obj->pos));
+	hit->normal = ft_normalize(
+		ft_v_sub(hit->pos, (t_vec3d){obj->pos.x, y, obj->pos.z}));
+	hit->normal = quat_v_transform(quat_conjugate(obj->q_dir), ft_v_add(hit->normal, obj->pos));
+	// hit->normal = ft_normalize(quat_v_transform(quat_conjugate(obj->q_dir), ft_v_add(ft_v_sub(hit->pos, (t_vec3d){obj->pos.x, y, obj->pos.z}), obj->pos)));
+	hit->rgb = obj->rgb;
+	hit->id = obj->id;
 }
 
 void	cylinder_hit(t_ray ray, t_obj *obj, t_hit *hit)
@@ -71,14 +77,15 @@ void	cylinder_hit(t_ray ray, t_obj *obj, t_hit *hit)
 	{
 		y = ray.origin.y + t_min * ray.dir.y;
 		if (y >= y_min && y <= y_max)
-		{
-			hit->hit = true;
-			hit->dst = t_min;
-			hit->pos = ft_v_add(ray.origin, ft_v_scale(ray.dir, t_min));
-			hit->normal = ft_normalize(
-				ft_v_sub(hit->pos, (t_vec3d){obj->pos.x, y, obj->pos.z}));
-			hit->rgb = obj->rgb;
-			hit->id = obj->id;
-		}
+			cyl_hit(hit, t_min, ray, obj, y);
+		// {
+		// 	hit->hit = true;
+		// 	hit->dst = t_min;
+		// 	hit->pos = ft_v_add(ray.origin, ft_v_scale(ray.dir, t_min));
+		// 	hit->normal = ft_normalize(
+		// 		ft_v_sub(hit->pos, (t_vec3d){obj->pos.x, y, obj->pos.z}));
+		// 	hit->rgb = obj->rgb;
+		// 	hit->id = obj->id;
+		// }
 	}
 }

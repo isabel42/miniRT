@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 10:15:38 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/25 17:47:56 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/27 15:34:31 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	hit_redirect(t_ray ray, t_obj *obj, t_hit *hit_loc)
 	void	(*ptr_ft[4])(t_ray, t_obj *, t_hit *);
 
 	ptr_ft[0] = &sphere_hit;
-	ptr_ft[1] = &in_pl;
+	ptr_ft[1] = &plane_hit;
 	ptr_ft[2] = &cylinder_hit;
 	ptr_ft[obj->id](ray, obj, hit_loc);
 }

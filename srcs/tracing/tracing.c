@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 13:10:10 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/25 11:18:01 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/27 15:31:30 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	tracing(t_scenario *sc)
 	t_tracing	t;
 	t_hit		hit;
 	t_ray		ray;
+	t_ray		ray_lux;
 
 	t = init_tracing(sc);
 	while (t.i <= WIDTH)
@@ -74,7 +75,13 @@ void	tracing(t_scenario *sc)
 			ray = init_ray(sc, t);
 			get_hit(sc, ray, &hit, false);
 			if (hit.hit == true)
-				shadow_ray_rgb(sc, hit, t.i, t.j);
+			{
+				// shadow_ray_rgb(sc, hit, t.i, t.j);
+				ray_lux.origin = hit.pos;
+				ray_lux.dir = ft_v_sub(sc->spot_lux->pos, hit.pos);
+				// my_mlx_pixel_put(sc->img_data, t.i, HEIGHT - t.j, rgb_to_int(hit.rgb));
+				my_mlx_pixel_put(sc->img_data, t.i, HEIGHT - t.j, rgb_to_int(shadow_ray_rgb(ray_lux, sc, hit)));
+			}
 			t.j++;
 		}
 		t.i++;

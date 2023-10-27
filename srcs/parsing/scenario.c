@@ -70,7 +70,7 @@ void	new_cam(char **split, t_scenario *scena)
 		ft_exit("Malloc");
 	scena->cam->pos = ft_pos(split[1]);
 	scena->cam->vdir = get_orientation(split[2], -1.0, 1);
-	scena->cam->dir = quat_normalize(vector_to_quat(ft_pos(split[2])));
+	scena->cam->dir = quat_normalize(o_vector_to_quat(ft_pos(split[2])));
 	scena->cam->fov = ft_atoi(split[3]);
 	scena->cam->dist = 100;
 	free_array(split);

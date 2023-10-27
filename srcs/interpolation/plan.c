@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 13:33:13 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/15 13:35:56 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/27 14:39:45 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,26 @@ void	in_pl(t_ray ray, t_obj *pl, t_hit *hit)
 		hit->rgb = pl->rgb;
 		hit->hit = true;
 		hit->id = 1;
+	}
+}
+
+void	plane_hit(t_ray ray, t_obj *obj, t_hit *hit)
+{
+	float	denom;
+	float	t;
+
+	denom = ft_dot(obj->dir, ray.dir);
+	if (fabsf(denom) > 1e-6)
+	{
+		t = ft_dot(ft_v_sub(obj->pos, ray.origin), obj->dir) / denom;
+		if (t > 0.00001)
+		{
+			hit->hit = true;
+			hit->dst = t;
+			hit->pos = ft_v_add(ray.origin, ft_v_scale(ray.dir, t));
+			hit->normal = obj->dir;
+			hit->rgb = obj->rgb;
+			hit->id = obj->id;
+		}
 	}
 }

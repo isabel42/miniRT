@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 11:27:11 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/25 11:18:05 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/27 12:37:14 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_obj
 	float			diam;
 	float			high;
 	t_quat			*axis;
+	t_quat			q_dir;
 	struct s_vec3d	pos;
 	struct s_rgb	rgb;
 	struct s_vec3d	dir;

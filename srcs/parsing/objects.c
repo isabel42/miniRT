@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 21:35:41 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/25 11:06:38 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/27 12:57:39 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	new_cylinder(char **split, t_scenario *scena)
 	cyl->diam = ft_atof(split[3]);
 	cyl->high = ft_atof(split[4]);
 	cyl->rgb = ft_rgb(split[5]);
+	cyl->q_dir = quat_normalize(o_vector_to_quat(cyl->dir));
 	cyl->next = NULL;
 	free_array(split);
 	object_add_back(scena, cyl);
