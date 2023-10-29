@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 11:57:06 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/27 12:56:38 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/27 15:38:30 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 t_quat	o_vector_to_quat(t_vec3d v)
 {
 	t_quat	q;
-	double	half_angle;
-	double	sin_half_angle;
+	float	half_angle;
+	float	sin_half_angle;
 
 	half_angle = atan2(sqrt(v.x * v.x + v.y * v.y + v.z * v.z), 0.0) / 2.0;
 	sin_half_angle = sin(half_angle);

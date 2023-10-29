@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 21:35:41 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/27 12:57:39 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/27 17:28:37 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	object_add_back(t_scenario *scena, t_obj *object)
 {
 	t_obj	*list;
 
-	object->axis = init_axis(object->pos, 15);
+	object->axis = init_axis(object->pos, 30);
 	list = scena->obj;
 	if (!list)
 		scena->obj = object;

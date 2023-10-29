@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 10:15:38 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/27 15:34:31 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/29 10:23:39 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,3 +50,5 @@ void	get_hit(t_scenario *sc, t_ray ray, t_hit *hit, bool stop_first)
 		obj = obj->next;
 	}
 }
+
+// void	get_hit2(t_scenario *scena, t_ray ray,)

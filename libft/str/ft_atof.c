@@ -6,16 +6,16 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:03:08 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/02 18:00:24 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/27 15:38:36 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-double	ft_get_dec(const char *str)
+float	ft_get_dec(const char *str)
 {
-	double		nb;
-	double		dec;
+	float		nb;
+	float		dec;
 	int			i;
 	int			j;
 
@@ -40,10 +40,10 @@ double	ft_get_dec(const char *str)
 	return (nb + dec);
 }
 
-double	ft_atof(const char *str)
+float	ft_atof(const char *str)
 {
 	int			sign;
-	double		res;
+	float		res;
 
 	res = 0.0;
 	sign = 1;

@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 13:33:13 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/27 14:39:45 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/27 17:21:20 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ void	plane_hit(t_ray ray, t_obj *obj, t_hit *hit)
 	float	t;
 
 	denom = ft_dot(obj->dir, ray.dir);
-	if (fabsf(denom) > 1e-6)
+	if (fabsf(denom) > 0.0001)
 	{
 		t = ft_dot(ft_v_sub(obj->pos, ray.origin), obj->dir) / denom;
-		if (t > 0.00001)
+		if (t > 0.0001)
 		{
 			hit->hit = true;
 			hit->dst = t;

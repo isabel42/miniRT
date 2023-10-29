@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 11:27:11 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/27 12:37:14 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/27 17:26:49 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_spotlux
 	float				ratio_norm;
 	struct s_vec3d		pos;
 	struct s_rgb		rgb;
+	t_quat				*axis;
 	struct s_spotlux	*next;
 }				t_spotlux;
 

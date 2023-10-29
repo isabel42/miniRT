@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 16:13:16 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/27 15:24:51 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/27 17:06:25 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,8 +125,8 @@ int			close_w(t_scenario *scena);
 
 /*---TRACING---*/
 void		get_hit(t_scenario *sc, t_ray ray, t_hit *hit, bool stop_first);
-// void		shadow_ray_rgb(t_scenario *scena, t_hit object_hit, int i, int j);
-t_rgb		shadow_ray_rgb(t_ray ray, t_scenario *scena, t_hit object_hit);
+void		shadow_ray_rgb(t_scenario *scena, t_hit object_hit, int i, int j);
+// t_rgb		shadow_ray_rgb(t_ray ray, t_scenario *scena, t_hit object_hit);
 void		tracing(t_scenario *sc);
 
 /*---VIEW---*/

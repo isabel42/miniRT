@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:29:04 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/25 12:28:56 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/27 17:34:50 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@ t_point	get_point(t_quat q, t_scenario *scena)
 	res.x = (q.x * scena->view->ratio) + scena->view->box_offset_x;
 	res.y = (q.y * scena->view->ratio) + scena->view->box_offset_y;
 	return (res);
+}
+void	draw_light(t_quat *c, t_scenario *scena)
+{
+	bresenham_draw_line(get_point(c[0], scena), get_point(c[1], scena), scena, int_to_rgb(I_YELLOW));
+	bresenham_draw_line(get_point(c[0], scena), get_point(c[2], scena), scena, int_to_rgb(I_YELLOW));
+	bresenham_draw_line(get_point(c[0], scena), get_point(c[3], scena), scena, int_to_rgb(I_YELLOW));
 }
 
 void	draw_axis(t_quat *c, t_scenario *scena)
@@ -58,7 +64,8 @@ void	draw_camera(t_quat *c, t_scenario *scena, t_rgb color)
 
 void	draw_scenario(t_scenario *scena)
 {
-	t_obj	*obj;
+	t_obj		*obj;
+	t_spotlux	*lux;
 
 	draw_box(scena->view->box, scena, int_to_rgb(I_WHITE));
 	draw_camera(scena->view->camera, scena, int_to_rgb(I_WHITE));
@@ -67,6 +74,12 @@ void	draw_scenario(t_scenario *scena)
 	{
 		draw_axis(obj->axis, scena);
 		obj = obj->next;
+	}
+	lux = scena->spot_lux;
+	while (lux)
+	{
+		draw_light(lux->axis, scena);
+		lux = lux->next;
 	}
 }
 

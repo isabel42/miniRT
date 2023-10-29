@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:59:53 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/27 14:13:15 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/29 10:49:25 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,13 @@ void	cyl_hit(t_hit *hit, float t_min, t_ray ray, t_obj *obj, float y)
 	hit->hit = true;
 	hit->dst = t_min;
 	hit->pos = ft_v_add(ray.origin, ft_v_scale(ray.dir, t_min));
-	// hit->pos = quat_v_transform(quat_conjugate(obj->q_dir), hit->pos);
-	hit->pos = quat_v_transform(quat_conjugate(obj->q_dir), ft_v_add(hit->pos, obj->pos));
+	hit->pos = ft_v_add(hit->pos, obj->pos);
+	hit->pos = quat_v_transform(quat_conjugate(obj->q_dir), hit->pos);
+	// hit->pos = quat_v_transform(quat_conjugate(obj->q_dir), ft_v_add(hit->pos, obj->pos));
+	hit->normal = 
 	hit->normal = ft_normalize(
-		ft_v_sub(hit->pos, (t_vec3d){obj->pos.x, y, obj->pos.z}));
+		ft_v_add(obj->pos,
+		ft_v_sub(hit->pos, (t_vec3d){obj->pos.x, y, obj->pos.z})));
 	hit->normal = quat_v_transform(quat_conjugate(obj->q_dir), ft_v_add(hit->normal, obj->pos));
 	// hit->normal = ft_normalize(quat_v_transform(quat_conjugate(obj->q_dir), ft_v_add(ft_v_sub(hit->pos, (t_vec3d){obj->pos.x, y, obj->pos.z}), obj->pos)));
 	hit->rgb = obj->rgb;
@@ -73,7 +76,7 @@ void	cylinder_hit(t_ray ray, t_obj *obj, t_hit *hit)
 
 	if (t_min < 0)
 		t_min = t_max;
-	if (t_min > 0 && t_min < t_max)
+	if (t_min > 0.001 && t_min < t_max)
 	{
 		y = ray.origin.y + t_min * ray.dir.y;
 		if (y >= y_min && y <= y_max)

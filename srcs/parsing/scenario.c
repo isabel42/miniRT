@@ -89,6 +89,7 @@ void	new_spot_lux(char **split, t_scenario *scena)
 	spot->ratio = get_ratio(split[2], 0, 1);
 	spot->rgb = ft_rgb(split[3]);
 	spot->next = NULL;
+	spot->axis = init_axis(spot->pos, 30);
 	free_array(split);
 	spot_add_back(scena, spot);
 }
