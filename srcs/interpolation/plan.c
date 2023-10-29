@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 13:33:13 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/27 17:21:20 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/29 16:43:06 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ void	plane_hit(t_ray ray, t_obj *obj, t_hit *hit)
 		if (t > 0.0001)
 		{
 			hit->hit = true;
-			hit->dst = t;
 			hit->pos = ft_v_add(ray.origin, ft_v_scale(ray.dir, t));
+			hit->dst = ft_mod(ft_v_sub(hit->pos, ray.origin));
 			hit->normal = obj->dir;
 			hit->rgb = obj->rgb;
 			hit->id = obj->id;

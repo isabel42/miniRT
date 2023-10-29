@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:55:49 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/27 15:38:22 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/29 12:17:28 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ t_vec3d	v_quat_create(t_quat p);
 t_quat	quat_v_create(t_vec3d p);
 t_vec3d	quat_v_transform(t_quat q, t_vec3d point);
 t_quat	quat_rotate(t_quat	q, t_quat p);
-
+t_quat	quat_copy(t_quat q);
 /* PRINT */
 void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);

@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 16:13:16 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/27 17:06:25 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/29 12:51:26 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,15 +139,16 @@ int			mouse_pressed(int key, int x, int y, t_scenario *scena);
 int			mouse_released(int key, int x, int y, t_scenario *scena);
 t_quat		*init_axis(t_vec3d center, float size);
 void		bresenham_draw_line(t_point a, t_point b, t_scenario *meta, t_rgb color);
-void		apply_rotation_scena(t_scenario *scena);
-void		apply_rotation_o_cam(t_scenario *scena);
 void		my_new_mlx_img_data_view(t_scenario *meta);
 void		render_view(t_scenario *scena);
 int			mouse_move(int x, int y, t_scenario *scena);
 void		mouse_scroll(int key, t_scenario *scena);
+void		apply_rotation_scena(t_scenario *scena);
+void		apply_rotation_ctrl_cam(t_scenario *scena);
 void		apply_rotation_camera(t_scenario *scena);
 void		apply_rotation_box(t_scenario *scena);
 void		apply_rotation_scena(t_scenario *scena);
+void		apply_rotation_alt_cam(t_scenario *scena);
 
 
 #endif

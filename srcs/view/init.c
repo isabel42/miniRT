@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 12:19:59 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/25 14:52:26 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/29 16:24:42 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	init_view_quat(t_view *view)
 	view->identity_quat = quat_create(1, 0, 0, 0);
 	view->scena_quat = quat_create(1, 0, 0, 0);
 	view->rotation_quat = euler_to_quat(0, 0, M_PI);
+	// view->rotation_quat = euler_to_quat(0, 0, 0);
 }
 
 void	init_view_zero(t_view *view)

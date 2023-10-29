@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 13:33:00 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/25 17:23:34 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/29 15:34:58 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,39 @@
 /* https://www.youtube.com/watch?v=IKQCtqvGTJM */
 /**/
 
+t_vec3d	vct_orto(t_vec3d a, t_vec3d b)
+{
+	t_vec3d	sol;
+
+	sol.x = a.y * b.z - a.z * b.y;
+	sol.y = a.z * b.x - a.x * b.z;
+	sol.z = a.x * b.y - a.y * b.x;
+	return (sol);
+}
 void	in_cy_body(t_ray ray, t_obj *cy, t_hit *hit, float t)
 {
 	t_vec3d	sol2;
+	t_vec3d	norm;
 
 	if (t > 0.0001)
 	{
-		sol2.z = ray.origin.z + t * ray.dir.z;
-		sol2.y = ray.origin.y + t * ray.dir.y;
 		sol2.x = ray.origin.x + t * ray.dir.x;
+		sol2.y = ray.origin.y + t * ray.dir.y;
+		sol2.z = ray.origin.z + t * ray.dir.z;
 		if ((hit->dst > ft_mod(ft_v_sub(sol2, ray.origin)) || hit->hit == false)
 			&& powf(ft_mod(ft_v_sub(sol2, cy->pos)), 2) - powf(cy->diam / 2, 2)
 			<= powf(cy->high / 2, 2))
 		{
-			hit->pos.z = ray.origin.z + t * ray.dir.z;
-			hit->pos.y = ray.origin.y + t * ray.dir.y;
-			hit->pos.x = ray.origin.x + t * ray.dir.x;
-			hit->dst = ft_mod(ft_v_sub(sol2, ray.origin));
-			hit->normal = ft_v_sub(hit->pos, cy->pos);
+			hit->pos = sol2;
+			hit->dst = ft_mod(ft_v_sub(hit->pos, ray.origin));
+			norm = vct_orto(ft_v_sub(hit->pos, cy->pos), cy->dir);
+			hit->normal = vct_orto(norm, cy->dir);
+			if (ft_dot(ray.dir, hit->normal) > 0.000)
+			{
+				hit->normal.x = -hit->normal.x;
+				hit->normal.y = -hit->normal.y;
+				hit->normal.z = -hit->normal.z;
+			}
 			hit->rgb = cy->rgb;
 			hit->hit = true;
 			hit->id = 2;
@@ -68,11 +83,13 @@ void	in_cy(t_ray ray, t_obj *cy, t_hit *hit)
 	float	sq;
 
 	cal_cy_param(&abc, ray, cy);
+	if (ray.dir.y == 0.0 && ray.dir.x == 0.0)
+		printf("abc_a: %f\t abc_b: %f\tabc_c: %f\n", abc.x, abc.y, abc.z);
 	sq = powf(abc.y, 2) - (4 * abc.x * abc.z);
 	if (sq < 0 || !abc.x)
 		return ;
 	in_cy_body(ray, cy, hit, (-abc.y - sqrt(sq)) / (2 * abc.x));
 	in_cy_body(ray, cy, hit, (-abc.y + sqrt(sq)) / (2 * abc.x));
-	in_cy_caps(ray, cy, hit, (cy->high / 2) / ft_mod(cy->dir));
-	in_cy_caps(ray, cy, hit, -(cy->high / 2) / ft_mod(cy->dir));
+	// in_cy_caps(ray, cy, hit, (cy->high / 2) / ft_mod(cy->dir));
+	// in_cy_caps(ray, cy, hit, -(cy->high / 2) / ft_mod(cy->dir));
 }

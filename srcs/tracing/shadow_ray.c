@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 17:18:44 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/29 10:26:48 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/29 16:48:26 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,16 @@ void	get_scale_shadow(t_scenario *sc, t_hit hit, float *scale)
 	float		cos;
 
 	ray_lux.origin = hit.pos;
+	// printf("hit pos: %f %f %f\n", hit.pos.x, hit.pos.y, hit.pos.z);
 	scale[0] = sc->amb_lux->ratio_norm * sc->amb_lux->rgb.r / 255;
 	scale[1] = sc->amb_lux->ratio_norm * sc->amb_lux->rgb.g / 255;
 	scale[2] = sc->amb_lux->ratio_norm * sc->amb_lux->rgb.b / 255;
 	spot = sc->spot_lux;
 	while (spot)
 	{
-		ray_lux.dir = spot->pos;
+		ray_lux.dir = ft_v_sub(spot->pos, hit.pos);
+		// ray_lux.dir = ft_v_scale(spot->pos, 0.1);
+		// ray_lux.dir = spot->pos;
 		hit_lux.hit = false;
 		get_hit(sc, ray_lux, &hit_lux, false);
 		if (hit_lux.hit == false)
