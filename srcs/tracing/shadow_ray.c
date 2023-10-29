@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 17:18:44 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/29 19:20:53 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/29 19:24:11 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	get_scale_shadow(t_scenario *sc, t_hit hit, double *scale)
 		get_hit(sc, ray_lux, &hit_lux, false);
 		if (hit_lux.hit == false || hit_lux.dst > ft_mod(ft_v_sub(spot->pos, hit.pos)))
 		{
-		// printf("hit_lux.dst: %f\tft_mod(ft_v_sub(spot->pos, hit.pos)): %f\n", );
+		printf("hit_lux.dst: %f\tft_mod(ft_v_sub(spot->pos, hit.pos)): %f\n", hit_lux.dst, ft_mod(ft_v_sub(spot->pos, hit.pos)));
 			cos = fmax(0.00000, ft_dot(ft_normalize(hit.normal),
 						ft_normalize(ray_lux.dir)));
 			scale[0] = spot->ratio_norm * cos * spot->rgb.r / 255 + scale[0];
