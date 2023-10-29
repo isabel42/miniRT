@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 13:33:00 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/26 10:01:26 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/29 13:35:08 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,13 @@ void	in_cy(t_ray ray, t_obj *cy, t_hit *hit)
 	float	sq;
 
 	cal_cy_param(&abc, ray, cy);
+	if (ray.dir.y == 0.0 && ray.dir.x == 0.0)
+		printf("abc_a: %f\t abc_b: %f\tabc_c: %f\n", abc.x, abc.y, abc.z);
 	sq = powf(abc.y, 2) - (4 * abc.x * abc.z);
 	if (sq < 0 || !abc.x)
 		return ;
 	in_cy_body(ray, cy, hit, (-abc.y - sqrt(sq)) / (2 * abc.x));
 	in_cy_body(ray, cy, hit, (-abc.y + sqrt(sq)) / (2 * abc.x));
-	in_cy_caps(ray, cy, hit, (cy->high / 2) / ft_mod(cy->dir));
-	in_cy_caps(ray, cy, hit, -(cy->high / 2) / ft_mod(cy->dir));
+	// in_cy_caps(ray, cy, hit, (cy->high / 2) / ft_mod(cy->dir));
+	// in_cy_caps(ray, cy, hit, -(cy->high / 2) / ft_mod(cy->dir));
 }
