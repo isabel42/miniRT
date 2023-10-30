@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 16:13:16 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/30 07:38:06 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/30 09:18:58 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void		ft_exit_fd(int fd);
 
 /*---FREE---*/
 void		free_scenario(t_scenario *scena);
+void		free_hit(t_hit *hit);
 
 /*---PARSING---*/
 t_scenario	*init_scenario(void);

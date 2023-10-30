@@ -6,23 +6,11 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 10:15:38 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/30 08:19:01 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/30 09:18:22 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-void	free_hit(t_hit *hit)
-{
-	t_hit	*hit_next;
-
-	while (hit)
-	{
-		hit_next = hit->next;
-		free(hit);
-		hit = hit_next;
-	}
-}
 
 void	hit_redirect(t_ray ray, t_obj *obj, t_hit *hit_loc)
 {
@@ -51,7 +39,6 @@ void	get_hit(t_scenario *sc, t_ray ray, t_hit *hit)
 		if (hit_loc.hit == true
 			&& (hit->dst > hit_loc.dst || hit->hit == false))
 		{
-			free_hit(hit->next);
 			hit->dst = hit_loc.dst;
 			hit->pos = hit_loc.pos;
 			hit->normal = hit_loc.normal;
@@ -59,8 +46,6 @@ void	get_hit(t_scenario *sc, t_ray ray, t_hit *hit)
 			hit->id = hit_loc.id;
 			hit->hit = true;
 		}
-		if (hit_loc.hit == true
-			&& (hit->dst == hit_loc.dst || hit->hit == false))
 		obj = obj->next;
 	}
 }

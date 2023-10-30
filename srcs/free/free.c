@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
+/*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:45:03 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/15 15:05:01 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/30 09:19:13 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+void	free_hit(t_hit *hit)
+{
+	t_hit	*hit_next;
+
+	while (hit)
+	{
+		hit_next = hit->next;
+		free(hit);
+		hit = hit_next;
+	}
+}
 
 void	free_spot(t_scenario *scena)
 {
