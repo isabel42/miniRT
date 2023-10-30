@@ -6,21 +6,11 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 17:18:44 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/30 09:15:43 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/30 15:17:35 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-t_rgb	scale_color(t_rgb c, float scale)
-{
-	t_rgb	result;
-
-	result.r = c.r * scale;
-	result.g = c.g * scale;
-	result.b = c.b * scale;
-	return (result);
-}
 
 float	get_ratio_shadow(t_scenario *sc)
 {
@@ -64,6 +54,24 @@ void	set_ratio_norm(t_scenario *sc, float ratio)
 	sc->amb_lux->ratio_norm = (sc->amb_lux->ratio / ratio);
 }
 
+double	get_cos_lux_hit(t_hit hit, t_ray ray_lux)
+{
+	double		cos;
+	double		cos_final;
+
+	cos_final = 1.000;
+	while (42)
+	{
+		cos = fmax(0.00000, ft_dot(ft_normalize(hit.normal),
+					ft_normalize(ray_lux.dir)));
+		cos_final = fmin(cos, cos_final);
+		if (hit.next == NULL || hit.dst < hit.next->dst)
+			break ;
+		hit = *(hit.next);
+	}
+	return (cos_final);
+}
+
 void	get_scale_shadow(t_scenario *sc, t_hit hit, double *scale)
 {
 	t_hit		hit_lux;
@@ -79,19 +87,12 @@ void	get_scale_shadow(t_scenario *sc, t_hit hit, double *scale)
 	while (spot)
 	{
 		ray_lux.dir = ft_v_sub(spot->pos, hit.pos);
-		hit_lux.hit = false;
-		hit_lux.dst = -1;
 		get_hit(sc, ray_lux, &hit_lux);
-		if (hit_lux.hit == false || ft_mod(ft_v_sub(hit_lux.pos, hit.pos)) > ft_mod(ft_v_sub(spot->pos, hit.pos)))
+		if (hit_lux.hit == false
+			|| ft_mod(ft_v_sub(hit_lux.pos, hit.pos))
+			> ft_mod(ft_v_sub(spot->pos, hit.pos)))
 		{
-			cos = fmax(0.00000, ft_dot(ft_normalize(hit.normal),
-						ft_normalize(ray_lux.dir)));
-			if(hit_lux.hit == true)
-			{
-				printf("hit_lux.x: %f\thit_lux.y.pos)): %f\thit_lux.z: %f\n", hit_lux.pos.x, hit_lux.pos.y, hit_lux.pos.z);
-				printf("hit_pos.x: %f\thit_pos.y.pos)): %f\thit_pos.z: %f\n", hit.pos.x, hit.pos.y, hit.pos.z);
-				printf("spot.x: %f\tspot.y.pos)): %f\tspot.z: %f\n", spot->pos.x, spot->pos.y, spot->pos.z);
-			}
+			cos = get_cos_lux_hit(hit, ray_lux);
 			scale[0] = spot->ratio_norm * cos * spot->rgb.r / 255 + scale[0];
 			scale[1] = spot->ratio_norm * cos * spot->rgb.g / 255 + scale[1];
 			scale[2] = spot->ratio_norm * cos * spot->rgb.b / 255 + scale[2];

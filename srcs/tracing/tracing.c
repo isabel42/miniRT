@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 13:10:10 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/30 07:38:29 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/30 14:37:58 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	tracing(t_scenario *sc)
 			get_hit(sc, ray, &hit);
 			if (hit.hit == true)
 				shadow_ray_rgb(sc, hit, t.i, t.j);
+			free_hit(hit.next);
 			t.j++;
 		}
 		t.i++;
