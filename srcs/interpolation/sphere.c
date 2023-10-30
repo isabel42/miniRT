@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
+/*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 13:32:39 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/15 15:19:39 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/30 16:05:18 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	in_sp_all(t_ray ray, t_obj *sp, t_hit *hit, float t)
 			hit->pos.x = ray.origin.x + t * ray.dir.x;
 			hit->dst = ft_mod(ft_v_sub(sol2, ray.origin));
 			hit->normal = ft_v_sub(hit->pos, sp->pos);
+			if (ft_dot(ray.dir, hit->normal) > 0.000)
+				hit->normal = ft_fv_mul(-1.0,hit->normal);
 			hit->rgb = sp->rgb;
 			hit->hit = true;
 			hit->id = 0;

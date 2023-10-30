@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 13:33:00 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/29 13:35:08 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/30 16:02:37 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,12 @@ t_vec3d	vct_orto(t_vec3d a, t_vec3d b)
 	sol.z = a.x * b.y - a.y * b.x;
 	return (sol);
 }
+
+
+
 void	in_cy_body(t_ray ray, t_obj *cy, t_hit *hit, float t)
 {
 	t_vec3d	sol2;
-	t_vec3d	norm;
 
 	if (t > 0.0001)
 	{
@@ -40,14 +42,10 @@ void	in_cy_body(t_ray ray, t_obj *cy, t_hit *hit, float t)
 		{
 			hit->pos = sol2;
 			hit->dst = ft_mod(ft_v_sub(hit->pos, ray.origin));
-			norm = vct_orto(ft_v_sub(hit->pos, cy->pos), cy->dir);
-			hit->normal = vct_orto(norm, cy->dir);
+			hit->normal = vct_orto(ft_v_sub(hit->pos, cy->pos), cy->dir);
+			hit->normal = vct_orto(hit->normal, cy->dir);
 			if (ft_dot(ray.dir, hit->normal) > 0.000)
-			{
-				hit->normal.x = -hit->normal.x;
-				hit->normal.y = -hit->normal.y;
-				hit->normal.z = -hit->normal.z;
-			}
+				hit->normal = ft_fv_mul(-1.0,hit->normal);
 			hit->rgb = cy->rgb;
 			hit->hit = true;
 			hit->id = 2;
@@ -83,13 +81,11 @@ void	in_cy(t_ray ray, t_obj *cy, t_hit *hit)
 	float	sq;
 
 	cal_cy_param(&abc, ray, cy);
-	if (ray.dir.y == 0.0 && ray.dir.x == 0.0)
-		printf("abc_a: %f\t abc_b: %f\tabc_c: %f\n", abc.x, abc.y, abc.z);
 	sq = powf(abc.y, 2) - (4 * abc.x * abc.z);
 	if (sq < 0 || !abc.x)
 		return ;
 	in_cy_body(ray, cy, hit, (-abc.y - sqrt(sq)) / (2 * abc.x));
 	in_cy_body(ray, cy, hit, (-abc.y + sqrt(sq)) / (2 * abc.x));
-	// in_cy_caps(ray, cy, hit, (cy->high / 2) / ft_mod(cy->dir));
-	// in_cy_caps(ray, cy, hit, -(cy->high / 2) / ft_mod(cy->dir));
+	in_cy_caps(ray, cy, hit, (cy->high / 2) / ft_mod(cy->dir));
+	in_cy_caps(ray, cy, hit, -(cy->high / 2) / ft_mod(cy->dir));
 }

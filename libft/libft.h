@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:55:49 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/29 13:05:08 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/30 16:01:56 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ t_vec3d	ft_normalize(t_vec3d v);
 t_vec3d	ft_v_add(t_vec3d v1, t_vec3d v2);
 t_vec3d	ft_v_sub(t_vec3d v1, t_vec3d v2);
 t_vec3d	ft_v_mul(t_vec3d v1, t_vec3d v2);
+t_vec3d	ft_fv_mul(float mul, t_vec3d v2);
 float	ft_deg_to_rad(float deg);
 /* QUATERNION */
 t_quat	quat_conjugate(t_quat q);

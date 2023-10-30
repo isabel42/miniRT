@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+         #
+#    By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/27 12:53:01 by lsohler           #+#    #+#              #
-#    Updated: 2023/10/15 14:20:53 by lsohler          ###   ########.fr        #
+#    Updated: 2023/10/30 16:01:17 by itovar-n         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ SRCS		= \
 			math/ft_normalize.c\
 			math/ft_v_add.c\
 			math/ft_v_mul.c\
+			math/ft_fv_mul.c\
 			math/ft_v_sub.c\
 			math/ft_deg_to_rag.c\
 			\
