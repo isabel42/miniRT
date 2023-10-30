@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
+/*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 16:13:16 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/15 16:54:43 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/30 07:38:06 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int			key_press(int key, t_scenario *scena);
 int			close_w(t_scenario *scena);
 
 /*---TRACING---*/
-void		get_hit(t_scenario *sc, t_ray ray, t_hit *hit, bool stop_first);
+void		get_hit(t_scenario *sc, t_ray ray, t_hit *hit);
 void		shadow_ray_rgb(t_scenario *scena, t_hit object_hit, int i, int j);
 void		tracing(t_scenario *sc);
 

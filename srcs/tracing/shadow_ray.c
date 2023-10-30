@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 17:18:44 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/29 19:24:11 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/29 22:46:07 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,16 @@ void	get_scale_shadow(t_scenario *sc, t_hit hit, double *scale)
 		hit_lux.hit = false;
 		hit_lux.dst = -1;
 		get_hit(sc, ray_lux, &hit_lux, false);
-		if (hit_lux.hit == false || hit_lux.dst > ft_mod(ft_v_sub(spot->pos, hit.pos)))
+		if (hit_lux.hit == false || ft_mod(ft_v_sub(hit_lux.pos, hit.pos)) > ft_mod(ft_v_sub(spot->pos, hit.pos)))
 		{
-		printf("hit_lux.dst: %f\tft_mod(ft_v_sub(spot->pos, hit.pos)): %f\n", hit_lux.dst, ft_mod(ft_v_sub(spot->pos, hit.pos)));
 			cos = fmax(0.00000, ft_dot(ft_normalize(hit.normal),
 						ft_normalize(ray_lux.dir)));
+			if(hit_lux.hit == true)
+			{
+				printf("hit_lux.x: %f\thit_lux.y.pos)): %f\thit_lux.z: %f\n", hit_lux.pos.x, hit_lux.pos.y, hit_lux.pos.z);
+				printf("hit_pos.x: %f\thit_pos.y.pos)): %f\thit_pos.z: %f\n", hit.pos.x, hit.pos.y, hit.pos.z);
+				printf("spot.x: %f\tspot.y.pos)): %f\tspot.z: %f\n", spot->pos.x, spot->pos.y, spot->pos.z);
+			}
 			scale[0] = spot->ratio_norm * cos * spot->rgb.r / 255 + scale[0];
 			scale[1] = spot->ratio_norm * cos * spot->rgb.g / 255 + scale[1];
 			scale[2] = spot->ratio_norm * cos * spot->rgb.b / 255 + scale[2];

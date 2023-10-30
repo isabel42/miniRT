@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tracing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
+/*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 13:10:10 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/15 16:34:32 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/30 07:38:29 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	tracing(t_scenario *sc)
 		while (t.j <= HEIGHT)
 		{
 			ray = init_ray(sc, t);
-			get_hit(sc, ray, &hit, false);
+			get_hit(sc, ray, &hit);
 			if (hit.hit == true)
 				shadow_ray_rgb(sc, hit, t.i, t.j);
 			t.j++;

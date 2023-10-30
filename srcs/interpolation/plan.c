@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 13:33:13 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/18 15:27:54 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/29 22:28:26 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	in_pl(t_ray ray, t_obj *pl, t_hit *hit)
 	if (!ft_dot(ray.dir, pl->dir) && ft_dot(pl->dir, ray.origin) != pl_sing)
 		return ;
 	t = (pl_sing - ft_dot(pl->dir, ray.origin)) / (ft_dot(ray.dir, pl->dir));
+	// if (!t || t < 0.00)
+	// 	return;
 	if (t > 0.0001)
 	{
 		hit->pos.x = ray.origin.x + ray.dir.x * t;
