@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 13:33:00 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/30 16:02:37 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/31 15:24:12 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ t_vec3d	vct_orto(t_vec3d a, t_vec3d b)
 	sol.z = a.x * b.y - a.y * b.x;
 	return (sol);
 }
-
-
 
 void	in_cy_body(t_ray ray, t_obj *cy, t_hit *hit, float t)
 {
@@ -45,7 +43,7 @@ void	in_cy_body(t_ray ray, t_obj *cy, t_hit *hit, float t)
 			hit->normal = vct_orto(ft_v_sub(hit->pos, cy->pos), cy->dir);
 			hit->normal = vct_orto(hit->normal, cy->dir);
 			if (ft_dot(ray.dir, hit->normal) > 0.000)
-				hit->normal = ft_fv_mul(-1.0,hit->normal);
+				hit->normal = ft_fv_mul(-1.0, hit->normal);
 			hit->rgb = cy->rgb;
 			hit->hit = true;
 			hit->id = 2;

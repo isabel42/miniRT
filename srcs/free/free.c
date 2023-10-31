@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:45:03 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/31 14:17:49 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/31 15:27:41 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,20 @@ void	free_spot(t_scenario *scena)
 		tmp = scena->spot_lux->next;
 		free(scena->spot_lux);
 		scena->spot_lux = tmp;
+	}
+}
+
+void	free_hit(t_hit **hit_list)
+{
+	t_hit	*hit;
+	t_hit	*hit_next;
+
+	hit = *hit_list;
+	while (hit)
+	{
+		hit_next = hit->next;
+		free(hit);
+		hit = hit_next;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 13:32:39 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/30 16:05:18 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/31 15:25:10 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	in_sp_all(t_ray ray, t_obj *sp, t_hit *hit, float t)
 			hit->dst = ft_mod(ft_v_sub(sol2, ray.origin));
 			hit->normal = ft_v_sub(hit->pos, sp->pos);
 			if (ft_dot(ray.dir, hit->normal) > 0.000)
-				hit->normal = ft_fv_mul(-1.0,hit->normal);
+				hit->normal = ft_fv_mul(-1.0, hit->normal);
 			hit->rgb = sp->rgb;
 			hit->hit = true;
 			hit->id = 0;
@@ -65,59 +65,59 @@ void	in_sp(t_ray ray, t_obj *sp, t_hit *hit)
 	in_sp_all(ray, sp, hit, (-abc.y + sqrt(sq)) / (2 * abc.x));
 }
 
-t_vec3d	get_normal(t_vec3d hit_point, t_vec3d sphere_c)
-{
-	t_vec3d	res;
+// t_vec3d	get_normal(t_vec3d hit_point, t_vec3d sphere_c)
+// {
+// 	t_vec3d	res;
 
-	res.x = hit_point.x - sphere_c.x;
-	res.y = hit_point.y - sphere_c.y;
-	res.z = hit_point.z - sphere_c.z;
-	res = ft_normalize(res);
-	return (res);
-}
+// 	res.x = hit_point.x - sphere_c.x;
+// 	res.y = hit_point.y - sphere_c.y;
+// 	res.z = hit_point.z - sphere_c.z;
+// 	res = ft_normalize(res);
+// 	return (res);
+// }
 
-t_vec3d	get_hit_point(t_vec3d origin, t_vec3d dir, float dst)
-{
-	t_vec3d	res;
+// t_vec3d	get_hit_point(t_vec3d origin, t_vec3d dir, float dst)
+// {
+// 	t_vec3d	res;
 
-	res.x = origin.x + dir.x * dst;
-	res.y = origin.y + dir.y * dst;
-	res.z = origin.z + dir.z * dst;
-	return (res);
-}
+// 	res.x = origin.x + dir.x * dst;
+// 	res.y = origin.y + dir.y * dst;
+// 	res.z = origin.z + dir.z * dst;
+// 	return (res);
+// }
 
-float	get_distance(t_ray ray, t_vec3d center, float radius)
-{
-	float	discriminant;
-	t_vec3d	oc;
-	float	a;
-	float	b;
-	float	c;
+// float	get_distance(t_ray ray, t_vec3d center, float radius)
+// {
+// 	float	discriminant;
+// 	t_vec3d	oc;
+// 	float	a;
+// 	float	b;
+// 	float	c;
 
-	oc = ft_v_sub(ray.origin, center);
-	a = ft_dot(ray.dir, ray.dir);
-	b = 2.0 * ft_dot(oc, ray.dir);
-	c = ft_dot(oc, oc) - (radius * radius);
-	discriminant = (b * b) - (4 * a * c);
-	if (discriminant >= 0)
-		return ((-b - sqrt(discriminant)) / (2 * a));
-	else
-		return (-1);
-}
+// 	oc = ft_v_sub(ray.origin, center);
+// 	a = ft_dot(ray.dir, ray.dir);
+// 	b = 2.0 * ft_dot(oc, ray.dir);
+// 	c = ft_dot(oc, oc) - (radius * radius);
+// 	discriminant = (b * b) - (4 * a * c);
+// 	if (discriminant >= 0)
+// 		return ((-b - sqrt(discriminant)) / (2 * a));
+// 	else
+// 		return (-1);
+// }
 
-void	sphere_hit(t_ray ray, t_obj *obj, t_hit *hit)
-{
-	float	dst;
+// void	sphere_hit(t_ray ray, t_obj *obj, t_hit *hit)
+// {
+// 	float	dst;
 
-	hit->hit = false;
-	hit->dst = -1;
-	dst = get_distance(ray, obj->pos, obj->diam / 2);
-	if (dst >= -0.001)
-	{
-		hit->hit = true;
-		hit->dst = dst;
-		hit->pos = get_hit_point(ray.origin, ray.dir, dst);
-		hit->normal = get_normal(hit->pos, obj->pos);
-		hit->rgb = obj->rgb;
-	}
-}
+// 	hit->hit = false;
+// 	hit->dst = -1;
+// 	dst = get_distance(ray, obj->pos, obj->diam / 2);
+// 	if (dst >= -0.001)
+// 	{
+// 		hit->hit = true;
+// 		hit->dst = dst;
+// 		hit->pos = get_hit_point(ray.origin, ray.dir, dst);
+// 		hit->normal = get_normal(hit->pos, obj->pos);
+// 		hit->rgb = obj->rgb;
+// 	}
+// }

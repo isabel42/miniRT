@@ -6,11 +6,11 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 15:58:06 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/30 16:03:27 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/31 15:22:36 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "libft.h"
+#include "libft.h"
 
 t_vec3d	ft_fv_mul(float mul, t_vec3d vct)
 {

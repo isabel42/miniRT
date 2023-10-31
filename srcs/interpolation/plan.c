@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 13:33:13 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/30 16:07:29 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/31 15:24:32 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	in_pl(t_ray ray, t_obj *pl, t_hit *hit)
 		hit->normal = pl->dir;
 		if (!fmax(0.0, ft_dot(ft_normalize(pl->dir),
 					ft_normalize(ft_v_sub(ray.origin, hit->pos)))))
-			hit->normal = ft_fv_mul(-1.0,hit->normal);
+			hit->normal = ft_fv_mul(-1.0, hit->normal);
 		hit->rgb = pl->rgb;
 		hit->hit = true;
 		hit->id = 1;

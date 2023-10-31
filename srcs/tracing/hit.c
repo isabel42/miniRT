@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 10:15:38 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/31 14:25:23 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/31 15:27:17 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,7 @@ void	hit_add_back(t_hit **list, t_hit *hit_add)
 		hit->next = hit_add;
 	}
 }
-void	free_hit(t_hit **hit_list)
-{
-	t_hit	*hit;
-	t_hit	*hit_next;
 
-	hit = *hit_list;
-	while (hit)
-	{
-		hit_next = hit->next;
-		free(hit);
-		hit = hit_next;
-	}
-}
 void	hit_redirect(t_ray ray, t_obj *obj, t_hit *hit_loc)
 {
 	void	(*ptr_ft[4])(t_ray, t_obj *, t_hit *);
@@ -63,7 +51,7 @@ void	cp_hit(t_hit *hit_to, t_hit hit_from)
 void	hit_equal(t_hit **hit_list, t_hit hit_loc)
 {
 	t_hit	*hit_add;
-	
+
 	hit_add = malloc(sizeof(t_hit));
 	if (!hit_add)
 		ft_exit("Malloc");
