@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 12:32:59 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/29 16:25:48 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/31 17:41:10 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	key_press_view(int key, t_scenario *scena)
 	{
 		render(scena);
 		printf("cam pos: %f %f %f %f\n", scena->view->camera[4].w, scena->view->camera[4].x, scena->view->camera[4].y, scena->view->camera[4].z);
-		scena->cam->dir = quat_multiply(quat, euler_to_quat(0, 0, -M_PI));
+		// scena->cam->dir = quat_multiply(quat, euler_to_quat(0, 0, -M_PI));
 		mlx_do_sync(scena->mlx->ptr);
 	}
 	if (key == KEY_I)
