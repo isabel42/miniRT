@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 11:27:11 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/27 17:26:49 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/31 13:19:50 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ typedef struct s_hit
 	struct s_vec3d	normal;
 	struct s_rgb	rgb;
 	int				id;
+	struct s_hit	*next;
 }				t_hit;
 
 typedef struct s_ray
@@ -129,5 +130,13 @@ typedef struct s_point
 	int	y;
 }				t_point;
 /*-----------*/
+
+/*---FREE---*/
+typedef struct s_address
+{
+	void				*address;
+	struct s_address	*next;
+}				t_address;
+/*---------*/
 
 #endif

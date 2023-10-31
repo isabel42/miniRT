@@ -32,6 +32,7 @@ t_scenario	*init_scenario(void)
 	t_scenario	*scena;
 
 	scena = malloc(sizeof (t_scenario));
+	printf("Scena: %p\n", scena);
 	if (!scena)
 		ft_exit("Malloc");
 	scena->amb_lux = NULL;
@@ -39,7 +40,9 @@ t_scenario	*init_scenario(void)
 	scena->spot_lux = NULL;
 	scena->obj = NULL;
 	scena->mlx = mlx_init_struct(WIDTH, HEIGHT, "MiniRT");
+	printf("Scena->mlx: %p\n", scena->mlx);
 	scena->img_data = malloc(sizeof(t_data_img));
+	printf("Scena->img_data: %p\n", scena->img_data);
 	if (!scena->img_data)
 		ft_exit("Malloc");
 	scena->img_data->img = mlx_new_image(scena->mlx->ptr, WIDTH, HEIGHT);

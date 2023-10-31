@@ -6,7 +6,7 @@
 #    By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/03 17:19:38 by lsohler           #+#    #+#              #
-#    Updated: 2023/10/25 16:03:00 by lsohler          ###   ########.fr        #
+#    Updated: 2023/10/31 12:28:29 by lsohler          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ SRCS = \
 		\
 		srcs/free/free.c\
 		srcs/free/error.c\
+		srcs/free/hit_collector.c\
 		\
 		srcs/key/key.c\
 		\

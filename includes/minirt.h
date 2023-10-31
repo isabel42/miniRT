@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 16:13:16 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/29 12:51:26 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/31 14:21:31 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@
 # include "libft.h"
 # include "structure.h"
 
-# define WIDTH 1920
-# define HEIGHT 1080
-# define V_WIDTH 600
-# define V_HEIGHT 600
+# define WIDTH 600
+# define HEIGHT 600
+# define V_WIDTH 200
+# define V_HEIGHT 200
 
 /*KEYS*/
 # define KEY_LEFT 123
@@ -79,7 +79,9 @@ void		ft_exit_fd(int fd);
 
 /*---FREE---*/
 void		free_scenario(t_scenario *scena);
-
+void		free_hit(t_hit *hit);
+void		free_address_list(t_address *list);
+void		address_collector(t_address **collector, void *address);
 /*---PARSING---*/
 t_scenario	*init_scenario(void);
 t_scenario	*parsing(char *argv1);
@@ -124,7 +126,7 @@ int			key_press(int key, t_scenario *scena);
 int			close_w(t_scenario *scena);
 
 /*---TRACING---*/
-void		get_hit(t_scenario *sc, t_ray ray, t_hit *hit, bool stop_first);
+void		get_hit(t_scenario *sc, t_ray ray, t_hit *hit, t_address **list);
 void		shadow_ray_rgb(t_scenario *scena, t_hit object_hit, int i, int j);
 // t_rgb		shadow_ray_rgb(t_ray ray, t_scenario *scena, t_hit object_hit);
 void		tracing(t_scenario *sc);

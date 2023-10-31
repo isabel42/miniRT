@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:18:29 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/25 13:04:53 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/31 13:42:56 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_quat	*init_axis(t_vec3d center, float size)
 {
 	t_quat	*axis;
 
-	axis = malloc(sizeof(t_quat) * 8);
+	axis = malloc(sizeof(t_quat) * 4);
 	if (!axis)
 		ft_exit("Malloc");
 	axis[0] = quat_create(0, center.x, center.y, center.z);

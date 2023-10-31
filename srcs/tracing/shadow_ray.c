@@ -6,21 +6,11 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 17:18:44 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/29 16:48:26 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/10/31 13:57:20 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-t_rgb	scale_color(t_rgb c, float scale)
-{
-	t_rgb	result;
-
-	result.r = c.r * scale;
-	result.g = c.g * scale;
-	result.b = c.b * scale;
-	return (result);
-}
 
 float	get_ratio_shadow(t_scenario *sc)
 {
@@ -63,16 +53,33 @@ void	set_ratio_norm(t_scenario *sc, float ratio)
 	}
 	sc->amb_lux->ratio_norm = (sc->amb_lux->ratio / ratio);
 }
-// static int shadow = 0;
-void	get_scale_shadow(t_scenario *sc, t_hit hit, float *scale)
+
+double	get_cos_lux_hit(t_hit hit, t_ray ray_lux)
+{
+	double		cos;
+	double		cos_final;
+
+	cos_final = 1.000;
+	while (42)
+	{
+		cos = fmax(0.00000, ft_dot(ft_normalize(hit.normal),
+					ft_normalize(ray_lux.dir)));
+		cos_final = fmin(cos, cos_final);
+		if (hit.next == NULL || hit.dst < hit.next->dst)
+			break ;
+		hit = *(hit.next);
+	}
+	return (cos_final);
+}
+
+void	get_scale_shadow(t_scenario *sc, t_hit hit, double *scale, t_address **list)
 {
 	t_hit		hit_lux;
 	t_ray		ray_lux;
 	t_spotlux	*spot;
-	float		cos;
+	double		cos;
 
 	ray_lux.origin = hit.pos;
-	// printf("hit pos: %f %f %f\n", hit.pos.x, hit.pos.y, hit.pos.z);
 	scale[0] = sc->amb_lux->ratio_norm * sc->amb_lux->rgb.r / 255;
 	scale[1] = sc->amb_lux->ratio_norm * sc->amb_lux->rgb.g / 255;
 	scale[2] = sc->amb_lux->ratio_norm * sc->amb_lux->rgb.b / 255;
@@ -80,18 +87,15 @@ void	get_scale_shadow(t_scenario *sc, t_hit hit, float *scale)
 	while (spot)
 	{
 		ray_lux.dir = ft_v_sub(spot->pos, hit.pos);
-		// ray_lux.dir = ft_v_scale(spot->pos, 0.1);
-		// ray_lux.dir = spot->pos;
-		hit_lux.hit = false;
-		get_hit(sc, ray_lux, &hit_lux, false);
-		if (hit_lux.hit == false)
+		get_hit(sc, ray_lux, &hit_lux, list);
+		if (hit_lux.hit == false
+			|| ft_mod(ft_v_sub(hit_lux.pos, hit.pos))
+			> ft_mod(ft_v_sub(spot->pos, hit.pos)))
 		{
-			// printf("SHADOW RAY DID NOT HIT ANY OBJECTS: %i\n", shadow++);
-			cos = fmax(0.0, ft_dot(ft_normalize(hit.normal),
-						ft_normalize(ft_v_sub(spot->pos, hit.pos))));
+			cos = get_cos_lux_hit(hit, ray_lux);
 			scale[0] = spot->ratio_norm * cos * spot->rgb.r / 255 + scale[0];
 			scale[1] = spot->ratio_norm * cos * spot->rgb.g / 255 + scale[1];
-			scale[2] = spot->ratio_norm * cos * spot->rgb.b / 255 + scale[2]; 
+			scale[2] = spot->ratio_norm * cos * spot->rgb.b / 255 + scale[2];
 		}
 		spot = spot->next;
 	}
@@ -100,89 +104,21 @@ void	get_scale_shadow(t_scenario *sc, t_hit hit, float *scale)
 void	shadow_ray_rgb(t_scenario *sc, t_hit hit, int i, int j)
 {
 	float	ratio;
-	float	*scale;
+	double	*scale;
 	t_rgb	rgb_final;
+	t_address	*list;
 
+	list = NULL;
 	ratio = get_ratio_shadow(sc);
 	set_ratio_norm(sc, ratio);
-	scale = malloc(sizeof(float) * 3);
+	scale = malloc(sizeof(double) * 3);
 	if (!scale)
 		ft_exit("Malloc");
-	get_scale_shadow(sc, hit, scale);
+	get_scale_shadow(sc, hit, scale, &list);
 	rgb_final.r = (hit.rgb.r * scale[0]);
 	rgb_final.g = (hit.rgb.g * scale[1]);
 	rgb_final.b = (hit.rgb.b * scale[2]);
 	my_mlx_pixel_put(sc->img_data, i, HEIGHT - j, rgb_to_int(rgb_final));
-	// my_mlx_pixel_put(sc->img_data, i, HEIGHT - j, rgb_to_int(hit.rgb));
+	free_address_list(list);
 	free(scale);
 }
-/*
-typedef struct s_rgbf
-{
-	float	r;
-	float	g;
-	float	b;
-}				t_rgbf;
-
-t_rgb	scale_color(t_rgb c, float scale)
-{
-	t_rgb result;
-
-	result.r = c.r * scale;
-	result.g = c.g * scale;
-	result.b = c.b * scale;
-	return (result);
-}
-
-t_rgb	mix_color(t_rgb color1, t_rgb color2, float scale)
-{
-	t_rgb	result;
-
-	result.r = fmin(255, ((color1.r + (color2.r - color1.r) * scale) * scale));
-	result.g = fmin(255, ((color1.g + (color2.g - color1.g) * scale) * scale));
-	result.b = fmin(255, ((color1.b + (color2.b - color1.b) * scale) * scale));
-	return (result);
-}
-
-t_rgb	mix_color_light(t_rgb object, t_rgb light, float scale)
-{
-	t_rgb	result;
-	float	red;
-	float	green;
-	float	blue;
-
-	red = (object.r / 255.0) * (light.r / 255.0) * scale * 255.0;
-	green = (object.g / 255.0) * (light.g / 255.0) * scale * 255.0;
-	blue = (object.b / 255.0) * (light.b / 255.0) * scale * 255.0;
-	result.r = red;
-	result.g = green;
-	result.b = blue;
-	return (result);
-}
-
-t_rgb	shadow_ray_rgb(t_ray ray, t_scenario *scena, t_hit object_hit)
-{
-	t_hit	hit;
-	float	scale;
-
-	hit.dst = -1.0000;
-	hit.hit = false;
-	get_hit(scena, ray, &hit, false);
-	// printf("hit.dst: %f\n", hit.dst);
-	if (hit.hit == false)
-	{
-		// printf("hit.dst: %f\n", hit.dst);
-		scale = fmax(0.0, ft_dot(ft_normalize(object_hit.normal), ft_normalize(ft_v_sub(scena->spot_lux->pos, ray.origin)))) * scena->spot_lux->ratio;
-		printf("Scale: %f\n", scale);
-		if (scale >= scena->amb_lux->ratio)
-		{
-			return (mix_color_light(object_hit.rgb, scena->spot_lux->rgb, scale));
-		}
-		// else
-		// 	return (mix_color_light(object_hit.rgb, mix_color_light(scena->spot_lux->rgb, scena->amb_lux->rgb, scena->amb_lux->ratio), scale));
-		// else
-		// 	return (mix_color(object_hit.rgb, scena->amb_lux->rgb, scena->amb_lux->ratio));
-		// return (int_to_rgb(I_YELLOW));
-	}
-	return (mix_color_light(object_hit.rgb, scena->amb_lux->rgb, scena->amb_lux->ratio));
-}*/
