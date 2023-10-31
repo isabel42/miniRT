@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 10:15:38 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/31 15:27:17 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/31 17:17:37 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	cp_hit(t_hit *hit_to, t_hit hit_from)
 	hit_to->normal = hit_from.normal;
 	hit_to->rgb = hit_from.rgb;
 	hit_to->id = hit_from.id;
-	hit_to->hit = true;
+	hit_to->hit = hit_from.hit;
 	hit_to->next = NULL;
 }
 
@@ -79,7 +79,7 @@ void	get_hit(t_scenario *sc, t_ray ray, t_hit *hit)
 			&& (hit->dst > hit_loc.dst || hit->hit == false))
 		{
 			if (hit->next != NULL)
-				free_hit(&hit->next);
+				free_hit(&(hit->next));
 			cp_hit(hit, hit_loc);
 		}
 		else if (hit_loc.hit == true && hit->dst == hit_loc.dst)

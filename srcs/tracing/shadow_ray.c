@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 17:18:44 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/30 15:17:35 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/10/31 17:22:27 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	set_ratio_norm(t_scenario *sc, float ratio)
 	sc->amb_lux->ratio_norm = (sc->amb_lux->ratio / ratio);
 }
 
-double	get_cos_lux_hit(t_hit hit, t_ray ray_lux)
+void	scale_hit(t_hit hit, t_ray ray_lux, double *scale, t_spotlux *spot)
 {
 	double		cos;
 	double		cos_final;
@@ -69,15 +69,17 @@ double	get_cos_lux_hit(t_hit hit, t_ray ray_lux)
 			break ;
 		hit = *(hit.next);
 	}
-	return (cos_final);
+	scale[0] = spot->ratio_norm * cos_final * spot->rgb.r / 255 + scale[0];
+	scale[1] = spot->ratio_norm * cos_final * spot->rgb.g / 255 + scale[1];
+	scale[2] = spot->ratio_norm * cos_final * spot->rgb.b / 255 + scale[2];
 }
 
 void	get_scale_shadow(t_scenario *sc, t_hit hit, double *scale)
 {
 	t_hit		hit_lux;
+	t_hit		*hit_lux_next;
 	t_ray		ray_lux;
 	t_spotlux	*spot;
-	double		cos;
 
 	ray_lux.origin = hit.pos;
 	scale[0] = sc->amb_lux->ratio_norm * sc->amb_lux->rgb.r / 255;
@@ -91,14 +93,11 @@ void	get_scale_shadow(t_scenario *sc, t_hit hit, double *scale)
 		if (hit_lux.hit == false
 			|| ft_mod(ft_v_sub(hit_lux.pos, hit.pos))
 			> ft_mod(ft_v_sub(spot->pos, hit.pos)))
-		{
-			cos = get_cos_lux_hit(hit, ray_lux);
-			scale[0] = spot->ratio_norm * cos * spot->rgb.r / 255 + scale[0];
-			scale[1] = spot->ratio_norm * cos * spot->rgb.g / 255 + scale[1];
-			scale[2] = spot->ratio_norm * cos * spot->rgb.b / 255 + scale[2];
-		}
+			scale_hit(hit, ray_lux, scale, spot);
 		spot = spot->next;
 	}
+	hit_lux_next = hit_lux.next;
+	free_hit(&(hit_lux_next));
 }
 
 void	shadow_ray_rgb(t_scenario *sc, t_hit hit, int i, int j)
