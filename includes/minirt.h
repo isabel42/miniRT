@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 16:13:16 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/31 17:26:05 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/01 15:27:16 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@
 # include "libft.h"
 # include "structure.h"
 
-# define WIDTH 600
-# define HEIGHT 600
-# define V_WIDTH 200
-# define V_HEIGHT 200
+# define WIDTH 1080
+# define HEIGHT 1080 / 2
+# define V_WIDTH 600
+# define V_HEIGHT 600
 
 /*KEYS*/
 # define KEY_LEFT 123
@@ -152,6 +152,12 @@ void		apply_rotation_camera(t_scenario *scena);
 void		apply_rotation_box(t_scenario *scena);
 void		apply_rotation_scena(t_scenario *scena);
 void		apply_rotation_alt_cam(t_scenario *scena);
+/*---TEXTURE---*/
+t_data_img	*get_texture_to_img(t_mlx *mlx, char *path);
+int			get_color_from_texture(t_data_img *imgdata, int x, int y);
+void		cartesian_to_spherical(t_vec3d pos, float r, float *theta, float *phi);
+t_rgb		get_texture_from_sphere(t_vec3d pos, float r, t_data_img *texture);
+t_rgb		get_texture_from_plane(t_vec3d pos, t_vec3d normal, t_data_img *texture);
 
 
 #endif

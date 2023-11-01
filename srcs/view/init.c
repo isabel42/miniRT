@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 12:19:59 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/31 14:03:22 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/01 15:56:52 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,23 +39,22 @@ t_view	*init_view(t_scenario *scena)
 	t_view	*view;
 
 	view = malloc(sizeof(t_view));
-	printf("View:%p\n", view);
 	if (!view)
 		ft_exit("Malloc");
 	view->mlx = mlx_init_struct(V_WIDTH, V_HEIGHT, "MiniRT Camera");
-	printf("View->mlx:%p\n", view->mlx);
 	view->img_data = malloc(sizeof(t_data_img));
-	printf("View->imgdata:%p\n", view->img_data);
 	if (!view->img_data)
 		ft_exit("Malloc");
 	view->img_data->img = mlx_new_image(view->mlx->ptr, V_WIDTH, V_HEIGHT);
 	view->img_data->addr = mlx_get_data_addr(view->img_data->img,
 			&view->img_data->bits_per_pixel,
 			&view->img_data->line_length, &view->img_data->endian);
+	printf("test1\n");
+	view->texture = get_texture_to_img(scena->mlx, "./xpm/bob.xpm");
+	printf("after get xpm\n");
 	init_view_quat(view);
 	init_view_zero(view);
 	view->camera = init_quat_camera(scena, 50);
-	printf("init view ok\n");
 	view->box = init_quat_box();
 	return (view);
 }

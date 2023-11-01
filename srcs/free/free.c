@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:45:03 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/31 17:39:19 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/01 14:32:19 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,20 +55,17 @@ void	free_obj(t_scenario	*scena)
 
 void	free_scenario(t_scenario *scena)
 {
-	printf("Before free: %p\n", scena->view->img_data);
-	free(scena->view->img_data);
+	// mlx_destroy_image(scena->view->mlx, scena->view->texture);
+	if (scena->view->texture)
+		free(scena->view->texture);
+	if (scena->view->img_data)
+		free(scena->view->img_data);
 	if (scena->view->mlx)
 		free(scena->view->mlx);
-
 	if (scena->amb_lux)
 		free(scena->amb_lux);
 	if (scena->cam)
 		free(scena->cam);
-	// if (scena->mlx)
-	// 	free(scena->mlx);
-	// if (scena->img_data)
-	// 	free(scena->img_data);
-
 	if (scena->view->camera)
 		free(scena->view->camera);
 	if (scena->view->box)
@@ -77,5 +74,4 @@ void	free_scenario(t_scenario *scena)
 		free(scena->view);
 	free_obj(scena);
 	free_spot(scena);
-	// free(scena);
 }

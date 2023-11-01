@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 11:27:11 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/31 13:19:50 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/01 13:59:10 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ typedef struct s_data_img
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	int		width;
+	int		height;
 }				t_data_img;
 
 typedef struct s_mlx
@@ -58,15 +60,16 @@ typedef struct s_spotlux
 
 typedef struct s_obj
 {
-	int				id;
-	float			diam;
-	float			high;
-	t_quat			*axis;
-	t_quat			q_dir;
-	struct s_vec3d	pos;
-	struct s_rgb	rgb;
-	struct s_vec3d	dir;
-	struct s_obj	*next;
+	int					id;
+	float				diam;
+	float				high;
+	t_quat				*axis;
+	t_quat				q_dir;
+	struct s_vec3d		pos;
+	struct s_rgb		rgb;
+	struct s_vec3d		dir;
+	struct s_obj		*next;
+	struct s_data_img	*texture;
 }			t_obj;
 /*-------------*/
 
@@ -86,6 +89,7 @@ typedef struct s_view
 {
 	struct s_data_img	*img_data;
 	struct s_mlx		*mlx;
+	struct s_data_img	*texture;
 	t_quat				identity_quat;
 	t_quat				rotation_quat;
 	t_quat				scena_quat;

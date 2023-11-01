@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:29:04 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/27 17:34:50 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/01 14:36:44 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,32 @@ void	draw_scenario(t_scenario *scena)
 	}
 }
 
+void	draw_pixel_from_texture(t_scenario *scena)
+{
+	int	x = 0;
+	int	y = 0;
+
+	while (x < 64)
+	{
+		while (y < 64)
+		{
+			my_mlx_pixel_put(scena->view->img_data, x + V_WIDTH / 2, y + V_HEIGHT / 2, get_color_from_texture(scena->view->texture, x, y));
+			y++;
+		}
+		x++;
+		y = 0;
+	}
+}
+
 void	render_view(t_scenario *scena)
 {
 	mlx_clear_window(scena->view->mlx->ptr, scena->view->mlx->win);
 	draw_scenario(scena);
+	// draw_pixel_from_texture(scena);
 	mlx_put_image_to_window(scena->view->mlx->ptr,
 		scena->view->mlx->win, scena->view->img_data->img, 0, 0);
+	// mlx_put_image_to_window(scena->view->mlx->ptr,
+	// 	scena->view->mlx->win, scena->view->texture->img, 0, 0);
 	mlx_destroy_image(scena->view->mlx->ptr, scena->view->img_data->img);
 	my_new_mlx_img_data_view(scena);
 }

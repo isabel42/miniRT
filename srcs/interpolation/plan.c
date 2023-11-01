@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 13:33:13 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/29 16:43:06 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/01 15:47:46 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void	in_pl(t_ray ray, t_obj *pl, t_hit *hit)
 		hit->rgb = pl->rgb;
 		hit->hit = true;
 		hit->id = 1;
+		if (pl->texture)
+			hit->rgb = get_texture_from_plane((*hit).pos, (*hit).normal, pl->texture);
 	}
 }
 
@@ -58,8 +60,10 @@ void	plane_hit(t_ray ray, t_obj *obj, t_hit *hit)
 			hit->pos = ft_v_add(ray.origin, ft_v_scale(ray.dir, t));
 			hit->dst = ft_mod(ft_v_sub(hit->pos, ray.origin));
 			hit->normal = obj->dir;
-			hit->rgb = obj->rgb;
 			hit->id = obj->id;
+			hit->rgb = obj->rgb;
+			if (obj->texture)
+				hit->rgb = get_texture_from_plane((*hit).pos, (*hit).normal, obj->texture);
 		}
 	}
 }

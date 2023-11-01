@@ -103,7 +103,7 @@ void	hit_redirect(t_ray ray, t_obj *obj, t_hit *hit_loc)
 {
 	void	(*ptr_ft[4])(t_ray, t_obj *, t_hit *);
 
-	ptr_ft[0] = &in_sp;
+	ptr_ft[0] = &sphere_hit;
 	ptr_ft[1] = &in_pl;
 	ptr_ft[2] = &in_cy;
 	ptr_ft[obj->id](ray, obj, hit_loc);

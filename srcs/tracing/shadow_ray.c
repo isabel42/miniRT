@@ -201,7 +201,6 @@ void	scale_hit(t_hit hit, t_ray ray_lux, double *scale, t_spotlux *spot)
 void	get_scale_shadow(t_scenario *sc, t_hit hit, double *scale)
 {
 	t_hit		hit_lux;
-	t_hit		*hit_lux_next;
 	t_ray		ray_lux;
 	t_spotlux	*spot;
 
@@ -219,9 +218,8 @@ void	get_scale_shadow(t_scenario *sc, t_hit hit, double *scale)
 			> ft_mod(ft_v_sub(spot->pos, hit.pos)))
 			scale_hit(hit, ray_lux, scale, spot);
 		spot = spot->next;
+		free_hit(&(hit_lux.next));
 	}
-	hit_lux_next = hit_lux.next;
-	free_hit(&(hit_lux_next));
 }
 
 void	shadow_ray_rgb(t_scenario *sc, t_hit hit, int i, int j)

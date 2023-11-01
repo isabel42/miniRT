@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 13:32:39 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/15 15:19:39 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/01 15:48:49 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ void	in_sp_all(t_ray ray, t_obj *sp, t_hit *hit, float t)
 			hit->rgb = sp->rgb;
 			hit->hit = true;
 			hit->id = 0;
+			if (sp->id == 0)
+				hit->rgb = get_texture_from_sphere(
+					ft_v_sub((*hit).pos, (*sp).pos), sp->diam / 2, sp->texture);
 		}
 	}
 }
@@ -117,5 +120,8 @@ void	sphere_hit(t_ray ray, t_obj *obj, t_hit *hit)
 		hit->pos = get_hit_point(ray.origin, ray.dir, dst);
 		hit->normal = get_normal(hit->pos, obj->pos);
 		hit->rgb = obj->rgb;
+		if (obj->id == sp)
+			hit->rgb = get_texture_from_sphere(
+				ft_v_sub((*hit).pos, (*obj).pos), obj->diam / 2, obj->texture);
 	}
 }

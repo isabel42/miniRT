@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:59:53 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/29 15:18:36 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/01 10:13:12 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,17 +111,6 @@ void	cylinder_hit(t_ray ray, t_obj *obj, t_hit *hit)
 		if (y >= y_min && y <= y_max)
 		{
 			cyl_hit(hit, t_min, ray, obj, y);
-			printf("cylindre pos %f %f %f\n", hit->pos.x, hit->pos.y, hit->pos.z);
-			printf("cylindre normal %f %f %f\n", hit->normal.x, hit->normal.y, hit->normal.z);
 		}
-		// {
-		// 	hit->hit = true;
-		// 	hit->dst = t_min;
-		// 	hit->pos = ft_v_add(ray.origin, ft_v_scale(ray.dir, t_min));
-		// 	hit->normal = ft_normalize(
-		// 		ft_v_sub(hit->pos, (t_vec3d){obj->pos.x, y, obj->pos.z}));
-		// 	hit->rgb = obj->rgb;
-		// 	hit->id = obj->id;
-		// }
 	}
 }

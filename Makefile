@@ -6,7 +6,7 @@
 #    By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/03 17:19:38 by lsohler           #+#    #+#              #
-#    Updated: 2023/10/31 12:28:29 by lsohler          ###   ########.fr        #
+#    Updated: 2023/11/01 15:04:57 by lsohler          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,10 @@ SRCS = \
 		srcs/parsing/rgb.c\
 		srcs/parsing/scenario.c\
 		srcs/parsing/parsing.c\
+		\
+		srcs/texture/texture.c\
+		srcs/texture/sphere_texture.c\
+		srcs/texture/plan_texture.c\
 		\
 		srcs/tracing/hit.c\
 		srcs/tracing/shadow_ray.c\

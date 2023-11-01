@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 15:20:46 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/31 13:56:22 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/01 15:06:51 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,21 @@ void	parse_line(char *line_b, t_scenario *scena)
 		ft_exit("Parsing object identification");
 }
 
+void	assign_texture_to_object(t_scenario *scena)
+{
+	t_obj	*tmp;
+
+	tmp = scena->obj;
+	while (tmp)
+	{
+		if (tmp->id == sp || tmp->id == pl)
+		{
+			tmp->texture = scena->view->texture;
+		}
+		tmp = tmp->next;
+	}
+}
+
 t_scenario	*parsing(char *argv1)
 {
 	int			fd;
@@ -74,5 +89,6 @@ t_scenario	*parsing(char *argv1)
 	if (!scena->cam || !scena->amb_lux || !scena->spot_lux)
 		ft_exit("No camera or light source");
 	scena->view = init_view(scena);
+	assign_texture_to_object(scena);
 	return (scena);
 }
