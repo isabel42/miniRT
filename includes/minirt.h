@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 16:13:16 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/31 14:20:49 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/11/01 13:24:34 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@
 # define I_BROWN 0x9F6212
 # define I_GRAY 0xACACAC
 
-enum e_form {sp, pl, cy};
+enum e_form {sp, pl, cy, cne};
 
 /*---ERROR---*/
 void		ft_exit(char *msg);
@@ -78,6 +78,7 @@ void		parse_line(char *line, t_scenario *scena);
 void		new_sphere(char **split, t_scenario *scena);
 void		new_plan(char **split, t_scenario *scena);
 void		new_cylinder(char **split, t_scenario *scena);
+void		new_cone(char **split, t_scenario *scena);
 void		new_abm_lux(char **split, t_scenario *scena);
 void		new_cam(char **split, t_scenario *scena);
 void		new_spot_lux(char **split, t_scenario *scena);
@@ -89,12 +90,15 @@ t_vec3d		get_orientation(char *line, float min, float max);
 
 /*---INTERPOLATION---*/
 void		sphere_hit(t_ray ray, t_obj *obj, t_hit *hit);
+t_vec3d		vct_orto(t_vec3d a, t_vec3d b);
 void		cal_cy_param(t_vec3d *abc, t_ray ray, t_obj *cy);
 void		cal_cy_param_b(t_vec3d *abc, t_ray ray, t_obj *cy);
 void		cal_cy_param_c(t_vec3d *abc, t_ray ray, t_obj *cy);
+void		cal_cn_param(t_vec3d *abc, t_ray ray, t_obj *cn, float k);
 void		in_pl(t_ray ray, t_obj *pl, t_hit *hit);
 void		in_sp(t_ray ray, t_obj *sp, t_hit *hit);
 void		in_cy(t_ray ray, t_obj *cy, t_hit *hit);
+void		in_cn(t_ray ray, t_obj *cy, t_hit *hit);
 
 /*---RENDER---*/
 void		my_mlx_pixel_put(t_data_img *imgdata, int x, int y, int color);

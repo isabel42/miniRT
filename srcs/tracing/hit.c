@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 10:15:38 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/31 17:17:37 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/11/01 13:15:09 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	hit_redirect(t_ray ray, t_obj *obj, t_hit *hit_loc)
 	ptr_ft[0] = &in_sp;
 	ptr_ft[1] = &in_pl;
 	ptr_ft[2] = &in_cy;
+	ptr_ft[3] = &in_cn;
 	ptr_ft[obj->id](ray, obj, hit_loc);
 }
 
@@ -78,8 +79,7 @@ void	get_hit(t_scenario *sc, t_ray ray, t_hit *hit)
 		if (hit_loc.hit == true
 			&& (hit->dst > hit_loc.dst || hit->hit == false))
 		{
-			if (hit->next != NULL)
-				free_hit(&(hit->next));
+			free_hit(&(hit->next));
 			cp_hit(hit, hit_loc);
 		}
 		else if (hit_loc.hit == true && hit->dst == hit_loc.dst)

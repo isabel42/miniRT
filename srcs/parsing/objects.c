@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
+/*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 21:35:41 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/15 16:55:41 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/01 13:18:23 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,24 @@ void	new_cylinder(char **split, t_scenario *scena)
 	cyl->next = NULL;
 	free_array(split);
 	object_add_back(scena, cyl);
+}
+
+void	new_cone(char **split, t_scenario *scena)
+{
+	t_obj	*cn;
+
+	if (!split || !split[5] || split[6])
+		ft_exit("Cone syntax");
+	cn = malloc(sizeof (t_obj));
+	if (!cn)
+		ft_exit("Malloc");
+	cn->id = cne;
+	cn->pos = ft_pos(split[1]);
+	cn->dir = ft_pos(split[2]);
+	cn->diam = ft_atof(split[3]);
+	cn->high = ft_atof(split[4]);
+	cn->rgb = ft_rgb(split[5]);
+	cn->next = NULL;
+	free_array(split);
+	object_add_back(scena, cn);
 }

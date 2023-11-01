@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
+/*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 15:20:46 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/15 15:23:07 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/01 13:13:47 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void	parse_line(char *line_b, t_scenario *scena)
 		new_plan(split, scena);
 	else if (!ft_strncmp(split[0], "cy", 4))
 		new_cylinder(split, scena);
+	else if (!ft_strncmp(split[0], "cn", 4))
+		new_cone(split, scena);
 	else
 		ft_exit("Parsing object identification");
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+         #
+#    By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/03 17:19:38 by lsohler           #+#    #+#              #
-#    Updated: 2023/10/15 17:06:54 by lsohler          ###   ########.fr        #
+#    Updated: 2023/11/01 13:21:09 by itovar-n         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,9 +21,11 @@ SRCS = \
 		srcs/key/key.c\
 		\
 		srcs/interpolation/cylinder_param.c\
+		srcs/interpolation/cn_param.c\
 		srcs/interpolation/cylinder.c\
 		srcs/interpolation/plan.c\
 		srcs/interpolation/sphere.c\
+		srcs/interpolation/cone.c\
 		\
 		srcs/parsing/objects.c\
 		srcs/parsing/utils.c\
