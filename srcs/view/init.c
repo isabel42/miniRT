@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 12:19:59 by lsohler           #+#    #+#             */
-/*   Updated: 2023/11/01 15:56:52 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/01 16:35:26 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_view	*init_view(t_scenario *scena)
 			&view->img_data->bits_per_pixel,
 			&view->img_data->line_length, &view->img_data->endian);
 	printf("test1\n");
-	view->texture = get_texture_to_img(scena->mlx, "./xpm/bob.xpm");
+	view->texture = get_texture_to_img(scena->mlx, "./xpm/rdamier.xpm");
 	printf("after get xpm\n");
 	init_view_quat(view);
 	init_view_zero(view);

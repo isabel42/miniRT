@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 15:01:00 by lsohler           #+#    #+#             */
-/*   Updated: 2023/11/01 15:28:24 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/01 16:46:15 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,19 @@ t_rgb	get_texture_from_plane(t_vec3d pos, t_vec3d normal, t_data_img *texture)
 	int	y;
 
 	(void)normal;
-	x = abs((int)(pos.x * texture->width) % (texture->width - 1));
-	y = abs((int)(pos.y * texture->height) % (texture->height - 1));
+	if (fabs(ft_dot(normal, (t_vec3d){1, 0, 0})) == 1)
+		x = abs((int)pos.z % texture->width);
+	else
+		x = abs((int)pos.x % texture->width);
+	if (fabs(ft_dot(normal, (t_vec3d){0, 1, 0})) == 1)
+		y = (texture->height - 1) - abs((int)pos.z
+				% texture->height);
+	else
+		y = (texture->height - 1) - abs((int)pos.y
+				% texture->height - 1);
+	// x = (int)(abs((int)pos.x) % (texture->width));
+	// y = (int)(texture->height - 1) - abs((int)pos.z % texture->height);
+	// x = abs((int)(pos.x * texture->width) % (texture->width - 1));
+	// y = abs((int)(pos.z * texture->height) % (texture->height - 1));
 	return (int_to_rgb(get_color_from_texture(texture, x, y)));
 }

@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 13:26:49 by lsohler           #+#    #+#             */
-/*   Updated: 2023/11/01 15:58:13 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/01 16:18:56 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_rgb	get_texture_from_sphere(t_vec3d pos, float r, t_data_img *texture)
 	int		y;
 
 	cartesian_to_spherical(pos, r, &theta, &phi);
-	x = abs((int)((theta / (2 * M_PI)) * texture->width) % texture->width);
-	y = abs((int)((phi / M_PI) * texture->height) % texture->height);
+	x = ((int)((theta / (2 * M_PI)) * texture->width) % texture->width);
+	y = ((int)((phi / M_PI) * texture->height) % texture->height);
 	return (int_to_rgb(get_color_from_texture(texture, x, y)));
 }
