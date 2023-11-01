@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 16:13:16 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/11/01 13:24:34 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/11/01 15:55:14 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ t_vec3d		vct_orto(t_vec3d a, t_vec3d b);
 void		cal_cy_param(t_vec3d *abc, t_ray ray, t_obj *cy);
 void		cal_cy_param_b(t_vec3d *abc, t_ray ray, t_obj *cy);
 void		cal_cy_param_c(t_vec3d *abc, t_ray ray, t_obj *cy);
-void		cal_cn_param(t_vec3d *abc, t_ray ray, t_obj *cn, float k);
+void		cal_cn_param(t_vec3d *abc, t_ray ray, t_obj *cn);
 void		in_pl(t_ray ray, t_obj *pl, t_hit *hit);
 void		in_sp(t_ray ray, t_obj *sp, t_hit *hit);
 void		in_cy(t_ray ray, t_obj *cy, t_hit *hit);
