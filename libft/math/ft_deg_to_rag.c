@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_deg_to_rag.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
+/*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 16:46:45 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/03 16:47:10 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/01 21:11:51 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
+#include <unistd.h>
 
 float	ft_deg_to_rad(float deg)
 {

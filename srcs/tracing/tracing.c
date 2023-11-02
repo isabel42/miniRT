@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 13:10:10 by lsohler           #+#    #+#             */
-/*   Updated: 2023/11/01 10:24:15 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/11/01 21:12:26 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_tracing	init_tracing(t_scenario *sc)
 	if (sc->cam->fov == 180)
 		t.d = 0;
 	else
-		t.d = tan(ft_deg_to_rad(sc->cam->fov / 2)) * WIDTH / 2;
+		t.d = (WIDTH / 2.0) / tan(ft_deg_to_rad(sc->cam->fov / 2.00));
 	t.i = 0;
 	t.j = 0;
 	return (t);
@@ -69,6 +69,8 @@ void	tracing(t_scenario *sc)
 	while (t.i <= WIDTH)
 	{
 		t.j = 0;
+		if (t.j + t.j + t.d == 0)
+			t.d = 1;
 		while (t.j <= HEIGHT)
 		{
 			ray = init_ray(sc, t);

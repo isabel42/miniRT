@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 10:15:38 by lsohler           #+#    #+#             */
-/*   Updated: 2023/11/01 13:15:09 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/11/01 19:11:48 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,11 @@ void	hit_equal(t_hit **hit_list, t_hit hit_loc)
 void	get_hit(t_scenario *sc, t_ray ray, t_hit *hit)
 {
 	t_hit	hit_loc;
-	t_hit	*hit_first;
 	t_obj	*obj;
 
 	hit->next = NULL;
 	hit->dst = -1;
 	obj = sc->obj;
-	hit_first = hit;
 	hit->hit = false;
 	while (obj)
 	{
