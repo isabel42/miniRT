@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 12:19:59 by lsohler           #+#    #+#             */
-/*   Updated: 2023/11/01 16:35:26 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/03 13:45:09 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 
 void	init_view_quat(t_view *view)
 {
-	// view->identity_quat = quat_create(1, 0, 0, 0);
 	view->identity_quat = quat_create(1, 0, 0, 0);
 	view->scena_quat = quat_create(1, 0, 0, 0);
 	view->rotation_quat = euler_to_quat(0, 0, M_PI);
-	// view->rotation_quat = euler_to_quat(0, 0, 0);
 }
 
 void	init_view_zero(t_view *view)
@@ -50,7 +48,7 @@ t_view	*init_view(t_scenario *scena)
 			&view->img_data->bits_per_pixel,
 			&view->img_data->line_length, &view->img_data->endian);
 	printf("test1\n");
-	view->texture = get_texture_to_img(scena->mlx, "./xpm/rdamier.xpm");
+	view->texture = get_texture_to_img(scena->mlx, "./xpm/world.xpm");
 	printf("after get xpm\n");
 	init_view_quat(view);
 	init_view_zero(view);

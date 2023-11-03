@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 21:35:41 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/11/01 14:34:38 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/03 14:09:11 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,30 @@ void	new_cylinder(char **split, t_scenario *scena)
 	cyl->diam = ft_atof(split[3]);
 	cyl->high = ft_atof(split[4]);
 	cyl->rgb = ft_rgb(split[5]);
+	printf("Cylindre: ");
 	cyl->q_dir = quat_normalize(o_vector_to_quat(cyl->dir));
 	cyl->next = NULL;
 	cyl->texture = NULL;
 	free_array(split);
 	object_add_back(scena, cyl);
+}
+
+void	new_cone(char **split, t_scenario *scena)
+{
+	t_obj	*cn;
+
+	if (!split || !split[5] || split[6])
+		ft_exit("Cone syntax");
+	cn = malloc(sizeof (t_obj));
+	if (!cn)
+		ft_exit("Malloc");
+	cn->id = cne;
+	cn->pos = ft_pos(split[1]);
+	cn->dir = ft_pos(split[2]);
+	cn->diam = ft_atof(split[3]);
+	cn->high = ft_atof(split[4]);
+	cn->rgb = ft_rgb(split[5]);
+	cn->next = NULL;
+	free_array(split);
+	object_add_back(scena, cn);
 }

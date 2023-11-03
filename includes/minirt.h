@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 16:13:16 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/11/01 15:27:16 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/03 12:32:32 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@
 # define I_BROWN 0x9F6212
 # define I_GRAY 0xACACAC
 
-enum e_form {sp, pl, cy};
+enum e_form {sp, pl, cy, cne};
 
 /*---ERROR---*/
 void		ft_exit(char *msg);
@@ -93,6 +93,7 @@ void		new_cylinder(char **split, t_scenario *scena);
 void		new_abm_lux(char **split, t_scenario *scena);
 void		new_cam(char **split, t_scenario *scena);
 void		new_spot_lux(char **split, t_scenario *scena);
+void		new_cone(char **split, t_scenario *scena);
 t_rgb		ft_rgb(char *line);
 t_vec3d		ft_pos(char *line);
 int			ft_get_rgb(char *line);
@@ -104,9 +105,12 @@ void		sphere_hit(t_ray ray, t_obj *obj, t_hit *hit);
 void		cal_cy_param(t_vec3d *abc, t_ray ray, t_obj *cy);
 void		cal_cy_param_b(t_vec3d *abc, t_ray ray, t_obj *cy);
 void		cal_cy_param_c(t_vec3d *abc, t_ray ray, t_obj *cy);
+t_vec3d		vct_orto(t_vec3d a, t_vec3d b);
+void		cal_cn_param(t_vec3d *abc, t_ray ray, t_obj *cn);
 void		in_pl(t_ray ray, t_obj *pl, t_hit *hit);
 void		in_sp(t_ray ray, t_obj *sp, t_hit *hit);
 void		in_cy(t_ray ray, t_obj *cy, t_hit *hit);
+void		in_cn(t_ray ray, t_obj *cy, t_hit *hit);
 void		cylinder_hit(t_ray ray, t_obj *obj, t_hit *hit);
 void		plane_hit(t_ray ray, t_obj *obj, t_hit *hit);
 /*---RENDER---*/
@@ -127,9 +131,7 @@ int			close_w(t_scenario *scena);
 
 /*---TRACING---*/
 void		get_hit(t_scenario *sc, t_ray ray, t_hit *hit);
-// void		get_hit(t_scenario *sc, t_ray ray, t_hit *hit, t_address **list);
 void		shadow_ray_rgb(t_scenario *scena, t_hit object_hit, int i, int j);
-// t_rgb		shadow_ray_rgb(t_ray ray, t_scenario *scena, t_hit object_hit);
 void		tracing(t_scenario *sc);
 
 /*---VIEW---*/
@@ -152,6 +154,8 @@ void		apply_rotation_camera(t_scenario *scena);
 void		apply_rotation_box(t_scenario *scena);
 void		apply_rotation_scena(t_scenario *scena);
 void		apply_rotation_alt_cam(t_scenario *scena);
+void		draw_scenario(t_scenario *sc);
+t_point		get_p(t_quat q, t_scenario *sc);
 /*---TEXTURE---*/
 t_data_img	*get_texture_to_img(t_mlx *mlx, char *path);
 int			get_color_from_texture(t_data_img *imgdata, int x, int y);

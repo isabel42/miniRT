@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 11:27:11 by lsohler           #+#    #+#             */
-/*   Updated: 2023/11/01 13:59:10 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/03 12:47:00 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ typedef struct s_view
 	struct s_data_img	*img_data;
 	struct s_mlx		*mlx;
 	struct s_data_img	*texture;
+	struct s_data_img	*texture_b;
+	struct s_data_img	*texture_c;
 	t_quat				identity_quat;
 	t_quat				rotation_quat;
 	t_quat				scena_quat;

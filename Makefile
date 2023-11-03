@@ -6,7 +6,7 @@
 #    By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/03 17:19:38 by lsohler           #+#    #+#              #
-#    Updated: 2023/11/01 15:04:57 by lsohler          ###   ########.fr        #
+#    Updated: 2023/11/03 12:20:55 by lsohler          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ SRCS = \
 		srcs/main.c\
 		\
 		srcs/draw/render.c\
+		srcs/draw/color.c\
 		\
 		srcs/free/free.c\
 		srcs/free/error.c\
@@ -25,7 +26,8 @@ SRCS = \
 		srcs/interpolation/cylinder.c\
 		srcs/interpolation/plan.c\
 		srcs/interpolation/sphere.c\
-		srcs/interpolation/cylinder2.c\
+		srcs/interpolation/cone.c\
+		srcs/interpolation/cn_param.c\
 		\
 		srcs/parsing/objects.c\
 		srcs/parsing/utils.c\

@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:45:03 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/11/01 14:32:19 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/03 12:45:37 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	free_hit(t_hit **hit_list)
 		hit = hit_next;
 	}
 }
-
 
 void	free_spot(t_scenario *scena)
 {
@@ -55,7 +54,6 @@ void	free_obj(t_scenario	*scena)
 
 void	free_scenario(t_scenario *scena)
 {
-	// mlx_destroy_image(scena->view->mlx, scena->view->texture);
 	if (scena->view->texture)
 		free(scena->view->texture);
 	if (scena->view->img_data)

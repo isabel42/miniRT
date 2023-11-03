@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:18:29 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/31 13:42:56 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/03 13:50:57 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,32 +26,48 @@ t_quat	*init_axis(t_vec3d center, float size)
 	return (axis);
 }
 
+void	apply_cam_dir(t_scenario *scena, t_quat *c)
+{
+	int	i;
+
+	i = 0;
+	while (i <= 4)
+	{
+		c[i] = quat_multiply(
+				quat_multiply(scena->cam->dir,
+					c[i]),
+				quat_conjugate(scena->cam->dir));
+		i++;
+	}
+}
+
 t_quat	*init_quat_camera(t_scenario *scena, int dist)
 {
 	t_quat	*c;
 	t_vec3d	pos;
-	float	plane_height;
-	float	plane_width;
+	float	pl_h;
+	float	pl_w;
 
 	pos = scena->cam->pos;
-	dist = tan(ft_deg_to_rad(scena->cam->fov / 2)) * WIDTH / 2;
-	plane_width = WIDTH;
-	plane_height = HEIGHT;
+	dist = (WIDTH / 2.0) / tan(ft_deg_to_rad(scena->cam->fov / 2.00));
+	pl_w = WIDTH;
+	pl_h = HEIGHT;
 	c = malloc(sizeof(t_quat) * 5);
 	if (!c)
 		ft_exit("Malloc");
-	c[0] = quat_create(0, pos.x - (plane_width / 2), -pos.y + (plane_height / 2), pos.z);
-	c[1] = quat_create(0, pos.x + (plane_width / 2), -pos.y + (plane_height / 2), pos.z);
-	c[2] = quat_create(0, pos.x + (plane_width / 2), -pos.y - (plane_height / 2), pos.z);
-	c[3] = quat_create(0, pos.x - (plane_width / 2), -pos.y - (plane_height / 2), pos.z);
+	c[0] = quat_create(0, pos.x - (pl_w / 2), -pos.y + (pl_h / 2), pos.z);
+	c[1] = quat_create(0, pos.x + (pl_w / 2), -pos.y + (pl_h / 2), pos.z);
+	c[2] = quat_create(0, pos.x + (pl_w / 2), -pos.y - (pl_h / 2), pos.z);
+	c[3] = quat_create(0, pos.x - (pl_w / 2), -pos.y - (pl_h / 2), pos.z);
 	c[4] = quat_create(0, pos.x, -pos.y, pos.z - dist);
+	apply_cam_dir(scena, c);
 	return (c);
 }
 
 t_quat	*init_quat_box(void)
 {
 	t_quat	*box;
-	int half_size;
+	int		half_size;
 
 	box = malloc(sizeof(t_quat) * 8);
 	if (!box)

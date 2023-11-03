@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 15:20:46 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/11/01 15:06:51 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/03 13:46:20 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void	parse_line(char *line_b, t_scenario *scena)
 		new_plan(split, scena);
 	else if (!ft_strncmp(split[0], "cy", 4))
 		new_cylinder(split, scena);
+	else if (!ft_strncmp(split[0], "cn", 4))
+		new_cone(split, scena);
 	else if (!ft_strncmp(split[0], "#", 1))
 		free_array(split);
 	else

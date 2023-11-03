@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 12:16:07 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/29 12:17:21 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/03 14:26:09 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_quat	quat_copy(t_quat q)
 {
-	t_quat copy;
+	t_quat	copy;
 
 	copy.w = q.w;
 	copy.x = q.x;

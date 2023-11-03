@@ -6,29 +6,11 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 13:54:07 by lsohler           #+#    #+#             */
-/*   Updated: 2023/11/01 10:11:44 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/03 12:20:19 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-t_rgb	int_to_rgb(int icolor)
-{
-	t_rgb	color;
-
-	color.r = (icolor >> 16) & 0xFF;
-	color.g = (icolor >> 8) & 0xFF;
-	color.b = icolor & 0xFF;
-	return (color);
-}
-
-int	rgb_to_int(t_rgb color)
-{
-	int	icolor;
-
-	icolor = (color.r << 16) | (color.g << 8) | color.b;
-	return (icolor);
-}
 
 void	my_mlx_pixel_put(t_data_img *imgdata, int x, int y, int color)
 {
@@ -51,10 +33,13 @@ void	my_new_mlx_img_data(t_scenario *scena)
 
 void	my_new_mlx_img_data_view(t_scenario *scena)
 {
-	scena->view->img_data->img = mlx_new_image(scena->view->mlx->ptr, V_WIDTH, V_HEIGHT);
-	scena->view->img_data->addr = mlx_get_data_addr(scena->view->img_data->img,
+	scena->view->img_data->img = mlx_new_image(
+			scena->view->mlx->ptr, V_WIDTH, V_HEIGHT);
+	scena->view->img_data->addr = mlx_get_data_addr(
+			scena->view->img_data->img,
 			&scena->view->img_data->bits_per_pixel,
-			&scena->view->img_data->line_length, &scena->view->img_data->endian);
+			&scena->view->img_data->line_length,
+			&scena->view->img_data->endian);
 }
 
 int	render(t_scenario *scena)

@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 12:15:54 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/31 13:44:22 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/03 12:45:48 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,9 @@ void	free_address_list(t_address *list)
 	tmp = list;
 	while (list)
 	{
-		// printf("FREE\n");
 		tmp = list->next;
 		free(list->address);
 		free(list);
 		list = tmp;
 	}
-	// *list = NULL;
 }

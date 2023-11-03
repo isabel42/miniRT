@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 08:28:37 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/15 15:08:52 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/03 14:49:28 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	ft_get_rgb(char *line)
 	j = 0;
 	if (pos < 0 || pos > 255)
 		ft_exit("RGB overflow");
+	if (line[0] == '+' || line[0] == '-')
+		j++;
 	while (line[j] != '\0')
 	{
 		if (ft_isdigit(line[j]) == 0)

@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 13:40:49 by lsohler           #+#    #+#             */
-/*   Updated: 2023/10/31 11:53:32 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/03 12:23:14 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	mouse_scroll(int key, t_scenario *scena)
 	if (key == KEY_SCROLL_UP && scena->view->ratio < 2)
 		scena->view->ratio *= 1.1;
 	if (key == KEY_SCROLL_DOWN && scena->view->ratio > 0.01)
-		scena->view->ratio *=0.9;
+		scena->view->ratio *= 0.9;
 	render_view(scena);
 }
 
@@ -27,9 +27,12 @@ void	mouse_rotate_ctrl(int move_x, int move_y, t_scenario *scena)
 			ft_deg_to_rad(atan(move_x / 1)) * 2,
 			-ft_deg_to_rad(atan(move_y / 1)) * 2);
 	scena->view->identity_quat = quat_normalize(
-		quat_multiply(scena->view->identity_quat, scena->view->rotation_quat));
-	scena->cam->dir = quat_multiply(scena->view->rotation_quat, scena->cam->dir);
-	scena->cam->pos = quat_v_transform(scena->view->rotation_quat, scena->cam->pos);
+			quat_multiply(scena->view->identity_quat,
+				scena->view->rotation_quat));
+	scena->cam->dir = quat_multiply(
+			scena->view->rotation_quat, scena->cam->dir);
+	scena->cam->pos = quat_v_transform(
+			scena->view->rotation_quat, scena->cam->pos);
 	apply_rotation_ctrl_cam(scena);
 	return ;
 }
@@ -40,19 +43,23 @@ void	mouse_rotate_alt(int move_x, int move_y, t_scenario *scena)
 			ft_deg_to_rad(atan(move_x / 1)) * 2,
 			-ft_deg_to_rad(atan(move_y / 1)) * 2);
 	scena->view->identity_quat = quat_normalize(
-		quat_multiply(scena->view->identity_quat, scena->view->rotation_quat));
-	scena->cam->dir = quat_normalize(quat_multiply(scena->view->rotation_quat, scena->cam->dir));
+			quat_multiply(scena->view->identity_quat,
+				scena->view->rotation_quat));
+	scena->cam->dir = quat_normalize(
+			quat_multiply(
+				scena->view->rotation_quat, scena->cam->dir));
 	apply_rotation_alt_cam(scena);
 	return ;
 }
-
 
 void	mouse_rotate_scena(int move_x, int move_y, t_scenario *scena)
 {
 	scena->view->rotation_quat = euler_to_quat(0,
 			ft_deg_to_rad(atan(move_x / 1)) * 2,
 			-ft_deg_to_rad(atan(move_y / 1)) * 2);
-	scena->view->scena_quat = quat_normalize(quat_multiply(scena->view->scena_quat, scena->view->rotation_quat));
+	scena->view->scena_quat = quat_normalize(
+			quat_multiply(
+				scena->view->scena_quat, scena->view->rotation_quat));
 	apply_rotation_scena(scena);
 	return ;
 }
