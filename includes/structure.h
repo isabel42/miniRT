@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 11:27:11 by lsohler           #+#    #+#             */
-/*   Updated: 2023/11/03 12:47:00 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/03 18:17:23 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct s_obj
 	float				high;
 	t_quat				*axis;
 	t_quat				q_dir;
+	char				*texture_name;
 	struct s_vec3d		pos;
 	struct s_rgb		rgb;
 	struct s_vec3d		dir;

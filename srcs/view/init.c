@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 12:19:59 by lsohler           #+#    #+#             */
-/*   Updated: 2023/11/03 13:45:09 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/03 18:50:19 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,38 @@ void	init_view_zero(t_view *view)
 	view->box_offset_y = V_HEIGHT / 2;
 }
 
+void	init_texture_list(t_scenario *scena)
+{
+	t_obj	*obj;
+	t_obj	*obj_cp;
+
+	obj = scena->obj;
+	if (obj->texture_name)
+		scena->view->texture = get_texture_to_img(scena->mlx, obj->texture_name);
+	while (obj)
+	{
+		if (obj->texture_name)
+		{
+			obj_cp = scena->obj;
+			while (obj_cp != obj)
+			{
+				if (!ft_strcmp(obj->texture_name, obj_cp->texture_name) && obj->texture_name)
+				{
+					obj->texture = obj_cp->texture;
+					break ;
+				}
+				obj_cp = obj_cp->next;
+			}
+			if (obj_cp == obj)
+			{
+				scena->view->texture = get_texture_to_img(scena->mlx, obj->texture_name);
+				obj->texture = scena->view->texture;
+			}
+		}
+		obj = obj->next;
+	}
+}
+
 t_view	*init_view(t_scenario *scena)
 {
 	t_view	*view;
@@ -48,7 +80,10 @@ t_view	*init_view(t_scenario *scena)
 			&view->img_data->bits_per_pixel,
 			&view->img_data->line_length, &view->img_data->endian);
 	printf("test1\n");
-	view->texture = get_texture_to_img(scena->mlx, "./xpm/world.xpm");
+	view->texture = get_texture_to_img(scena->mlx, "./xpm/bob.xpm");
+	// view->texture_b = get_texture_to_img(scena->mlx, "./xpm/rdamier.xpm");
+	// view->texture_c = get_texture_to_img(scena->mlx, "./xpm/x.xpm");
+	init_texture_list(scena);
 	printf("after get xpm\n");
 	init_view_quat(view);
 	init_view_zero(view);

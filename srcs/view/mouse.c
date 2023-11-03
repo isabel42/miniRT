@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 13:40:49 by lsohler           #+#    #+#             */
-/*   Updated: 2023/11/03 12:23:14 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/03 17:44:09 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	mouse_rotate_ctrl(int move_x, int move_y, t_scenario *scena)
 	scena->view->rotation_quat = euler_to_quat(0,
 			ft_deg_to_rad(atan(move_x / 1)) * 2,
 			-ft_deg_to_rad(atan(move_y / 1)) * 2);
+	apply_rotation_ctrl_cam(scena);
+	scena->view->rotation_quat.y *= -1;
 	scena->view->identity_quat = quat_normalize(
 			quat_multiply(scena->view->identity_quat,
 				scena->view->rotation_quat));
@@ -33,7 +35,6 @@ void	mouse_rotate_ctrl(int move_x, int move_y, t_scenario *scena)
 			scena->view->rotation_quat, scena->cam->dir);
 	scena->cam->pos = quat_v_transform(
 			scena->view->rotation_quat, scena->cam->pos);
-	apply_rotation_ctrl_cam(scena);
 	return ;
 }
 

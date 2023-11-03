@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 11:36:50 by lsohler           #+#    #+#             */
-/*   Updated: 2023/11/03 12:42:26 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/03 18:49:51 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_data_img	*get_texture_to_img(t_mlx *mlx, char *path)
 	texture->addr = mlx_get_data_addr(texture->img,
 			&texture->bits_per_pixel,
 			&texture->line_length, &texture->endian);
-	printf("test2\n");
+	printf("Texture address: %p\n", texture);
 	return (texture);
 }
 

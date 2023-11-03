@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 08:28:37 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/10/15 16:57:27 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/03 17:09:15 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ t_vec3d	get_orientation(char *line, float min, float max)
 	pos.x = get_ratio(split[0], min, max);
 	pos.y = get_ratio(split[1], min, max);
 	pos.z = get_ratio(split[2], min, max);
+	if (pos.x == 0 && pos.y == 0 && pos.z == 0)
+		ft_exit("0 0 0 is not a valid orientation");
 	free_array(split);
 	return (pos);
 }

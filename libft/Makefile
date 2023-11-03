@@ -6,7 +6,7 @@
 #    By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/27 12:53:01 by lsohler           #+#    #+#              #
-#    Updated: 2023/10/29 12:17:39 by lsohler          ###   ########.fr        #
+#    Updated: 2023/11/03 16:49:59 by lsohler          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,7 @@ SRCS		= \
 			math/ft_v_sub.c\
 			math/ft_v_scale.c\
 			math/ft_deg_to_rag.c\
+			math/ft_v_product.c\
 			\
 			mem/ft_bzero.c\
 			mem/ft_calloc.c\
@@ -76,6 +77,7 @@ SRCS		= \
 			quat/quat_v_transform.c\
 			quat/quat_rotate.c\
 			quat/quat_copy.c\
+			quat/quat_two_vector_rotation.c\
 			\
 			str/ft_atof.c\
 			str/ft_atoi.c\

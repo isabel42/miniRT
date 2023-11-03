@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 21:35:41 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/11/03 14:09:11 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/03 18:56:53 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ void	new_sphere(char **split, t_scenario *scena)
 	sph->rgb = ft_rgb(split[3]);
 	sph->next = NULL;
 	sph->texture = NULL;
+	sph->texture_name = NULL;
+	if (split[5])
+		sph->texture_name = ft_strdup(split[5]);
 	free_array(split);
 	object_add_back(scena, sph);
 }
@@ -52,7 +55,7 @@ void	new_plan(char **split, t_scenario *scena)
 {
 	t_obj	*pln;
 
-	if (!split || !split[3] || split[4])
+	if (!split || !split[3] || split[5])
 		ft_exit("Plan syntax");
 	pln = malloc(sizeof (t_obj));
 	if (!pln)
@@ -65,6 +68,9 @@ void	new_plan(char **split, t_scenario *scena)
 	pln->rgb = ft_rgb(split[3]);
 	pln->next = NULL;
 	pln->texture = NULL;
+	pln->texture_name = NULL;
+	if (split[5])
+		pln->texture_name = ft_strdup(split[5]);
 	free_array(split);
 	object_add_back(scena, pln);
 }
@@ -108,6 +114,7 @@ void	new_cone(char **split, t_scenario *scena)
 	cn->high = ft_atof(split[4]);
 	cn->rgb = ft_rgb(split[5]);
 	cn->next = NULL;
+	cn->texture = NULL;
 	free_array(split);
 	object_add_back(scena, cn);
 }

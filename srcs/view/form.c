@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:18:29 by lsohler           #+#    #+#             */
-/*   Updated: 2023/11/03 13:50:57 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/03 17:38:11 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,19 @@ t_quat	*init_axis(t_vec3d center, float size)
 
 void	apply_cam_dir(t_scenario *scena, t_quat *c)
 {
-	int	i;
-
+	int		i;
+	t_vec3d	offset;
 	i = 0;
+
+	offset = scena->cam->pos;
 	while (i <= 4)
 	{
+		c[i] = quat_sub_offset(c[i], offset);
 		c[i] = quat_multiply(
 				quat_multiply(scena->cam->dir,
 					c[i]),
 				quat_conjugate(scena->cam->dir));
+		c[i] = quat_add_offset(c[i], offset);
 		i++;
 	}
 }
@@ -55,12 +59,14 @@ t_quat	*init_quat_camera(t_scenario *scena, int dist)
 	c = malloc(sizeof(t_quat) * 5);
 	if (!c)
 		ft_exit("Malloc");
-	c[0] = quat_create(0, pos.x - (pl_w / 2), -pos.y + (pl_h / 2), pos.z);
-	c[1] = quat_create(0, pos.x + (pl_w / 2), -pos.y + (pl_h / 2), pos.z);
-	c[2] = quat_create(0, pos.x + (pl_w / 2), -pos.y - (pl_h / 2), pos.z);
-	c[3] = quat_create(0, pos.x - (pl_w / 2), -pos.y - (pl_h / 2), pos.z);
-	c[4] = quat_create(0, pos.x, -pos.y, pos.z - dist);
+	c[0] = quat_create(0, pos.x - (pl_w / 2), pos.y + (pl_h / 2), pos.z + dist);
+	c[1] = quat_create(0, pos.x + (pl_w / 2), pos.y + (pl_h / 2), pos.z + dist);
+	c[2] = quat_create(0, pos.x + (pl_w / 2), pos.y - (pl_h / 2), pos.z + dist);
+	c[3] = quat_create(0, pos.x - (pl_w / 2), pos.y - (pl_h / 2), pos.z + dist);
+	c[4] = quat_create(0, pos.x, pos.y, pos.z);
+	printf("pos 1 : %f %f %f %f\n", c[4].w, c[4].x, c[4].y, c[4].z);
 	apply_cam_dir(scena, c);
+	printf("pos 2 : %f %f %f %f\n", c[4].w, c[4].x, c[4].y, c[4].z);
 	return (c);
 }
 

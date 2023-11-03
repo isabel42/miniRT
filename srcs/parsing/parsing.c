@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 15:20:46 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/11/03 15:58:42 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/03 16:04:49 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,6 @@ t_scenario	*parsing(char *argv1)
 	if (!scena->cam || !scena->amb_lux || !scena->spot_lux)
 		ft_exit("No camera or light source");
 	scena->view = init_view(scena);
-	// assign_texture_to_object(scena);
+	assign_texture_to_object(scena);
 	return (scena);
 }
