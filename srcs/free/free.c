@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:45:03 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/11/03 18:20:40 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/03 20:39:27 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ void	free_obj(t_scenario	*scena)
 	{
 		tmp = scena->obj->next;
 		free(scena->obj->axis);
-		if (scena->obj->texture_name)
-			free(scena->obj->texture_name);
 		free(scena->obj);
 		scena->obj = tmp;
 	}
@@ -56,8 +54,6 @@ void	free_obj(t_scenario	*scena)
 
 void	free_scenario(t_scenario *scena)
 {
-	if (scena->view->texture)
-		free(scena->view->texture);
 	if (scena->view->img_data)
 		free(scena->view->img_data);
 	if (scena->view->mlx)

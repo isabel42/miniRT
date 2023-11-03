@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:18:29 by lsohler           #+#    #+#             */
-/*   Updated: 2023/11/03 17:38:11 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/03 19:28:36 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,7 @@ t_quat	*init_quat_camera(t_scenario *scena, int dist)
 	c[2] = quat_create(0, pos.x + (pl_w / 2), pos.y - (pl_h / 2), pos.z + dist);
 	c[3] = quat_create(0, pos.x - (pl_w / 2), pos.y - (pl_h / 2), pos.z + dist);
 	c[4] = quat_create(0, pos.x, pos.y, pos.z);
-	printf("pos 1 : %f %f %f %f\n", c[4].w, c[4].x, c[4].y, c[4].z);
 	apply_cam_dir(scena, c);
-	printf("pos 2 : %f %f %f %f\n", c[4].w, c[4].x, c[4].y, c[4].z);
 	return (c);
 }
 

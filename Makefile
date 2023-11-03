@@ -6,7 +6,7 @@
 #    By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/03 17:19:38 by lsohler           #+#    #+#              #
-#    Updated: 2023/11/03 12:20:55 by lsohler          ###   ########.fr        #
+#    Updated: 2023/11/03 19:52:29 by lsohler          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRCS = \
 		srcs/texture/texture.c\
 		srcs/texture/sphere_texture.c\
 		srcs/texture/plan_texture.c\
+		srcs/texture/init.c\
 		\
 		srcs/tracing/hit.c\
 		srcs/tracing/shadow_ray.c\

@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 11:27:11 by lsohler           #+#    #+#             */
-/*   Updated: 2023/11/03 18:17:23 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/03 20:39:34 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ typedef struct s_obj
 	float				high;
 	t_quat				*axis;
 	t_quat				q_dir;
-	char				*texture_name;
 	struct s_vec3d		pos;
 	struct s_rgb		rgb;
 	struct s_vec3d		dir;
@@ -77,22 +76,20 @@ typedef struct s_obj
 /*---SCENARIO---*/
 typedef struct s_scenario
 {
-	struct s_amblux		*amb_lux;
-	struct s_cam		*cam;
-	struct s_spotlux	*spot_lux;
-	struct s_obj		*obj;
-	struct s_data_img	*img_data;
-	struct s_mlx		*mlx;
-	struct s_view		*view;
+	struct s_amblux			*amb_lux;
+	struct s_cam			*cam;
+	struct s_spotlux		*spot_lux;
+	struct s_obj			*obj;
+	struct s_data_img		*img_data;
+	struct s_mlx			*mlx;
+	struct s_view			*view;
+	struct s_texture_list	*textures;
 }				t_scenario;
 
 typedef struct s_view
 {
 	struct s_data_img	*img_data;
 	struct s_mlx		*mlx;
-	struct s_data_img	*texture;
-	struct s_data_img	*texture_b;
-	struct s_data_img	*texture_c;
 	t_quat				identity_quat;
 	t_quat				rotation_quat;
 	t_quat				scena_quat;
@@ -109,6 +106,15 @@ typedef struct s_view
 	int					box_offset_y;
 }				t_view;
 /*--------------*/
+
+/*---TEXTURE---*/
+typedef struct s_texture_list
+{
+	char	*texture_name;
+	struct s_data_img		*texture;
+	struct s_texture_list	*next;
+}				t_texture_list;
+/*-------------*/
 
 /*---TRACING---*/
 typedef struct s_hit

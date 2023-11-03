@@ -46,6 +46,7 @@ t_scenario	*init_scenario(void)
 	scena->img_data->addr = mlx_get_data_addr(scena->img_data->img,
 			&scena->img_data->bits_per_pixel,
 			&scena->img_data->line_length, &scena->img_data->endian);
+	scena->textures = NULL;
 	return (scena);
 }
 
