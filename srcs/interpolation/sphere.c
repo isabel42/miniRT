@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 13:32:39 by lsohler           #+#    #+#             */
-/*   Updated: 2023/11/03 19:50:35 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/03 21:04:28 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	in_sp_all(t_ray ray, t_obj *sp, t_hit *hit, float t)
 			hit->rgb = sp->rgb;
 			hit->hit = true;
 			hit->id = 0;
+			// printf("sph_id %i\n", sp->id);
 			if (sp->texture)
 				hit->rgb = get_texture_from_sphere(
 						ft_v_sub((*hit).pos,

@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 13:33:13 by lsohler           #+#    #+#             */
-/*   Updated: 2023/11/03 17:59:55 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/03 21:23:34 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,11 @@ void	in_pl(t_ray ray, t_obj *pl, t_hit *hit)
 		hit->rgb = pl->rgb;
 		hit->hit = true;
 		hit->id = 1;
-		// if (pl->texture)
-		// 	hit->rgb = get_texture_from_plane((*hit).pos, (*hit).normal, pl->texture);
+		// printf("pl->id: %i\n", pl->id);
+		if (pl->texture && pl->id == PL)
+		{
+			// printf("texture: %p\n", pl->texture);
+			hit->rgb = get_texture_from_plane(hit->pos, hit->normal, pl->texture);
+		}
 	}
 }

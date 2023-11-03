@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 13:33:00 by lsohler           #+#    #+#             */
-/*   Updated: 2023/11/03 12:45:05 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/03 21:22:11 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	in_cy_caps(t_ray ray, t_obj *cy, t_hit *hit, float t)
 	cap.pos.x = cy->pos.x + t * cy->dir.x;
 	cap.pos.y = cy->pos.y + t * cy->dir.y;
 	cap.pos.z = cy->pos.z + t * cy->dir.z;
+	cap.id = 4;
 	in_pl(ray, &cap, &hit_loc);
 	if (hit_loc.hit == true && (hit->dst > hit_loc.dst || hit->hit == false)
 		&& ft_mod(ft_v_sub(hit_loc.pos, cap.pos)) <= cy->diam / 2)

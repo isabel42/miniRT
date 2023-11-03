@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 16:13:16 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/11/03 20:31:54 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/03 21:21:03 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@
 # define I_BROWN 0x9F6212
 # define I_GRAY 0xACACAC
 
-enum e_form {sp, pl, cy, cne};
+enum e_form {SP, PL, CY, CNE};
 
 /*---ERROR---*/
 void		ft_exit(char *msg);
