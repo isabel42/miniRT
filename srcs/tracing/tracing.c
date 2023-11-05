@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 13:10:10 by lsohler           #+#    #+#             */
-/*   Updated: 2023/11/03 14:51:18 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/05 13:12:31 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	tracing(t_scenario *sc)
 	t_ray		ray;
 
 	t = init_tracing(sc);
+	printf("Tracing\n");
 	while (t.i <= WIDTH)
 	{
 		t.j = 0;

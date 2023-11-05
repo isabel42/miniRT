@@ -1,22 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   texture.c                                          :+:      :+:    :+:   */
+/*   ft_range.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/01 11:36:50 by lsohler           #+#    #+#             */
-/*   Updated: 2023/11/05 17:45:08 by lsohler          ###   ########.fr       */
+/*   Created: 2023/11/05 13:32:10 by lsohler           #+#    #+#             */
+/*   Updated: 2023/11/05 13:34:06 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
-
-int	get_color_from_texture(t_data_img *imgdata, int x, int y)
+int	ft_range(int min, int x, int max)
 {
-	int	color;
-
-	color = *(int *)(imgdata->addr
-			+ (y * imgdata->line_length + x * (imgdata->bits_per_pixel / 8)));
-	return (color);
+	if (x >= min && x <= max)
+		return (1);
+	return (0);
 }

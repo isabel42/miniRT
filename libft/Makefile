@@ -6,7 +6,7 @@
 #    By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/27 12:53:01 by lsohler           #+#    #+#              #
-#    Updated: 2023/11/03 16:49:59 by lsohler          ###   ########.fr        #
+#    Updated: 2023/11/05 13:34:32 by lsohler          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,7 @@ SRCS		= \
 			math/ft_v_scale.c\
 			math/ft_deg_to_rag.c\
 			math/ft_v_product.c\
+			math/ft_range.c\
 			\
 			mem/ft_bzero.c\
 			mem/ft_calloc.c\

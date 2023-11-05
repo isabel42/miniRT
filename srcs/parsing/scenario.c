@@ -34,6 +34,7 @@ t_scenario	*init_scenario(void)
 	scena = malloc(sizeof (t_scenario));
 	if (!scena)
 		ft_exit("Malloc");
+	printf("Scenario address: %p\n", scena);
 	scena->amb_lux = NULL;
 	scena->cam = NULL;
 	scena->spot_lux = NULL;
@@ -46,6 +47,9 @@ t_scenario	*init_scenario(void)
 	scena->img_data->addr = mlx_get_data_addr(scena->img_data->img,
 			&scena->img_data->bits_per_pixel,
 			&scena->img_data->line_length, &scena->img_data->endian);
+	printf("Img_data adress: %p\n", scena->img_data);
+	printf("Img_data->img adress: %p\n", scena->img_data->img);
+	printf("Img_data->addr adress: %p\n", scena->img_data->addr);
 	scena->textures = NULL;
 	return (scena);
 }

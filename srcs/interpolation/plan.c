@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 13:33:13 by lsohler           #+#    #+#             */
-/*   Updated: 2023/11/03 21:23:34 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/05 17:51:38 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	in_pl(t_ray ray, t_obj *pl, t_hit *hit)
 		{
 			// printf("texture: %p\n", pl->texture);
 			hit->rgb = get_texture_from_plane(hit->pos, hit->normal, pl->texture);
+			hit->rgb = rgb_scale_from_ref(hit->rgb, pl->rgb);
 		}
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 13:33:00 by lsohler           #+#    #+#             */
-/*   Updated: 2023/11/03 21:22:11 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/05 18:01:57 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,10 @@ void	in_cy_body(t_ray ray, t_obj *cy, t_hit *hit, float t)
 			hit->rgb = cy->rgb;
 			hit->hit = true;
 			hit->id = 2;
+			if (cy->texture)
+				hit->rgb = get_texture_from_cylinder(
+						ft_v_sub((*hit).pos,
+							(*cy).pos), cy->diam / 2, cy->texture);
 		}
 	}
 }

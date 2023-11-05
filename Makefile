@@ -6,7 +6,7 @@
 #    By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/03 17:19:38 by lsohler           #+#    #+#              #
-#    Updated: 2023/11/03 19:52:29 by lsohler          ###   ########.fr        #
+#    Updated: 2023/11/05 17:49:37 by lsohler          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ SRCS = \
 		srcs/texture/sphere_texture.c\
 		srcs/texture/plan_texture.c\
 		srcs/texture/init.c\
+		srcs/texture/rgb.c\
 		\
 		srcs/tracing/hit.c\
 		srcs/tracing/shadow_ray.c\
@@ -72,15 +73,15 @@ RM		= rm -f
 
 CFLAGS	= -Wextra -Wall -Werror
 
-SANITIZE = -fsanitize=address -g3
+# SANITIZE = -fsanitize=address -g3
 
 INCLUDE = -I./includes -I./libft/ -I./minilibx/
 
 .c.o:	
-			${CC} ${CFLAGS} $(INCLUDE) -c $< -o ${<:.c=.o}
+			${CC} ${SANITIZE} ${CFLAGS} $(INCLUDE) -c $< -o ${<:.c=.o}
 
 ${NAME}: 	${OBJS} ${FT_NAME} ${MLX_NAME}
-			${CC} ${CFLAGS} ${INCLUDE} ${OBJS} -o ${NAME} -L./minilibx/ -lmlx -L./libft/ -lft -framework OpenGL -framework AppKit
+			${CC} ${SANITIZE} ${CFLAGS} ${INCLUDE} ${OBJS} -o ${NAME} -L./minilibx/ -lmlx -L./libft/ -lft -framework OpenGL -framework AppKit
 
 all:		${NAME}
 

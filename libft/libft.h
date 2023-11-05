@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:55:49 by lsohler           #+#    #+#             */
-/*   Updated: 2023/11/03 16:51:05 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/05 13:34:19 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ t_vec3d	ft_v_mul(t_vec3d v1, t_vec3d v2);
 t_vec3d	ft_v_scale(t_vec3d v, float scale);
 float	ft_deg_to_rad(float deg);
 t_vec3d	ft_v_product(t_vec3d v1, t_vec3d v2);
+int		ft_range(int min, int x, int max);
 /* QUATERNION */
 t_quat	quat_conjugate(t_quat q);
 t_quat	quat_create(float w, float x, float y, float z);
