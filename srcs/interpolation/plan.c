@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 13:33:13 by lsohler           #+#    #+#             */
-/*   Updated: 2023/11/06 08:29:30 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/11/06 12:25:36 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	in_pl(t_ray ray, t_obj *pl, t_hit *hit)
 	float	t;
 
 	pl_sing = ft_dot(pl->dir, pl->pos);
+
 	if (!ft_dot(ray.dir, pl->dir) && ft_dot(pl->dir, ray.origin) != pl_sing)
 		return ;
 	t = (pl_sing - ft_dot(pl->dir, ray.origin)) / (ft_dot(ray.dir, pl->dir));
@@ -39,8 +40,13 @@ void	in_pl(t_ray ray, t_obj *pl, t_hit *hit)
 		hit->id = 1;
 		if (pl->texture && pl->id == PL)
 		{
-			hit->rgb = get_texture_from_plane(hit, pl->texture, ft_v_sub(hit->pos, ray.origin));
-			hit->rgb = rgb_scale_from_ref(hit->rgb, pl->rgb);
+			// printf("***\t");
+			hit->rgb = get_texture_from_plane(hit, pl->texture, ray.origin);
+			// printf("###\n");
+			// printf("hit.rgb.r: %d\t", hit->rgb.r);
+			// printf("hit.rgb.g: %d\t", hit->rgb.g);
+			// printf("hit.rgb.b: %d\t", hit->rgb.b);
+			// hit->rgb = rgb_scale_from_ref(hit->rgb, pl->rgb);
 		}
 	}
 }

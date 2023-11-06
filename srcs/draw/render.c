@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 13:54:07 by lsohler           #+#    #+#             */
-/*   Updated: 2023/11/06 08:22:10 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/11/06 10:43:27 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,5 @@ int	render(t_scenario *scena)
 		scena->mlx->win, scena->img_data->img, 0, 0);
 	mlx_destroy_image(scena->mlx->ptr, scena->img_data->img);
 	my_new_mlx_img_data(scena);
-	printf("hllo3\n");
 	return (0);
 }
