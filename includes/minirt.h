@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 16:13:16 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/11/06 08:30:44 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/11/06 15:03:10 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include "structure.h"
 
 # define WIDTH 1080
-# define HEIGHT 1080 / 2
+# define HEIGHT 540
 # define V_WIDTH 600
 # define V_HEIGHT 600
 
@@ -71,7 +71,7 @@
 # define I_BROWN 0x9F6212
 # define I_GRAY 0xACACAC
 
-enum e_form {SP, PL, CY, CNE};
+enum e_form {sp_, pl_, cy_, cne_};
 
 /*---ERROR---*/
 void		ft_exit(char *msg);
@@ -143,7 +143,8 @@ int			key_release_view(int key, t_scenario *scena);
 int			mouse_pressed(int key, int x, int y, t_scenario *scena);
 int			mouse_released(int key, int x, int y, t_scenario *scena);
 t_quat		*init_axis(t_vec3d center, float size);
-void		bresenham_draw_line(t_point a, t_point b, t_scenario *meta, t_rgb color);
+void		bresenham_draw_line(t_point a, t_point b,
+				t_scenario *meta, t_rgb color);
 void		my_new_mlx_img_data_view(t_scenario *meta);
 void		render_view(t_scenario *scena);
 int			mouse_move(int x, int y, t_scenario *scena);
@@ -159,12 +160,16 @@ t_point		get_p(t_quat q, t_scenario *sc);
 /*---TEXTURE---*/
 t_data_img	*get_texture_to_img(void *mlx, char *path);
 int			get_color_from_texture(t_data_img *imgdata, int x, int y);
-void		cartesian_to_spherical(t_vec3d pos, float r, float *theta, float *phi);
+void		cartesian_to_spherical(t_vec3d pos, float r,
+				float *theta, float *phi);
 t_rgb		get_texture_from_sphere(t_vec3d pos, float r, t_data_img *texture);
-t_rgb		get_texture_from_plane(t_hit *hit, t_data_img *texture, t_vec3d cam);
-t_data_img	*assign_texture(t_texture_list **list, char *path, t_scenario *scena);
+t_rgb		get_texture_from_plane(t_hit *hit,
+				t_data_img *texture, t_vec3d cam);
+t_data_img	*assign_texture(t_texture_list **list,
+				char *path, t_scenario *scena);
 t_rgb		rgb_scale(t_rgb	rgb, float scale);
 t_rgb		rgb_scale_from_ref(t_rgb source, t_rgb ref);
-t_rgb		get_texture_from_cylinder(t_vec3d pos, float r, t_data_img *texture);
+t_rgb		get_texture_from_cylinder(t_vec3d pos, float r,
+				t_data_img *texture);
 
 #endif

@@ -34,7 +34,6 @@ t_scenario	*init_scenario(void)
 	scena = malloc(sizeof (t_scenario));
 	if (!scena)
 		ft_exit("Malloc");
-	printf("Scenario address: %p\n", scena);
 	scena->amb_lux = NULL;
 	scena->cam = NULL;
 	scena->spot_lux = NULL;
@@ -47,9 +46,6 @@ t_scenario	*init_scenario(void)
 	scena->img_data->addr = mlx_get_data_addr(scena->img_data->img,
 			&scena->img_data->bits_per_pixel,
 			&scena->img_data->line_length, &scena->img_data->endian);
-	printf("Img_data adress: %p\n", scena->img_data);
-	printf("Img_data->img adress: %p\n", scena->img_data->img);
-	printf("Img_data->addr adress: %p\n", scena->img_data->addr);
 	scena->textures = NULL;
 	return (scena);
 }
@@ -75,12 +71,8 @@ void	new_cam(char **split, t_scenario *scena)
 		ft_exit("Malloc");
 	scena->cam->pos = ft_pos(split[1]);
 	scena->cam->vdir = get_orientation(split[2], -1.0, 1);
-	// scena->cam->vdir = ft_dot(scena->cam->vdir, (t_vec3d){0, 0, 1});
-	scena->cam->dir = quat_normalize(quat_two_vector_rotation((t_vec3d){0, 0, 1}, scena->cam->vdir));
-	// scena->cam->dir = euler_to_quat(
-	// 		scena->cam->vdir.z * M_PI,
-	// 		-scena->cam->vdir.y * M_PI,
-	// 		-scena->cam->vdir.x * M_PI);
+	scena->cam->dir = quat_normalize(quat_two_vector_rotation(
+				(t_vec3d){0, 0, 1}, scena->cam->vdir));
 	scena->cam->fov = ft_atoi(split[3]);
 	scena->cam->dist = 100;
 	free_array(split);

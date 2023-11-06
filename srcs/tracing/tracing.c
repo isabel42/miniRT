@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 13:10:10 by lsohler           #+#    #+#             */
-/*   Updated: 2023/11/06 12:18:46 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/11/06 15:12:41 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ void	tracing(t_scenario *sc)
 	t_ray		ray;
 
 	t = init_tracing(sc);
-	printf("Tracing\n");
 	while (t.i <= WIDTH)
 	{
 		t.j = 0;
@@ -86,5 +85,4 @@ void	tracing(t_scenario *sc)
 		}
 		t.i++;
 	}
-	printf("hllo\n");
 }

@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 13:33:00 by lsohler           #+#    #+#             */
-/*   Updated: 2023/11/06 08:29:32 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/11/06 15:04:02 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,15 @@ void	in_cy_body(t_ray ray, t_obj *cy, t_hit *hit, float t)
 		{
 			hit->pos = sol2;
 			hit->dst = ft_mod(ft_v_sub(hit->pos, ray.origin));
-			hit->normal = ft_v_product(ft_v_sub(hit->pos, cy->pos), cy->dir);
-			hit->normal = ft_v_product(hit->normal, cy->dir);
+			hit->normal = ft_v_cprod(ft_v_sub(hit->pos, cy->pos), cy->dir);
+			hit->normal = ft_v_cprod(hit->normal, cy->dir);
 			if (ft_dot(ray.dir, hit->normal) > 0.000)
 				hit->normal = ft_v_scale(hit->normal, -1.0);
 			hit->rgb = cy->rgb;
 			hit->hit = true;
-			hit->id = 2;
+			hit->id = cy_;
 			if (cy->texture)
-				hit->rgb = get_texture_from_cylinder(
-						ft_v_sub((*hit).pos,
+				hit->rgb = get_texture_from_cylinder(ft_v_sub((*hit).pos,
 							(*cy).pos), cy->diam / 2, cy->texture);
 		}
 	}
@@ -64,7 +63,7 @@ void	in_cy_caps(t_ray ray, t_obj *cy, t_hit *hit, float t)
 		hit->normal = cy->dir;
 		hit->rgb = cy->rgb;
 		hit->hit = true;
-		hit->id = 2;
+		hit->id = cy_;
 	}
 }
 

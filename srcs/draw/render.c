@@ -6,14 +6,13 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 13:54:07 by lsohler           #+#    #+#             */
-/*   Updated: 2023/11/06 10:43:27 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/11/06 15:00:48 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include <unistd.h>
 #include <stdio.h>
-
 
 void	my_mlx_pixel_put(t_data_img *imgdata, int x, int y, int color)
 {

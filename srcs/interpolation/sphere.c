@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
+/*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 13:32:39 by lsohler           #+#    #+#             */
-/*   Updated: 2023/11/03 21:04:28 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/06 15:10:24 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,9 @@ void	in_sp_all(t_ray ray, t_obj *sp, t_hit *hit, float t)
 				hit->normal = ft_v_scale(hit->normal, -1.0);
 			hit->rgb = sp->rgb;
 			hit->hit = true;
-			hit->id = 0;
-			// printf("sph_id %i\n", sp->id);
+			hit->id = sp_;
 			if (sp->texture)
-				hit->rgb = get_texture_from_sphere(
-						ft_v_sub((*hit).pos,
+				hit->rgb = get_texture_from_sphere(ft_v_sub((*hit).pos,
 							(*sp).pos), sp->diam / 2, sp->texture);
 		}
 	}

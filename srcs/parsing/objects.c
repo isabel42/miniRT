@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
+/*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 21:35:41 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/11/05 18:02:55 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/06 15:11:15 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	new_sphere(char **split, t_scenario *scena)
 	sph = malloc(sizeof (t_obj));
 	if (!sph)
 		ft_exit("Malloc");
-	sph->id = SP;
+	sph->id = sp_;
 	sph->high = 0;
 	sph->pos = ft_pos(split[1]);
 	sph->diam = ft_atof(split[2]);
@@ -59,7 +59,7 @@ void	new_plan(char **split, t_scenario *scena)
 	pln = malloc(sizeof (t_obj));
 	if (!pln)
 		ft_exit("Malloc");
-	pln->id = PL;
+	pln->id = pl_;
 	pln->diam = 0;
 	pln->high = 0;
 	pln->pos = ft_pos(split[1]);
@@ -82,7 +82,7 @@ void	new_cylinder(char **split, t_scenario *scena)
 	cyl = malloc(sizeof (t_obj));
 	if (!cyl)
 		ft_exit("Malloc");
-	cyl->id = CY;
+	cyl->id = cy_;
 	cyl->pos = ft_pos(split[1]);
 	cyl->dir = ft_pos(split[2]);
 	cyl->diam = ft_atof(split[3]);
@@ -105,7 +105,7 @@ void	new_cone(char **split, t_scenario *scena)
 	cn = malloc(sizeof (t_obj));
 	if (!cn)
 		ft_exit("Malloc");
-	cn->id = CNE;
+	cn->id = cne_;
 	cn->pos = ft_pos(split[1]);
 	cn->dir = ft_pos(split[2]);
 	cn->diam = ft_atof(split[3]);

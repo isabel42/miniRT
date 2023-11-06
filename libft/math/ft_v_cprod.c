@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_v_product.c                                     :+:      :+:    :+:   */
+/*   ft_v_cprod.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
+/*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 16:42:43 by lsohler           #+#    #+#             */
-/*   Updated: 2023/11/03 16:51:38 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/06 14:51:49 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_vec3d	ft_v_product(t_vec3d v1, t_vec3d v2)
+t_vec3d	ft_v_cprod(t_vec3d v1, t_vec3d v2)
 {
 	t_vec3d res;
 

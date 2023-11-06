@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structure.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
+/*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 11:27:11 by lsohler           #+#    #+#             */
-/*   Updated: 2023/11/03 21:12:38 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/06 15:01:53 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ typedef struct s_view
 /*---TEXTURE---*/
 typedef struct s_texture_list
 {
-	char	*texture_name;
+	char					*texture_name;
 	struct s_data_img		*texture;
 	struct s_texture_list	*next;
 }				t_texture_list;

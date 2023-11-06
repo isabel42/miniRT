@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 17:43:57 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/11/06 12:15:43 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/11/06 15:12:18 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	main(int argc, char **argv)
 	render(scena);
 	apply_rotation_scena(scena);
 	render_view(scena);
-	printf("Before hook\n");
 	mlx_hook(scena->mlx->win, 2, 2, key_press, scena);
 	mlx_hook(scena->view->mlx->win, 2, 2, key_press_view, scena);
 	mlx_hook(scena->view->mlx->win, 3, 3, key_release_view, scena);
@@ -31,7 +30,6 @@ int	main(int argc, char **argv)
 	mlx_hook(scena->view->mlx->win, 5, 1L << 3, mouse_released, scena);
 	mlx_hook(scena->mlx->win, 17, 0, close_w, scena);
 	mlx_do_sync(scena->mlx->ptr);
-	// mlx_loop(scena->mlx->ptr);
 	mlx_loop(scena->view->mlx->ptr);
 	free(scena->view);
 	free(scena);
