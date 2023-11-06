@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:45:03 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/11/03 20:39:27 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/05 15:01:41 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,27 @@ void	free_obj(t_scenario	*scena)
 	}
 }
 
+void	free_texture_list(t_scenario *scena)
+{
+	t_texture_list *tmp;
+
+	while (scena->textures)
+	{
+		printf("free: %p\n", scena->textures->texture);
+		tmp = scena->textures->next;
+		if (scena->textures->texture_name)
+			free(scena->textures->texture_name);
+		if (scena->textures->texture)
+			free(scena->textures->texture);
+		free(scena->textures);
+		scena->textures = tmp;
+	}
+}
+
 void	free_scenario(t_scenario *scena)
 {
+	// if (scena->img_data)
+	// 	free(scena->img_data);
 	if (scena->view->img_data)
 		free(scena->view->img_data);
 	if (scena->view->mlx)
@@ -70,4 +89,12 @@ void	free_scenario(t_scenario *scena)
 		free(scena->view);
 	free_obj(scena);
 	free_spot(scena);
+	if (scena->textures)
+		free_texture_list(scena);
+	// if (scena->mlx)
+	// {
+	// 	free(scena->mlx->ptr);
+	// 	free(scena->mlx);
+	// }
+	// free(scena);
 }

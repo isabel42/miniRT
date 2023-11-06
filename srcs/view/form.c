@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:18:29 by lsohler           #+#    #+#             */
-/*   Updated: 2023/11/03 19:28:36 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/05 18:05:15 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	apply_cam_dir(t_scenario *scena, t_quat *c)
 {
 	int		i;
 	t_vec3d	offset;
-	i = 0;
 
+	i = 0;
 	offset = scena->cam->pos;
 	while (i <= 4)
 	{

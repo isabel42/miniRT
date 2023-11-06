@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 21:35:41 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/11/03 21:21:37 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/05 18:02:55 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	new_cylinder(char **split, t_scenario *scena)
 {
 	t_obj	*cyl;
 
-	if (!split || !split[5] || split[6])
+	if (!split || !split[5])
 		ft_exit("Cylinder syntax");
 	cyl = malloc(sizeof (t_obj));
 	if (!cyl)
@@ -90,6 +90,8 @@ void	new_cylinder(char **split, t_scenario *scena)
 	cyl->rgb = ft_rgb(split[5]);
 	cyl->next = NULL;
 	cyl->texture = NULL;
+	if (split[6])
+		cyl->texture = assign_texture(&scena->textures, split[6], scena);
 	free_array(split);
 	object_add_back(scena, cyl);
 }

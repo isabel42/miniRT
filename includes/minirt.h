@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 16:13:16 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/11/06 07:55:56 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/11/06 08:30:44 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,11 +157,14 @@ void		apply_rotation_alt_cam(t_scenario *scena);
 void		draw_scenario(t_scenario *sc);
 t_point		get_p(t_quat q, t_scenario *sc);
 /*---TEXTURE---*/
-t_data_img	*get_texture_to_img(t_mlx *mlx, char *path);
+t_data_img	*get_texture_to_img(void *mlx, char *path);
 int			get_color_from_texture(t_data_img *imgdata, int x, int y);
 void		cartesian_to_spherical(t_vec3d pos, float r, float *theta, float *phi);
 t_rgb		get_texture_from_sphere(t_vec3d pos, float r, t_data_img *texture);
 t_rgb		get_texture_from_plane(t_hit *hit, t_data_img *texture, t_vec3d cam);
 t_data_img	*assign_texture(t_texture_list **list, char *path, t_scenario *scena);
+t_rgb		rgb_scale(t_rgb	rgb, float scale);
+t_rgb		rgb_scale_from_ref(t_rgb source, t_rgb ref);
+t_rgb		get_texture_from_cylinder(t_vec3d pos, float r, t_data_img *texture);
 
 #endif

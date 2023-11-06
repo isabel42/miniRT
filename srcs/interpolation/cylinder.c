@@ -6,7 +6,7 @@
 /*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 13:33:00 by lsohler           #+#    #+#             */
-/*   Updated: 2023/11/06 07:33:29 by itovar-n         ###   ########.fr       */
+/*   Updated: 2023/11/06 08:29:32 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,10 @@ void	in_cy_body(t_ray ray, t_obj *cy, t_hit *hit, float t)
 			hit->rgb = cy->rgb;
 			hit->hit = true;
 			hit->id = 2;
+			if (cy->texture)
+				hit->rgb = get_texture_from_cylinder(
+						ft_v_sub((*hit).pos,
+							(*cy).pos), cy->diam / 2, cy->texture);
 		}
 	}
 }
