@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
+/*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 16:13:16 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/11/03 21:21:03 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/06 07:55:56 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,7 @@ t_data_img	*get_texture_to_img(t_mlx *mlx, char *path);
 int			get_color_from_texture(t_data_img *imgdata, int x, int y);
 void		cartesian_to_spherical(t_vec3d pos, float r, float *theta, float *phi);
 t_rgb		get_texture_from_sphere(t_vec3d pos, float r, t_data_img *texture);
-t_rgb		get_texture_from_plane(t_vec3d pos, t_vec3d normal, t_data_img *texture);
+t_rgb		get_texture_from_plane(t_hit *hit, t_data_img *texture, t_vec3d cam);
 t_data_img	*assign_texture(t_texture_list **list, char *path, t_scenario *scena);
 
 #endif

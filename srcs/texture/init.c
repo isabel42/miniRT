@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
+/*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 19:52:07 by lsohler           #+#    #+#             */
-/*   Updated: 2023/11/03 20:45:14 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/06 08:15:56 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ void	texture_add_back(t_texture_list **list, char *path, t_scenario *scena)
 	}
 }
 
-t_data_img	*assign_texture(t_texture_list **list, char *path, t_scenario *scena)
+t_data_img	*assign_texture(t_texture_list **list,
+	char *path, t_scenario *scena)
 {
 	texture_add_back(list, path, scena);
 	return (find_texture_in_list(list, path)->texture);

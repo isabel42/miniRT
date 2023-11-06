@@ -3,43 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   plan_texture.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
+/*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 15:01:00 by lsohler           #+#    #+#             */
-/*   Updated: 2023/11/03 21:46:17 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/06 08:15:23 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_rgb	get_texture_from_plane(t_vec3d pos, t_vec3d normal, t_data_img *texture)
+int	get_image_coord(t_hit *hit, t_data_img *texture,
+	t_vec3d closest, t_vec3d v_plan)
 {
+	int	dist;
 	int	x;
-	int	y;
 
-	if (fabs(ft_dot(normal, (t_vec3d){1, 0, 0})) == 1)
-	{
-		x = abs((int)pos.z) % texture->width;
-		if (pos.z < 0.0)
-			x = texture->width - x;
-	}
-	else
-	{
-		x = abs((int)pos.x) % texture->width;
-		if (pos.x < 0.0)
-			x = texture->width - x;
-	}
-	if (fabs(ft_dot(normal, (t_vec3d){0, 1, 0})) == 1)
-	{
-		y = abs((int)pos.z) % texture->width;
-		if (pos.z < 0.0)
-			y = texture->width - y;
-	}
-	else
-	{
-		y = abs((int)pos.x) % texture->width;
-		if (pos.x < 0.0)
-			y = texture->width - y;
-	}
+	dist = (int)ft_mod(ft_v_mul(ft_v_sub(hit->pos, closest), v_plan))
+		/ ft_mod(closest);
+	x = dist % texture->height;
+	if (ft_dot(v_plan, ft_v_sub(hit->pos, closest)) < 0.0)
+		x = texture->height - dist % texture->height;
+	return (x);
+}
+
+t_rgb	get_texture_from_plane(t_hit *hit, t_data_img *texture, t_vec3d cam)
+{
+	t_vec3d	v_plan;
+	t_vec3d	closest;
+	int		x;
+	int		y;
+	float	t;
+
+	t = (ft_dot(hit->normal, hit->pos) - ft_dot(hit->normal, cam))
+		/ (ft_dot(hit->normal, hit->normal));
+	closest.x = cam.x + t * hit->normal.x;
+	closest.y = cam.y + t * hit->normal.y;
+	closest.z = cam.z + t * hit->normal.z;
+	v_plan = ft_v_product(hit->normal, ft_v_sub(closest, cam));
+	if (!ft_mod(v_plan))
+		return (int_to_rgb(get_color_from_texture(texture, 0, 0)));
+	x = get_image_coord(hit, texture, closest, v_plan);
+	v_plan = ft_v_product(hit->normal, v_plan);
+	y = get_image_coord(hit, texture, closest, v_plan);
 	return (int_to_rgb(get_color_from_texture(texture, x, y)));
 }

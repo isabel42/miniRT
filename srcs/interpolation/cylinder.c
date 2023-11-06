@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
+/*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 13:33:00 by lsohler           #+#    #+#             */
-/*   Updated: 2023/11/03 21:22:11 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/06 07:33:29 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,6 @@
 /**/
 /* https://www.youtube.com/watch?v=IKQCtqvGTJM */
 /**/
-
-t_vec3d	vct_orto(t_vec3d a, t_vec3d b)
-{
-	t_vec3d	sol;
-
-	sol.x = a.y * b.z - a.z * b.y;
-	sol.y = a.z * b.x - a.x * b.z;
-	sol.z = a.x * b.y - a.y * b.x;
-	return (sol);
-}
 
 void	in_cy_body(t_ray ray, t_obj *cy, t_hit *hit, float t)
 {
@@ -40,8 +30,8 @@ void	in_cy_body(t_ray ray, t_obj *cy, t_hit *hit, float t)
 		{
 			hit->pos = sol2;
 			hit->dst = ft_mod(ft_v_sub(hit->pos, ray.origin));
-			hit->normal = vct_orto(ft_v_sub(hit->pos, cy->pos), cy->dir);
-			hit->normal = vct_orto(hit->normal, cy->dir);
+			hit->normal = ft_v_product(ft_v_sub(hit->pos, cy->pos), cy->dir);
+			hit->normal = ft_v_product(hit->normal, cy->dir);
 			if (ft_dot(ray.dir, hit->normal) > 0.000)
 				hit->normal = ft_v_scale(hit->normal, -1.0);
 			hit->rgb = cy->rgb;

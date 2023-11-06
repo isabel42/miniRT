@@ -3,14 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
+/*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 13:54:07 by lsohler           #+#    #+#             */
-/*   Updated: 2023/11/03 12:20:19 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/06 08:22:10 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include <unistd.h>
+#include <stdio.h>
+
 
 void	my_mlx_pixel_put(t_data_img *imgdata, int x, int y, int color)
 {
@@ -50,5 +53,6 @@ int	render(t_scenario *scena)
 		scena->mlx->win, scena->img_data->img, 0, 0);
 	mlx_destroy_image(scena->mlx->ptr, scena->img_data->img);
 	my_new_mlx_img_data(scena);
+	printf("hllo3\n");
 	return (0);
 }

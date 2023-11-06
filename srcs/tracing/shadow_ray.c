@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shadow_ray.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
+/*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 17:18:44 by lsohler           #+#    #+#             */
-/*   Updated: 2023/11/03 11:04:52 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/04 00:14:06 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,5 +114,6 @@ void	shadow_ray_rgb(t_scenario *sc, t_hit hit, int i, int j)
 	rgb_final.g = (hit.rgb.g * scale[1]);
 	rgb_final.b = (hit.rgb.b * scale[2]);
 	my_mlx_pixel_put(sc->img_data, i, HEIGHT - j, rgb_to_int(rgb_final));
+		printf("i: %d\tj: %d\n", i, j);
 	free(scale);
 }

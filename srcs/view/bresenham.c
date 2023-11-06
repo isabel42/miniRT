@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bresenham.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
+/*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:25:26 by lsohler           #+#    #+#             */
-/*   Updated: 2023/11/03 12:41:39 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/04 00:02:35 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,7 @@ t_bres	define_bresenham(t_point a, t_point b)
 void	bresenham_draw_line(t_point a, t_point b, t_scenario *meta, t_rgb color)
 {
 	t_bres		bres;
-	int			i;
 
-	i = 0;
 	if (check_boundaries(a, b) == 0)
 		return ;
 	bres = define_bresenham(a, b);

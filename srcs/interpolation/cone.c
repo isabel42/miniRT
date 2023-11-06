@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cone.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
+/*   By: itovar-n <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 13:33:00 by lsohler           #+#    #+#             */
-/*   Updated: 2023/11/03 12:45:13 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/06 07:30:50 by itovar-n         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	in_cn_body(t_ray ray, t_obj *cn, t_hit *hit, float t)
 		{
 			hit->pos = sol2;
 			hit->dst = ft_mod(ft_v_sub(hit->pos, ray.origin));
-			hit->normal = vct_orto(ft_v_sub(hit->pos, cn->pos), cn->dir);
-			hit->normal = vct_orto(hit->normal, ft_v_sub(hit->pos, cn->pos));
+			hit->normal = ft_v_product(ft_v_sub(hit->pos, cn->pos), cn->dir);
+			hit->normal = ft_v_product(hit->normal, ft_v_sub(hit->pos, cn->pos));
 			if (ft_dot(ray.dir, hit->normal) > 0.000)
 				hit->normal = ft_v_scale(hit->normal, -1.0);
 			hit->rgb = cn->rgb;
