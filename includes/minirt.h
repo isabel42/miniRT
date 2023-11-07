@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 16:13:16 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/11/07 11:42:38 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/07 12:31:35 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void		free_hit(t_hit **hit);
 void		free_address_list(t_address *list);
 void		address_collector(t_address **collector, void *address);
 /*---PARSING---*/
+int			check_file_extension(char *file);
 t_scenario	*init_scenario(void);
 t_scenario	*parsing(char *argv1);
 t_mlx		*mlx_init_struct(int win_size_x, int win_size_y, char *name);

@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 08:28:37 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/11/03 17:09:15 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/07 12:29:22 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,16 @@ t_vec3d	get_orientation(char *line, float min, float max)
 		ft_exit("0 0 0 is not a valid orientation");
 	free_array(split);
 	return (pos);
+}
+
+int	check_file_extension(char *file)
+{
+	int	i;
+
+	i = 0;
+	if (!file || ft_strlen(file) <= 3)
+		ft_exit("Invalid file");
+	if (ft_strcmp(&file[ft_strlen(file) - 3], ".rt"))
+		ft_exit("Invalid file extension");
+	return (0);
 }

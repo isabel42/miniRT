@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 17:43:57 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/11/07 11:48:42 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/07 12:10:07 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	main(int argc, char **argv)
 {
 	t_scenario	*scena;
 
-	if (argc != 2)
+	if (argc != 2 || check_file_extension(argv[1]))
 		ft_exit("Usage: ./minirt <file.rt>");
 	scena = parsing(argv[1]);
 	render(scena);
