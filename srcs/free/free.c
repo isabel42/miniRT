@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 13:45:03 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/11/05 15:01:41 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/07 11:48:19 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,10 @@ void	free_obj(t_scenario	*scena)
 
 void	free_texture_list(t_scenario *scena)
 {
-	t_texture_list *tmp;
+	t_texture_list	*tmp;
 
 	while (scena->textures)
 	{
-		printf("free: %p\n", scena->textures->texture);
 		tmp = scena->textures->next;
 		if (scena->textures->texture_name)
 			free(scena->textures->texture_name);
@@ -71,12 +70,6 @@ void	free_texture_list(t_scenario *scena)
 
 void	free_scenario(t_scenario *scena)
 {
-	// if (scena->img_data)
-	// 	free(scena->img_data);
-	if (scena->view->img_data)
-		free(scena->view->img_data);
-	if (scena->view->mlx)
-		free(scena->view->mlx);
 	if (scena->amb_lux)
 		free(scena->amb_lux);
 	if (scena->cam)
@@ -85,16 +78,8 @@ void	free_scenario(t_scenario *scena)
 		free(scena->view->camera);
 	if (scena->view->box)
 		free(scena->view->box);
-	if (scena->view)
-		free(scena->view);
 	free_obj(scena);
 	free_spot(scena);
 	if (scena->textures)
 		free_texture_list(scena);
-	// if (scena->mlx)
-	// {
-	// 	free(scena->mlx->ptr);
-	// 	free(scena->mlx);
-	// }
-	// free(scena);
 }

@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 12:19:59 by lsohler           #+#    #+#             */
-/*   Updated: 2023/11/05 18:05:44 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/07 11:48:58 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,9 @@ t_view	*init_view(t_scenario *scena)
 {
 	t_view	*view;
 
-	printf("Init view start\n");
 	view = malloc(sizeof(t_view));
 	if (!view)
 		ft_exit("Malloc");
-	printf("View address: %p\n", view);
 	view->mlx = mlx_init_struct(V_WIDTH, V_HEIGHT, "MiniRT Camera");
 	view->img_data = malloc(sizeof(t_data_img));
 	if (!view->img_data)
@@ -53,6 +51,5 @@ t_view	*init_view(t_scenario *scena)
 	init_view_zero(view);
 	view->camera = init_quat_camera(scena, 50);
 	view->box = init_quat_box();
-	printf("Init view finish\n");
 	return (view);
 }

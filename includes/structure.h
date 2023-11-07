@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 11:27:11 by lsohler           #+#    #+#             */
-/*   Updated: 2023/11/03 21:12:38 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/07 11:43:02 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ typedef struct s_view
 /*---TEXTURE---*/
 typedef struct s_texture_list
 {
-	char	*texture_name;
+	char					*texture_name;
 	struct s_data_img		*texture;
 	struct s_texture_list	*next;
 }				t_texture_list;

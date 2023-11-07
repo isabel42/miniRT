@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 15:20:46 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/11/05 14:30:16 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/07 11:48:45 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,6 @@ t_mlx	*mlx_init_struct(int win_size_x, int win_size_y, char *name)
 		ft_exit("Malloc");
 	new->ptr = mlx_init();
 	new->win = mlx_new_window(new->ptr, win_size_x, win_size_y, name);
-	printf("Mlx address: %p\n", new);
-	printf("Mlx address ptr: %p\n", new->ptr);
-	printf("Mlx address win: %p\n", new->win);
 	return (new);
 }
 
