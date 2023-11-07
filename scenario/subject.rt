@@ -1,0 +1,20 @@
+#Intensity Color
+A 0.0   0,0,0
+
+#Position Direction Fov
+C 0,0,0   0.0,0,-1   0
+
+#Position Intensity Color
+L 0,0,0   0.0   0,0,0
+
+# Obj  Pos    Diam   Color
+# sp   0,0,0   0   0,0,0
+
+# Obj  Pos        Direction    Color
+# pl 0.0,0,0.0   0.0,0.0,0.0   0,0,0
+
+# Obj   Pos       Direction  Diam   Height    Color
+# cy   0,0,0   0.0,0.0,0.0     0      0       0,0,0
+
+# Obj Pos:Vertex      Direction  Diam   Height    Color
+# cn   0,0,0         0.0,0.0,0.0   0       0      0,0,0

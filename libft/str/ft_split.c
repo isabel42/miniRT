@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsohler <marvin@42lausanne.ch>             +#+  +:+       +#+        */
+/*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 10:38:01 by lsohler           #+#    #+#             */
-/*   Updated: 2022/11/04 17:53:30 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/07 12:39:40 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	ft_splitword(char **array, char const *s, char c)
 		}
 	}
 	array[a] = NULL;
+	array[a + 1] = NULL;
 }
 
 char	**ft_split(char const *s, char c)
@@ -82,7 +83,7 @@ char	**ft_split(char const *s, char c)
 	if (!s)
 		return (NULL);
 	x = ft_count(s, c);
-	array = malloc(sizeof(char *) * (x + 1));
+	array = malloc(sizeof(char *) * (x + 2));
 	if (!array)
 		return (NULL);
 	ft_splitword(array, s, c);

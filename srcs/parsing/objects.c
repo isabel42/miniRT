@@ -6,7 +6,7 @@
 /*   By: lsohler <lsohler@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 21:35:41 by itovar-n          #+#    #+#             */
-/*   Updated: 2023/11/05 18:02:55 by lsohler          ###   ########.fr       */
+/*   Updated: 2023/11/07 12:58:45 by lsohler          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	new_sphere(char **split, t_scenario *scena)
 {
 	t_obj	*sph;
 
-	if (!split || !split[3])
+	if (!split || !split[3] || split[5])
 		ft_exit("Sphere syntax");
 	sph = malloc(sizeof (t_obj));
 	if (!sph)
@@ -54,7 +54,7 @@ void	new_plan(char **split, t_scenario *scena)
 {
 	t_obj	*pln;
 
-	if (!split || !split[3])
+	if (!split || !split[3] || split[5])
 		ft_exit("Plan syntax");
 	pln = malloc(sizeof (t_obj));
 	if (!pln)
@@ -77,7 +77,7 @@ void	new_cylinder(char **split, t_scenario *scena)
 {
 	t_obj	*cyl;
 
-	if (!split || !split[5])
+	if (!split || !split[5] || split[6])
 		ft_exit("Cylinder syntax");
 	cyl = malloc(sizeof (t_obj));
 	if (!cyl)
@@ -90,8 +90,6 @@ void	new_cylinder(char **split, t_scenario *scena)
 	cyl->rgb = ft_rgb(split[5]);
 	cyl->next = NULL;
 	cyl->texture = NULL;
-	if (split[6])
-		cyl->texture = assign_texture(&scena->textures, split[6], scena);
 	free_array(split);
 	object_add_back(scena, cyl);
 }
